@@ -22,5 +22,7 @@
 #define BOT_W_CHAN 10
 #pragma endregion
 
+#define NUM_LEDS 48
+
 
 #endif

@@ -1,6 +1,7 @@
 #ifndef HVLEDS
 #define HVLEDS
 #include "Adafruit_TLC59711.h"
+#include "utils.hpp"
 #include <SPI.h>
 
 class HvLeds{
@@ -17,7 +18,7 @@ public:
     void update();
     void enterPowerSave();
     void exitPowerSave();
-    void setTop(uint16_t r, uint16_t g, uint16_t b, uint16_t w);
-    void setBot(uint16_t r, uint16_t g, uint16_t b, uint16_t w);
+    void setTop(CRGB color, uint16_t white);
+    void setBot(CRGB color, uint16_t white);
 };
 #endif

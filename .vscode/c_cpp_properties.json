@@ -28,8 +28,8 @@
                 "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\cores\\esp8266\\arduino.h",
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\variants\\d1_mini\\pins_arduino.h"
             ],
-            "intelliSenseMode": "msvc-x64",
-            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.20.27508/bin/Hostx64/x64/cl.exe",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\bin/avr-gcc.exe",
             "cStandard": "c11",
             "cppStandard": "c++17"
         }

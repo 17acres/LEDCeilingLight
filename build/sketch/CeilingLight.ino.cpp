@@ -1,33 +1,20 @@
 #include <Arduino.h>
-#line 1 "n:\\classmate\\CeilingLight\\CeilingLight.ino"
-#line 1 "n:\\classmate\\CeilingLight\\CeilingLight.ino"
+#line 1 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 1 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 #include <GDBStub.h>
 #include "hvLeds.hpp"
-#include "FastLED.h"
+#include "addrLeds.hpp"
 #include "defs.hpp"
 
 HvLeds* hvLeds;
+AddrLeds* addrLeds;
 double temperature=72;
 
-CRGB leds[48];
-
-#line 11 "n:\\classmate\\CeilingLight\\CeilingLight.ino"
-void setup();
-#line 34 "n:\\classmate\\CeilingLight\\CeilingLight.ino"
-void loop();
-#line 85 "n:\\classmate\\CeilingLight\\CeilingLight.ino"
-void doUpdates();
-#line 95 "n:\\classmate\\CeilingLight\\CeilingLight.ino"
-void updateTemp();
-#line 105 "n:\\classmate\\CeilingLight\\CeilingLight.ino"
-void delayUpdate(unsigned long mills);
-#line 11 "n:\\classmate\\CeilingLight\\CeilingLight.ino"
 void setup()
 {
-    FastLED.addLeds<WS2812B, ADDR_DATA, RGB>(leds, 48);
-
 
     hvLeds=HvLeds::getInstance();
+    addrLeds=AddrLeds::getInstance();
 
     Serial.begin(115200);
     gdbstub_init();
@@ -47,53 +34,7 @@ void setup()
 
 void loop()
 {
-    // digitalWrite(LED_BUILTIN,LOW);
-    // hvLeds->setTop(0,0,0,0);
-    // hvLeds->setBot(65535,0,0,0);
-    // delayUpdate(500);
-    // hvLeds->setBot(0,65535,0,0);
-    // delayUpdate(500);
-    // hvLeds->setBot(0,0,65535,0);
-    // delayUpdate(500);
-    // hvLeds->setBot(0,0,0,65535);
-    // delayUpdate(500);
-
-    // digitalWrite(LED_BUILTIN,HIGH);
-    // hvLeds->setBot(0,0,0,0);
-    // hvLeds->setTop(65535,0,0,0);
-    // delayUpdate(500);
-    // hvLeds->setTop(0,65535,0,0);
-    // delayUpdate(500);
-    // hvLeds->setTop(0,0,65535,0);
-    // delayUpdate(500);
-    // hvLeds->setTop(0,0,0,65535);
-    // delayUpdate(500);
-    // doUpdates();
-    // hvLeds->setTop(65535,65535,65535,65535);
-    // hvLeds->setBot(65535,65535,65535,65535);
-    // delayUpdate(500);
-    // hvLeds->setTop(5,5,5,5);
-    // hvLeds->setBot(5,5,5,5);
-    // delayUpdate(500);
-    // hvLeds->setTop(1,1,1,1);
-    // hvLeds->setBot(1,1,1,1);
-    // delayUpdate(500);
-
-    // for(int i=0;i<48;i++){
-    //     if(i>0)
-    //         leds[i-1]=CRGB::Black;
-
-    //     leds[i] = CRGB::White;
-    //     FastLED.show();
-
-    //     delay(50);
-    // }
-
-    for(int i=0;i<5000;i+=1){
-        hvLeds->setTop(i,i,i,i);
-        hvLeds->setBot(i,i,i,i);
-        delayUpdate(100);
-    }
+    
 }
 
 void doUpdates(){
@@ -101,7 +42,8 @@ void doUpdates(){
     if((millis()-lastRunTime)>10){
         lastRunTime=millis();
 
-        HvLeds::getInstance()->update();
+        hvLeds->update();
+        addrLeds->update();
         updateTemp();
     }
 }
