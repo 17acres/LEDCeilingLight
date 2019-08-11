@@ -1,19 +1,17 @@
 #include <GDBStub.h>
 #include "hvLeds.hpp"
-#include "FastLED.h"
+#include "addrLeds.hpp"
 #include "defs.hpp"
 
 HvLeds* hvLeds;
+AddrLeds* addrLeds;
 double temperature=72;
-
-CRGB leds[48];
 
 void setup()
 {
-    FastLED.addLeds<WS2812B, ADDR_DATA, RGB>(leds, 48);
-
 
     hvLeds=HvLeds::getInstance();
+    addrLeds=AddrLeds::getInstance();
 
     Serial.begin(115200);
     gdbstub_init();
@@ -41,7 +39,8 @@ void doUpdates(){
     if((millis()-lastRunTime)>10){
         lastRunTime=millis();
 
-        HvLeds::getInstance()->update();
+        hvLeds->update();
+        addrLeds->update();
         updateTemp();
     }
 }
