@@ -1,0 +1,38 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "defines": [
+                "F_CPU=160000000L",
+                "WIP_OPEN_SRC",
+                "TCP_MSS=536",
+                "LWIP_FEATURES=1",
+                "DLWIP_IPV6=0",
+                "DEBUG_ESP_PORT=Serial",
+                "ARDUINO=10809",
+                "ARDUINO_ESP8266_WEMOS_D1MINI",
+                "ARDUINO_ARCH_ESP8266",
+                "ESP8266"
+            ],
+            "includePath": [
+                "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\tools\\**",
+                "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\**",
+                "C:\\Program Files (x86)\\Arduino\\libraries\\**",
+                "${env:userprofile}\\Documents\\Arduino\\libraries\\**",
+                "${env:userprofile}\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\**",
+                "${env:userprofile}\\Documents\\Arduino\\libraries\\fastLED\\**",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\**",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**"
+            ],
+            "forcedInclude": [
+                "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\cores\\esp8266\\arduino.h",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\variants\\d1_mini\\pins_arduino.h"
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.20.27508/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
