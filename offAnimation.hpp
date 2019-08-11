@@ -22,7 +22,8 @@ public:
         return instance;
     }
 };
-}; // namespace Animations
+} // namespace Animations
 
 Animations::Off *Animations::Off::instance;
+CRGB Animations::Off::arr[NUM_LEDS];
 #endif

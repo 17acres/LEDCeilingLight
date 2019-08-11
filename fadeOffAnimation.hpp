@@ -23,7 +23,8 @@ public:
         return instance;
     }
 };
-}; // namespace Animations
+} // namespace Animations
 
 Animations::FadeOff *Animations::FadeOff::instance;
+CRGB Animations::FadeOff::arr[NUM_LEDS];
 #endif

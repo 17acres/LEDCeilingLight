@@ -35,7 +35,7 @@ namespace Animations
         void startAnimation() { currentAnimation->start(); }
         void stopAnimation() { currentAnimation->forceEnd(); }
         void restartAnimation() { currentAnimation->restart(); }
-        Animation::valueStruct getCurrentAnimationState() { return currentAnimation->getCurrentFrame; }
+        Animation::valueStruct getCurrentAnimationState() { return currentAnimation->getCurrentFrame(); }
         void update()
         {
             Animation::valueStruct vals = getCurrentAnimationState();
@@ -52,7 +52,9 @@ namespace Animations
                 currentAnimation->nextFrame();
             }
         }
-        bool isFinished() { return currentAnimation->isFinished; }
+        bool isFinished() { return currentAnimation->isFinished(); }
     };
-}; // namespace Animations:
+} // namespace Animations:
+Animations::AnimationManager *Animations::AnimationManager::instance;
+
 #endif

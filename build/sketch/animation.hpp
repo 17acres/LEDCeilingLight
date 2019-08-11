@@ -51,5 +51,5 @@ protected:
     uint16_t numFrames;
     bool isRunning;
 };
-}; // namespace Animations
+} // namespace Animations
 #endif
