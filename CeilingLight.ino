@@ -2,9 +2,11 @@
 #include "hvLeds.hpp"
 #include "addrLeds.hpp"
 #include "defs.hpp"
+#include "animationManager.hpp"
 
 HvLeds* hvLeds;
 AddrLeds* addrLeds;
+Animations::AnimationManager* animMan;
 double temperature=72;
 
 void setup()
@@ -12,6 +14,7 @@ void setup()
 
     hvLeds=HvLeds::getInstance();
     addrLeds=AddrLeds::getInstance();
+    animMan=Animations::AnimationManager::getInstance();
 
     Serial.begin(115200);
     gdbstub_init();
@@ -31,13 +34,22 @@ void setup()
 
 void loop()
 {
-    
+    animMan->setAnimation(Animations::On::getInstance());
+    animMan->startAnimation();
+    delayUpdate(1000);
+    animMan->setAnimation(Animations::Off::getInstance());
+    animMan->startAnimation();
+    delayUpdate(1000);
+    animMan->setAnimation(Animations::FadeOff::getInstance());
+    animMan->startAnimation();
+    delayUntilFinished();
 }
 
 void doUpdates(){
     static unsigned long lastRunTime=0;
     if((millis()-lastRunTime)>10){
         lastRunTime=millis();
+        animMan->update();
 
         hvLeds->update();
         addrLeds->update();
@@ -61,5 +73,11 @@ void delayUpdate(unsigned long mills){
         delay(1);
         doUpdates();
         mills--;
+    }
+}
+
+void delayUntilFinished(){
+    while(!animMan->isFinished()){
+        delayUpdate(10);
     }
 }

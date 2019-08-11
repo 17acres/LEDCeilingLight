@@ -23,4 +23,6 @@ public:
     }
 };
 }; // namespace Animations
+
+Animations::Off *Animations::Off::instance;
 #endif

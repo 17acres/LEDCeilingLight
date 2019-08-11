@@ -1,30 +1,16 @@
-#include <Arduino.h>
-#line 1 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-#line 1 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-#include <GDBStub.h>
-#include "hvLeds.hpp"
-#include "addrLeds.hpp"
-#include "defs.hpp"
-#include "animationManager.hpp"
+# 1 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+# 1 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+# 2 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
+# 3 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
+# 4 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
+
+# 6 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 
 HvLeds* hvLeds;
 AddrLeds* addrLeds;
 Animations::AnimationManager* animMan;
 double temperature=72;
 
-#line 12 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void setup();
-#line 35 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void loop();
-#line 48 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void doUpdates();
-#line 60 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void updateTemp();
-#line 70 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void delayUpdate(unsigned long mills);
-#line 79 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void delayUntilFinished();
-#line 12 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void setup()
 {
 
@@ -35,17 +21,17 @@ void setup()
     Serial.begin(115200);
     gdbstub_init();
     Serial.println("TLC59711 test");
-    pinMode(LED_BUILTIN, OUTPUT);
+    pinMode(2, 0x01);
 
     while (millis() < 5000)
     {
-        digitalWrite(LED_BUILTIN, HIGH);
+        digitalWrite(2, 0x1);
         delay(500);
-        digitalWrite(LED_BUILTIN, LOW);
+        digitalWrite(2, 0x0);
         delay(500);
     }
 
-    
+
 }
 
 void loop()
@@ -77,7 +63,7 @@ void updateTemp(){
     static double intTemp;
     static const double alpha=.005;
 
-    double raw=analogRead(TEMP_PIN);
+    double raw=analogRead(A0);
     intTemp=raw*-.11818+182.6364;
     temperature = alpha * intTemp + (1-alpha) * temperature;
     Serial.println(temperature);

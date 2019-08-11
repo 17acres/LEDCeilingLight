@@ -26,7 +26,7 @@ void HvLeds::exitPowerSave(){
 }
 
 void HvLeds::setTop(CRGB color, uint16_t white){
-    RGBW16 corrected=colorGammaCorrectRGBW(color,white);
+    RGBW16 corrected=Utils::colorGammaCorrectRGBW(color,white);
     tlc->setPWM(TOP_R_CHAN,corrected.r);
     tlc->setPWM(TOP_G_CHAN,corrected.g);
     tlc->setPWM(TOP_B_CHAN,corrected.b);
@@ -34,7 +34,7 @@ void HvLeds::setTop(CRGB color, uint16_t white){
 }
 
 void HvLeds::setBot(CRGB color, uint16_t white){
-    RGBW16 corrected=colorGammaCorrectRGBW(color,white);
+    RGBW16 corrected=Utils::colorGammaCorrectRGBW(color,white);
     tlc->setPWM(BOT_R_CHAN,corrected.r);
     tlc->setPWM(BOT_G_CHAN,corrected.g);
     tlc->setPWM(BOT_B_CHAN,corrected.b);

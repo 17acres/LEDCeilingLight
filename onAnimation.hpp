@@ -1,16 +1,16 @@
-#ifndef OFFANIM
-#define OFFANIM
+#ifndef ONANIM
+#define ONANIM
 #include "animation.hpp"
 namespace Animations
 {
-class Off : public Animation
+class On : public Animation
 {
-    static Off *instance;
+    static On *instance;
     static CRGB arr[NUM_LEDS];
     int numFrames = 1;
     valueStruct getCurrentFrame()
     {
-        return (valueStruct){true, CRGB::Black, CRGB::Black, &arr, 0, 0};
+        return (valueStruct){true, CRGB::Black, CRGB::Black, &arr, 65535, 65535};
     }
     Animation *getNextAnimation() { return this; }
 
@@ -18,11 +18,11 @@ public:
     static Animation *getInstance()
     {
         if (instance == 0)
-            instance = new Off();
+            instance = new On();
         return instance;
     }
 };
 }; // namespace Animations
 
-Animations::Off *Animations::Off::instance;
+Animations::On *Animations::On::instance;
 #endif

@@ -1,0 +1,117 @@
+[
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\cores\\esp8266"
+  },
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\variants\\d1_mini"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "GDBStub.h",
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\GDBStub\\src"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "Adafruit_TLC59711.h",
+    "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "SPI.h",
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\SPI"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "FastLED.h",
+    "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\hvLeds.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\utils.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\GDBStub\\src\\internal\\gdbstub-entry.S",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\GDBStub\\src\\internal\\gdbstub.c",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\Adafruit_TLC59711.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\SPI\\SPI.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\FastLED.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\bitswap.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\colorpalettes.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\colorutils.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\hsv2rgb.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\lib8tion.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\noise.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\platforms.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\power_mgt.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\wiring.cpp",
+    "Include": "",
+    "Includepath": ""
+  }
+]
