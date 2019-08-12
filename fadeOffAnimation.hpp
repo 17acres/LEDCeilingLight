@@ -10,17 +10,32 @@ class FadeOff : public Animation
 {
     static FadeOff *instance;
     FadeOff(){
-        numFrames = 255;
+        numFrames = 512;
     }
-    valueStruct getCurrentFrame() override
+    ValueStruct getCurrentFrame() override
     {
         fill_solid(AddrLeds::vals,HALF_LEDS,CRGB::Black);
-        if(frameIdx<25)
-            AddrLeds::vals[Utils::saturatingSubtract(HALF_LEDS,(frameIdx))]=CRGB::White;
+        // if(frameIdx<25)
+        //     AddrLeds::vals[Utils::saturatingSubtract(HALF_LEDS,(frameIdx))]=CRGB::White;
 
-        fill_rainbow(AddrLeds::getInstance()->vals,Utils::saturatingSubtract(HALF_LEDS,(frameIdx)),frameIdx);
-        Utils::mirrorAboutShortAxis(AddrLeds::getInstance()->vals);      
-        return (valueStruct){true, CRGB::Black, CRGB::Black, 65535-Utils::saturatingMultiply(frameIdx,400), 65535-Utils::saturatingMultiply(frameIdx,256)};
+        // fill_rainbow(AddrLeds::getInstance()->vals,Utils::saturatingSubtract(HALF_LEDS,(frameIdx)),frameIdx);
+        // Utils::mirrorAboutShortAxis(AddrLeds::getInstance()->vals);  
+
+        ValueStruct ret;
+        ret.isOff=false;
+        if(frameIdx<129){
+            ret.topWhite=65535-Utils::saturatingMultiply(frameIdx,512);
+            ret.botWhite=ret.topWhite;
+
+            ret.topColor=CHSV(frameIdx,qmul8(frameIdx,2),qmul8(frameIdx,2));
+            ret.botColor=ret.topColor;
+        }else{
+            ret.topWhite=ret.botWhite=0;
+            ret.topColor=ret.botColor=CHSV(129,255,255);
+        }
+        Serial.println("Frame "+String(frameIdx)+": "+ret.toString());
+        return ret;
+        
     }
     Animation *getNextAnimation() override { return Off::getInstance(); }
 

@@ -22,14 +22,19 @@ public:
     static RGBW16 colorGammaCorrectRGBW(CRGB in, uint16_t w)
     {
         RGBW16 colorCorrected = {
-            ((uint16_t)(in.r)) * ((uint16_t)(CRGB(TypicalSMD5050).r)),
-            ((uint16_t)(in.g)) * ((uint16_t)(CRGB(TypicalSMD5050).g)),
-            ((uint16_t)(in.b)) * ((uint16_t)(CRGB(TypicalSMD5050).b)),
+            ((uint16_t)(in.r)) * ((uint16_t)(0xFF)),
+            ((uint16_t)(in.g)) * ((uint16_t)(0x90)),
+            ((uint16_t)(in.b)) * ((uint16_t)(0xF0)),
             w};
+        // return (RGBW16){
+        //     pgm_read_word(&gammaWithDriver[colorCorrected.r]),
+        //     pgm_read_word(&gammaWithDriver[colorCorrected.g]),
+        //     pgm_read_word(&gammaWithDriver[colorCorrected.b]),
+        //     pgm_read_word(&gammaWithDriver[colorCorrected.w])};
         return (RGBW16){
-            pgm_read_word(&gammaWithDriver[colorCorrected.r]),
-            pgm_read_word(&gammaWithDriver[colorCorrected.g]),
-            pgm_read_word(&gammaWithDriver[colorCorrected.b]),
+            colorCorrected.r,
+            colorCorrected.g,
+            colorCorrected.b,
             pgm_read_word(&gammaWithDriver[colorCorrected.w])};
     }
 
@@ -38,13 +43,7 @@ public:
         colorGammaCorrectRGBW(in, ((uint16_t)w) << 8);
     }
 
-    //https://stackoverflow.com/questions/33481295/saturating-subtract-add-for-unsigned-bytes
-    static uint16_t saturatingSubtract(uint16_t minuend, uint16_t subtrahend)
-    {
-        uint16_t res = minuend - subtrahend;
-        res &= -(res <= minuend);
-        return res;
-    }
+    //Just use qmul8, qadd8, qsub8
 
     static uint16_t saturatingMultiply(uint16_t x, uint16_t y)
     {

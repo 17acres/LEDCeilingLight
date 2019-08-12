@@ -35,10 +35,11 @@ namespace Animations
         void startAnimation() { currentAnimation->start(); }
         void stopAnimation() { currentAnimation->forceEnd(); }
         void restartAnimation() { currentAnimation->restart(); }
-        Animation::valueStruct getCurrentAnimationState() { return currentAnimation->getCurrentFrame(); }
+        Animation::ValueStruct getCurrentAnimationState() { return currentAnimation->getCurrentFrame(); }
         void update()
         {
-            Animation::valueStruct vals = getCurrentAnimationState();
+            Animation::ValueStruct vals = getCurrentAnimationState();
+            HvLeds::getInstance()->setPowerSave(vals.isOff);
             HvLeds::getInstance()->setTop(vals.topColor, vals.topWhite);
             HvLeds::getInstance()->setBot(vals.botColor, vals.botWhite);
             if (currentAnimation->isFinished())

@@ -22,7 +22,7 @@ void doUpdates();
 void updateTemp();
 #line 68 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void delayUpdate(unsigned long mills);
-#line 77 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 76 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void delayUntilFinished();
 #line 12 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void setup()
@@ -45,16 +45,16 @@ void setup()
         delay(500);
     }
 
-    
+    Serial.println(Utils::saturatingMultiply(32768,2));
 }
 
 void loop()
 {
-    animMan->setAnimation(Animations::On::getInstance());
-    animMan->startAnimation();
-    delayUpdate(1000);
+    // animMan->setAnimation(Animations::On::getInstance());
+    // animMan->startAnimation();
+    // delayUpdate(1000);
     animMan->setAnimation(Animations::FadeOff::getInstance());
-    animMan->startAnimation();
+    animMan->restartAnimation();
     delayUntilFinished();
 }
 
@@ -62,7 +62,7 @@ void doUpdates(){
     static unsigned long lastRunTime=0;
     if((millis()-lastRunTime)>10){
         lastRunTime=millis();
-
+        digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
         hvLeds->update();
         addrLeds->update();
         updateTemp();
@@ -82,16 +82,16 @@ void updateTemp(){
 }
 
 void delayUpdate(unsigned long mills){
-    doUpdates();
-    while(mills>=1){
-        delay(1);
+    unsigned long targetTime=millis()+mills;
+    while(millis()<targetTime){
+        yield();
         doUpdates();
-        mills--;
     }
 }
 
 void delayUntilFinished(){
     while(!animMan->isFinished()){
-        delayUpdate(10);
+        doUpdates();
+        yield();
     }
 }

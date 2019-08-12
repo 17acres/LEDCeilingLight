@@ -10,9 +10,9 @@ class Off : public Animation
         numFrames = 1;
     }
     
-    valueStruct getCurrentFrame() override
+    ValueStruct getCurrentFrame() override
     {
-        return (valueStruct){true, CRGB::Black, CRGB::Black, 0, 0};
+        return (ValueStruct){true, CRGB::Black, CRGB::Black, 0, 0};
     }
     Animation *getNextAnimation() override { return this; }
 

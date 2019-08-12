@@ -9,6 +9,7 @@ private:
     static HvLeds* instance;
     Adafruit_TLC59711* tlc;
     HvLeds();
+    bool isPowerSave;
 public:
     static HvLeds* getInstance(){
         if(instance ==0)
@@ -16,8 +17,7 @@ public:
         return instance;
     }
     void update();
-    void enterPowerSave();
-    void exitPowerSave();
+    void setPowerSave(bool state);
     void setTop(CRGB color, uint16_t white);
     void setBot(CRGB color, uint16_t white);
 };

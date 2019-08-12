@@ -9,9 +9,9 @@ class On : public Animation
     On(){
         numFrames = 1;
     }
-    valueStruct getCurrentFrame() override
+    ValueStruct getCurrentFrame() override
     {
-        return (valueStruct){true, CRGB::Black, CRGB::Black, 65535, 65535};
+        return (ValueStruct){false, CRGB::White, CRGB::White, 65535, 65535};
     }
     Animation *getNextAnimation() override { return this; }
 

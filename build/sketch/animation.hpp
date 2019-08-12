@@ -9,15 +9,20 @@ namespace Animations
 class Animation
 {
 public:
-    struct valueStruct
+    struct ValueStruct
     {
         bool isOff;
         CRGB topColor;
         CRGB botColor;
         uint16_t topWhite;
         uint16_t botWhite;
+
+        String toString()
+        {
+            return ("isOff: " + String(isOff) + ", Top (" + String(topColor.r) + "," + String(topColor.g) + "," + String(topColor.b) + "," + String(topWhite) + ")" + ", Bot (" + String(botColor.r) + "," + String(botColor.g) + "," + String(botColor.b) + "," + String(botWhite) + ")");
+        }
     };
-    typedef struct valueStruct valueStruct;
+    typedef struct ValueStruct ValueStruct;
     virtual void reset() { frameIdx = 0; }
     virtual void start() { isRunning = true; }
     virtual void restart()
@@ -32,7 +37,7 @@ public:
     }
     virtual uint16_t getFrameIdx() { return frameIdx; }
     virtual uint16_t getNumFrames() { return numFrames; }
-    virtual valueStruct getCurrentFrame() = 0;
+    virtual ValueStruct getCurrentFrame() = 0;
     virtual void nextFrame()
     {
         if ((!isFinished()) && isRunning)
@@ -41,7 +46,7 @@ public:
             isRunning = false;
     }
     virtual Animation *getNextAnimation() = 0;
-    virtual bool isFinished() { return frameIdx + 1 == numFrames; }
+    virtual bool isFinished() { return frameIdx == numFrames; }
 
 protected:
     uint16_t frameIdx;
