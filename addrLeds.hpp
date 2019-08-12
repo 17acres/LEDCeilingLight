@@ -9,8 +9,7 @@ private:
     static AddrLeds *instance;
     AddrLeds()
     {
-        vals = new CRGB[1][48];
-        FastLED.addLeds<WS2812B, ADDR_DATA, RGB>(*vals, 48).setCorrection(TypicalSMD5050);
+        FastLED.addLeds<WS2812B, ADDR_DATA, RGB>(vals, 48);//.setCorrection(TypicalSMD5050);
     }
 
 public:
@@ -20,9 +19,10 @@ public:
             instance = new AddrLeds();
         return instance;
     }
-    CRGB (*vals)[48];
+    static CRGB vals[48];
     void update() { FastLED.show(); }
 };
 
 AddrLeds *AddrLeds::instance;
+CRGB AddrLeds::vals[48];
 #endif

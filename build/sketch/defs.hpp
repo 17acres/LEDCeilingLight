@@ -23,6 +23,6 @@
 #pragma endregion
 
 #define NUM_LEDS 48
-
+#define HALF_LEDS 24
 
 #endif

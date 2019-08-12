@@ -6,13 +6,14 @@ namespace Animations
 class On : public Animation
 {
     static On *instance;
-    static CRGB arr[NUM_LEDS];
-    int numFrames = 1;
-    valueStruct getCurrentFrame()
-    {
-        return (valueStruct){true, CRGB::Black, CRGB::Black, &arr, 65535, 65535};
+    On(){
+        numFrames = 1;
     }
-    Animation *getNextAnimation() { return this; }
+    valueStruct getCurrentFrame() override
+    {
+        return (valueStruct){true, CRGB::Black, CRGB::Black, 65535, 65535};
+    }
+    Animation *getNextAnimation() override { return this; }
 
 public:
     static Animation *getInstance()
@@ -25,5 +26,4 @@ public:
 } // namespace Animations
 
 Animations::On *Animations::On::instance;
-CRGB Animations::On::arr[NUM_LEDS];
 #endif

@@ -14,9 +14,6 @@ public:
         bool isOff;
         CRGB topColor;
         CRGB botColor;
-        CRGB (*addr)
-        [NUM_LEDS];
-
         uint16_t topWhite;
         uint16_t botWhite;
     };

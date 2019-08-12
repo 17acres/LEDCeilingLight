@@ -39,9 +39,6 @@ void loop()
     animMan->setAnimation(Animations::On::getInstance());
     animMan->startAnimation();
     delayUpdate(1000);
-    animMan->setAnimation(Animations::Off::getInstance());
-    animMan->startAnimation();
-    delayUpdate(1000);
     animMan->setAnimation(Animations::FadeOff::getInstance());
     animMan->startAnimation();
     delayUntilFinished();
@@ -51,11 +48,12 @@ void doUpdates(){
     static unsigned long lastRunTime=0;
     if((millis()-lastRunTime)>10){
         lastRunTime=millis();
-        animMan->update();
 
         hvLeds->update();
         addrLeds->update();
         updateTemp();
+
+        animMan->update();
     }
 }
 

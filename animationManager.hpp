@@ -41,7 +41,6 @@ namespace Animations
             Animation::valueStruct vals = getCurrentAnimationState();
             HvLeds::getInstance()->setTop(vals.topColor, vals.topWhite);
             HvLeds::getInstance()->setBot(vals.botColor, vals.botWhite);
-            AddrLeds::getInstance()->vals = vals.addr;
             if (currentAnimation->isFinished())
             {
                 currentAnimation = currentAnimation->getNextAnimation();
