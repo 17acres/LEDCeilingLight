@@ -31,8 +31,9 @@ void setup()
 
 void loop()
 {
-    animMan->setAnimation(Animations::FadeOn::getInstance());
+    animMan->setAnimation(Animations::FunOn::getInstance());
     animMan->restartAnimation();
+    delayUntilFinished();
     delayUpdate(2000);
     animMan->setAnimation(Animations::FadeOff::getInstance());
     animMan->restartAnimation();

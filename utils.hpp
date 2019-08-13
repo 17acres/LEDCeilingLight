@@ -55,31 +55,37 @@ public:
         return lo | -!!hi;
     }
 
-    static void mirrorAboutLongAxis(CRGB data[48]){
-        for(uint8_t i=HALF_LEDS;i<NUM_LEDS;i++){
-            data[i]=data[NUM_LEDS-1-i];
+    static void mirrorAboutLongAxis(CRGB data[48])
+    {
+        for (uint8_t i = HALF_LEDS; i < NUM_LEDS; i++)
+        {
+            data[i] = data[NUM_LEDS - 1 - i];
         }
     }
-    static void mirrorAboutShortAxis(CRGB data[48]){
-        for(uint8_t i=HALF_LEDS;i<NUM_LEDS;i++){
-            data[i]=data[i-HALF_LEDS];
+    static void mirrorAboutShortAxis(CRGB data[48])
+    {
+        for (uint8_t i = HALF_LEDS; i < NUM_LEDS; i++)
+        {
+            data[i] = data[i - HALF_LEDS];
         }
     }
 };
-static uint16_t sinfade16(uint16_t theta){
-    return sin16(theta)+32767;
+static uint16_t sinfade16(uint16_t theta)
+{
+    return sin16(theta) + 32767;
 }
 
-void fill_rainbowsaturation( struct CHSV * targetArray, int numToFill,
-                  uint8_t initialhue,
-                  uint8_t deltahue, uint8_t sat )
+static void fill_rainbow_sv(struct CRGB *pFirstLED, int numToFill,
+                                    uint8_t initialhue,
+                                    uint8_t deltahue, uint8_t sat, uint8_t val)
 {
     CHSV hsv;
     hsv.hue = initialhue;
-    hsv.val = 255;
+    hsv.val = val;
     hsv.sat = sat;
-    for( int i = 0; i < numToFill; i++) {
-        targetArray[i] = hsv;
+    for (int i = 0; i < numToFill; i++)
+    {
+        pFirstLED[i] = hsv;
         hsv.hue += deltahue;
     }
 }

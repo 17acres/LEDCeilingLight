@@ -16,13 +16,13 @@ double temperature=72;
 void setup();
 #line 32 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void loop();
-#line 43 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 44 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void doUpdates();
-#line 56 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 57 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void updateTemp();
-#line 67 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 68 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void delayUpdate(unsigned long mills);
-#line 75 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 76 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void delayUntilFinished();
 #line 12 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void setup()
@@ -47,8 +47,9 @@ void setup()
 
 void loop()
 {
-    animMan->setAnimation(Animations::FadeOn::getInstance());
+    animMan->setAnimation(Animations::FunOn::getInstance());
     animMan->restartAnimation();
+    delayUntilFinished();
     delayUpdate(2000);
     animMan->setAnimation(Animations::FadeOff::getInstance());
     animMan->restartAnimation();
