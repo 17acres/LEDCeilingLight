@@ -4,6 +4,7 @@
 #include "offAnimation.hpp"
 #include "onAnimation.hpp"
 #include "fadeOffAnimation.hpp"
+#include "fadeOnAnimation.hpp"
 #include "hvLeds.hpp"
 #include "addrLeds.hpp"
 namespace Animations

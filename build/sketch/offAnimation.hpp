@@ -12,6 +12,7 @@ class Off : public Animation
     
     ValueStruct getCurrentFrame() override
     {
+        fill_solid(AddrLeds::getInstance()->vals,NUM_LEDS,CRGB::Black);
         return (ValueStruct){true, CRGB::Black, CRGB::Black, 0, 0};
     }
     Animation *getNextAnimation() override { return this; }

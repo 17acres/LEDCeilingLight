@@ -46,7 +46,7 @@ public:
             isRunning = false;
     }
     virtual Animation *getNextAnimation() = 0;
-    virtual bool isFinished() { return frameIdx == numFrames; }
+    virtual bool isFinished() { return frameIdx+1 == numFrames; }
 
 protected:
     uint16_t frameIdx;

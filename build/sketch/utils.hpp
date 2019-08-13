@@ -35,7 +35,7 @@ public:
             colorCorrected.r,
             colorCorrected.g,
             colorCorrected.b,
-            pgm_read_word(&gammaWithDriver[colorCorrected.w])};
+            pgm_read_word(&gammaNoDriver[colorCorrected.w])};
     }
 
     static RGBW16 colorGammaCorrectRGBW8(CRGB in, uint8_t w)
@@ -66,5 +66,7 @@ public:
         }
     }
 };
-
+static uint16_t sinfade16(uint16_t theta){
+    return sin16(theta)+32767;
+}
 #endif

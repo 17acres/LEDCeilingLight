@@ -35,7 +35,7 @@ public:
             colorCorrected.r,
             colorCorrected.g,
             colorCorrected.b,
-            pgm_read_word(&gammaWithDriver[colorCorrected.w])};
+            pgm_read_word(&gammaNoDriver[colorCorrected.w])};
     }
 
     static RGBW16 colorGammaCorrectRGBW8(CRGB in, uint8_t w)
@@ -66,5 +66,21 @@ public:
         }
     }
 };
+static uint16_t sinfade16(uint16_t theta){
+    return sin16(theta)+32767;
+}
 
+void fill_rainbowsaturation( struct CHSV * targetArray, int numToFill,
+                  uint8_t initialhue,
+                  uint8_t deltahue, uint8_t sat )
+{
+    CHSV hsv;
+    hsv.hue = initialhue;
+    hsv.val = 255;
+    hsv.sat = sat;
+    for( int i = 0; i < numToFill; i++) {
+        targetArray[i] = hsv;
+        hsv.hue += deltahue;
+    }
+}
 #endif
