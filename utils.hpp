@@ -89,4 +89,44 @@ static void fill_rainbow_sv(struct CRGB *pFirstLED, int numToFill,
         hsv.hue += deltahue;
     }
 }
+void doUpdates(){
+    static unsigned long lastRunTime=0;
+    if((millis()-lastRunTime)>10){
+        lastRunTime=millis();
+        digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
+        hvLeds->update();
+        addrLeds->update();
+        updateTemp();
+
+        animMan->update();
+    }
+}
+
+void delayUpdate(unsigned long mills){
+    unsigned long targetTime=millis()+mills;
+    while(millis()<targetTime){
+        yield();
+        doUpdates();
+    }
+}
+
+void delayUntilFinished(){
+    while(!animMan->isFinished()){
+        doUpdates();
+        yield();
+    }
+}
+
+double temperature=72;
+
+void updateTemp(){
+    static double intTemp;
+    static const double alpha=.005;
+
+    double raw=analogRead(TEMP_PIN);
+    intTemp=raw*-.11818+182.6364;
+    temperature = alpha * intTemp + (1-alpha) * temperature;
+    if(millis()%100==0)
+        Serial.println(temperature);
+}
 #endif
