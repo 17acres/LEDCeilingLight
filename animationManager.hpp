@@ -40,14 +40,14 @@ public:
     void update()
     {
         Animation::ValueStruct vals = getCurrentAnimationState();
-        if (temperature > 130)
+        if (Utils::temperature > 130)
         {
             HvLeds::getInstance()->setPowerSave(true);
             HvLeds::getInstance()->setTop(CRGB::Black, 0);
             HvLeds::getInstance()->setBot(CRGB::Black, 0);
             fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
         }
-        else if (temperature > 120)
+        else if (Utils::temperature > 120)
         {
             if (vals.topColor > (CRGB)CRGB::Black)
             {
@@ -85,6 +85,5 @@ public:
     Animation *getCurrentAnimation() { return currentAnimation; }
 };
 } // namespace Animations
-Animations::AnimationManager *Animations::AnimationManager::instance;
 
 #endif

@@ -69,24 +69,30 @@ public:
             data[i] = data[i - HALF_LEDS];
         }
     }
-};
-static uint16_t sinfade16(uint16_t theta)
-{
-    return sin16(theta) + 32767;
-}
 
-static void fill_rainbow_sv(struct CRGB *pFirstLED, int numToFill,
-                                    uint8_t initialhue,
-                                    uint8_t deltahue, uint8_t sat, uint8_t val)
-{
-    CHSV hsv;
-    hsv.hue = initialhue;
-    hsv.val = val;
-    hsv.sat = sat;
-    for (int i = 0; i < numToFill; i++)
+    static uint16_t sinfade16(uint16_t theta)
     {
-        pFirstLED[i] = hsv;
-        hsv.hue += deltahue;
+        return sin16(theta) + 32767;
     }
-}
+
+    static void fill_rainbow_sv(struct CRGB *pFirstLED, int numToFill,
+                                uint8_t initialhue,
+                                uint8_t deltahue, uint8_t sat, uint8_t val)
+    {
+        CHSV hsv;
+        hsv.hue = initialhue;
+        hsv.val = val;
+        hsv.sat = sat;
+        for (int i = 0; i < numToFill; i++)
+        {
+            pFirstLED[i] = hsv;
+            hsv.hue += deltahue;
+        }
+    }
+    static double temperature;
+    static void updateTemp();
+    static void doUpdates();
+    static void delayUpdate(unsigned long mills);
+    static void delayUntilFinished();
+};
 #endif

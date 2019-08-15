@@ -30,12 +30,15 @@ void setup()
 
 void loop()
 {
-    animMan->setAnimation(Animations::FunOn::getInstance());
-    animMan->restartAnimation();
-    delayUntilFinished();
-    delayUpdate(2000);
-    animMan->setAnimation(Animations::FadeOff::getInstance());
-    animMan->restartAnimation();
-    delayUntilFinished();
-    delayUpdate(2000);
+    // hvLeds->setTop(CHSV(millis()/100,millis()/100,millis()/100),32768);
+    // hvLeds->setBot(CHSV(millis()/100,millis()/100,millis()/100),32768);
+    Utils::doUpdates();
+    // animMan->setAnimation(Animations::FunOn::getInstance());
+    // animMan->restartAnimation();
+    // delayUntilFinished();
+    // delayUpdate(2000);
+    // animMan->setAnimation(Animations::FadeOff::getInstance());
+    // animMan->restartAnimation();
+    // delayUntilFinished();
+    // delayUpdate(2000);
 }

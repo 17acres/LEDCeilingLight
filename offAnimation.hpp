@@ -1,6 +1,8 @@
 #ifndef OFFANIM
 #define OFFANIM
 #include "animation.hpp"
+#include "addrLeds.hpp"
+
 namespace Animations
 {
 class Off : public Animation
@@ -26,6 +28,4 @@ public:
     }
 };
 } // namespace Animations
-
-Animations::Off *Animations::Off::instance;
 #endif

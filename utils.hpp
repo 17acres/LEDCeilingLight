@@ -69,64 +69,30 @@ public:
             data[i] = data[i - HALF_LEDS];
         }
     }
-};
-static uint16_t sinfade16(uint16_t theta)
-{
-    return sin16(theta) + 32767;
-}
 
-static void fill_rainbow_sv(struct CRGB *pFirstLED, int numToFill,
-                                    uint8_t initialhue,
-                                    uint8_t deltahue, uint8_t sat, uint8_t val)
-{
-    CHSV hsv;
-    hsv.hue = initialhue;
-    hsv.val = val;
-    hsv.sat = sat;
-    for (int i = 0; i < numToFill; i++)
+    static uint16_t sinfade16(uint16_t theta)
     {
-        pFirstLED[i] = hsv;
-        hsv.hue += deltahue;
+        return sin16(theta) + 32767;
     }
-}
-void doUpdates(){
-    static unsigned long lastRunTime=0;
-    if((millis()-lastRunTime)>10){
-        lastRunTime=millis();
-        digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
-        hvLeds->update();
-        addrLeds->update();
-        updateTemp();
 
-        animMan->update();
+    static void fill_rainbow_sv(struct CRGB *pFirstLED, int numToFill,
+                                uint8_t initialhue,
+                                uint8_t deltahue, uint8_t sat, uint8_t val)
+    {
+        CHSV hsv;
+        hsv.hue = initialhue;
+        hsv.val = val;
+        hsv.sat = sat;
+        for (int i = 0; i < numToFill; i++)
+        {
+            pFirstLED[i] = hsv;
+            hsv.hue += deltahue;
+        }
     }
-}
-
-void delayUpdate(unsigned long mills){
-    unsigned long targetTime=millis()+mills;
-    while(millis()<targetTime){
-        yield();
-        doUpdates();
-    }
-}
-
-void delayUntilFinished(){
-    while(!animMan->isFinished()){
-        doUpdates();
-        yield();
-    }
-}
-
-double temperature=72;
-
-void updateTemp(){
-    static double intTemp;
-    static const double alpha=.005;
-
-    double raw=analogRead(TEMP_PIN);
-    intTemp=raw*-.11818+182.6364;
-    temperature = alpha * intTemp + (1-alpha) * temperature;
-    if(millis()%100==0)
-        Serial.println(temperature);
-}
+    static double temperature;
+    static void updateTemp();
+    static void doUpdates();
+    static void delayUpdate(unsigned long mills);
+    static void delayUntilFinished();
+};
 #endif

@@ -4,6 +4,8 @@
 #include "offAnimation.hpp"
 #include "FastLED.h"
 #include "addrLeds.hpp"
+#include "utils.hpp"
+
 namespace Animations
 {
 class FadeOff : public Animation
@@ -31,9 +33,8 @@ class FadeOff : public Animation
             ret.botWhite = ret.topWhite;
 
             ret.topColor = CHSV(64 - frameIdx / 4, qmul8(frameIdx, 2), quadwave8(frameIdx / 4 + 128));
-            Serial.println(quadwave8(frameIdx / 3 + 128));
             ret.botColor = ret.topColor;
-            fill_rainbow_sv(AddrLeds::vals, HALF_LEDS, 64, 10, quadwave8(frameIdx), quadwave8(frameIdx));
+            Utils::fill_rainbow_sv(AddrLeds::vals, HALF_LEDS, 64, 10, quadwave8(frameIdx), quadwave8(frameIdx));
             AddrLeds::vals[HALF_LEDS - 1] = CHSV(0, 0, quadwave8(frameIdx));
         }
         else
@@ -43,23 +44,19 @@ class FadeOff : public Animation
             ret.topWhite = ret.botWhite = 0;
             if (frameIdx < transitionPoint)
             {                
-                fill_rainbow_sv(AddrLeds::vals, HALF_LEDS, 64, 10, 255, 255);
+                Utils::fill_rainbow_sv(AddrLeds::vals, HALF_LEDS, 64, 10, 255, 255);
                 AddrLeds::vals[HALF_LEDS - 1] = CHSV(0, 0, 255);
             }
             else
             {
                 uint16_t rainbowEnd = (transitionPoint+HALF_LEDS-1)-frameIdx;
                 fill_solid(AddrLeds::vals, HALF_LEDS, CRGB::Black);
-                fill_rainbow_sv(AddrLeds::vals, rainbowEnd, 64, 10, 255, 255);
+                Utils::fill_rainbow_sv(AddrLeds::vals, rainbowEnd, 64, 10, 255, 255);
 
                 AddrLeds::vals[rainbowEnd] = CHSV(0, 0, 255);
             }
         }
-        //Serial.println(rgb2hsv_approximate(ret.topColor).v);
-        //delay(250);
         Utils::mirrorAboutShortAxis(AddrLeds::getInstance()->vals);
-        // if(millis()<10000)
-        //     Serial.println("Frame " + String(frameIdx) + ": " + ret.toString());
         return ret;
     }
     Animation *getNextAnimation() override { return Off::getInstance(); }
@@ -73,6 +70,4 @@ public:
     }
 };
 } // namespace Animations
-
-Animations::FadeOff *Animations::FadeOff::instance;
 #endif

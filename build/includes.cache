@@ -35,7 +35,37 @@
     "Includepath": ""
   },
   {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\addrLeds.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\animationManager.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\fadeOffAnimation.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\funOnAnimation.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\hvLeds.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\offAnimation.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\onAnimation.cpp",
     "Include": "",
     "Includepath": ""
   },

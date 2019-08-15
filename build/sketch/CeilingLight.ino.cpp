@@ -10,21 +10,12 @@
 HvLeds* hvLeds;
 AddrLeds* addrLeds;
 Animations::AnimationManager* animMan;
-double temperature=72;
 
-#line 12 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 11 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void setup();
-#line 32 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 31 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void loop();
-#line 44 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void doUpdates();
-#line 57 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void updateTemp();
-#line 68 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void delayUpdate(unsigned long mills);
-#line 76 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-void delayUntilFinished();
-#line 12 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 11 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void setup()
 {
 
@@ -47,51 +38,16 @@ void setup()
 
 void loop()
 {
-    animMan->setAnimation(Animations::FunOn::getInstance());
-    animMan->restartAnimation();
-    delayUntilFinished();
-    delayUpdate(2000);
-    animMan->setAnimation(Animations::FadeOff::getInstance());
-    animMan->restartAnimation();
-    delayUntilFinished();
-    delayUpdate(2000);
+    // hvLeds->setTop(CHSV(millis()/100,millis()/100,millis()/100),32768);
+    // hvLeds->setBot(CHSV(millis()/100,millis()/100,millis()/100),32768);
+    Utils::doUpdates();
+    // animMan->setAnimation(Animations::FunOn::getInstance());
+    // animMan->restartAnimation();
+    // delayUntilFinished();
+    // delayUpdate(2000);
+    // animMan->setAnimation(Animations::FadeOff::getInstance());
+    // animMan->restartAnimation();
+    // delayUntilFinished();
+    // delayUpdate(2000);
 }
 
-void doUpdates(){
-    static unsigned long lastRunTime=0;
-    if((millis()-lastRunTime)>10){
-        lastRunTime=millis();
-        digitalWrite(LED_BUILTIN,!digitalRead(LED_BUILTIN));
-        hvLeds->update();
-        addrLeds->update();
-        updateTemp();
-
-        animMan->update();
-    }
-}
-
-void updateTemp(){
-    static double intTemp;
-    static const double alpha=.005;
-
-    double raw=analogRead(TEMP_PIN);
-    intTemp=raw*-.11818+182.6364;
-    temperature = alpha * intTemp + (1-alpha) * temperature;
-    if(millis()%100==0)
-        Serial.println(temperature);
-}
-
-void delayUpdate(unsigned long mills){
-    unsigned long targetTime=millis()+mills;
-    while(millis()<targetTime){
-        yield();
-        doUpdates();
-    }
-}
-
-void delayUntilFinished(){
-    while(!animMan->isFinished()){
-        doUpdates();
-        yield();
-    }
-}

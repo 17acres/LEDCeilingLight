@@ -22,7 +22,4 @@ public:
     static CRGB vals[48];
     void update() { FastLED.show(); }
 };
-
-AddrLeds *AddrLeds::instance;
-CRGB AddrLeds::vals[48];
 #endif

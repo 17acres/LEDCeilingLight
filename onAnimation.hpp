@@ -24,6 +24,4 @@ public:
     }
 };
 } // namespace Animations
-
-Animations::On *Animations::On::instance;
 #endif

@@ -4,6 +4,8 @@
 #include "onAnimation.hpp"
 #include "FastLED.h"
 #include "addrLeds.hpp"
+#include "utils.hpp"
+
 namespace Animations
 {
 class FunOn : public Animation
@@ -23,7 +25,7 @@ class FunOn : public Animation
         {
             uint16_t rainbowEnd = frameIdx+frameIdx/2-(frameIdx*frameIdx)/42;
             fill_solid(AddrLeds::vals, HALF_LEDS, CRGB::Black);
-            fill_rainbow_sv(AddrLeds::vals, rainbowEnd, -rainbowEnd * 10, 10, 255, 255);
+            Utils::fill_rainbow_sv(AddrLeds::vals, rainbowEnd, -rainbowEnd * 10, 10, 255, 255);
             AddrLeds::vals[rainbowEnd] = CHSV(0, 0, 255);
         }
         else
@@ -51,6 +53,4 @@ public:
     }
 };
 } // namespace Animations
-
-Animations::FunOn *Animations::FunOn::instance;
 #endif

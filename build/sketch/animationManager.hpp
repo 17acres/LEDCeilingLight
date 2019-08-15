@@ -9,53 +9,81 @@
 #include "addrLeds.hpp"
 namespace Animations
 {
-    class AnimationManager
+class AnimationManager
+{
+private:
+    static AnimationManager *instance;
+    AnimationManager() { currentAnimation = Animations::Off::getInstance(); }
+
+    Animation *currentAnimation;
+
+public:
+    static AnimationManager *getInstance()
     {
-    private:
-        static AnimationManager *instance;
-        AnimationManager() { currentAnimation = Animations::Off::getInstance(); }
+        if (instance == 0)
+            instance = new AnimationManager();
+        return instance;
+    }
 
-        Animation *currentAnimation;
-
-    public:
-        static AnimationManager *getInstance()
+    void setAnimation(Animation *animation)
+    {
+        if (animation != currentAnimation)
         {
-            if (instance == 0)
-                instance = new AnimationManager();
-            return instance;
+            currentAnimation = animation;
+            currentAnimation->reset();
         }
-
-        void setAnimation(Animation *animation)
+    }
+    void startAnimation() { currentAnimation->start(); }
+    void stopAnimation() { currentAnimation->forceEnd(); }
+    void restartAnimation() { currentAnimation->restart(); }
+    Animation::ValueStruct getCurrentAnimationState() { return currentAnimation->getCurrentFrame(); }
+    void update()
+    {
+        Animation::ValueStruct vals = getCurrentAnimationState();
+        if (Utils::temperature > 130)
         {
-            if (animation != currentAnimation)
-            {
-                currentAnimation = animation;
-                currentAnimation->reset();
-            }
+            HvLeds::getInstance()->setPowerSave(true);
+            HvLeds::getInstance()->setTop(CRGB::Black, 0);
+            HvLeds::getInstance()->setBot(CRGB::Black, 0);
+            fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
         }
-        void startAnimation() { currentAnimation->start(); }
-        void stopAnimation() { currentAnimation->forceEnd(); }
-        void restartAnimation() { currentAnimation->restart(); }
-        Animation::ValueStruct getCurrentAnimationState() { return currentAnimation->getCurrentFrame(); }
-        void update()
+        else if (Utils::temperature > 120)
         {
-            Animation::ValueStruct vals = getCurrentAnimationState();
-            HvLeds::getInstance()->setPowerSave(vals.isOff);
-            HvLeds::getInstance()->setTop(vals.topColor, vals.topWhite);
-            HvLeds::getInstance()->setBot(vals.botColor, vals.botWhite);
-            if (currentAnimation->isFinished())
+            if (vals.topColor > (CRGB)CRGB::Black)
             {
-                currentAnimation = currentAnimation->getNextAnimation();
-                currentAnimation->restart();
+                HvLeds::getInstance()->setPowerSave(vals.isOff);
+                HvLeds::getInstance()->setTop(CRGB::Black, vals.topWhite);
+                HvLeds::getInstance()->setBot(CRGB::Black, vals.botWhite);
+                fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
             }
             else
             {
-                currentAnimation->nextFrame();
+                HvLeds::getInstance()->setPowerSave(vals.isOff);
+                HvLeds::getInstance()->setTop(CRGB::Black, vals.topWhite / 2);
+                HvLeds::getInstance()->setBot(CRGB::Black, vals.botWhite / 2);
+                fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
             }
         }
-        bool isFinished() { return currentAnimation->isFinished(); }
-    };
-} // namespace Animations:
-Animations::AnimationManager *Animations::AnimationManager::instance;
+        else
+        {
+            HvLeds::getInstance()->setPowerSave(vals.isOff);
+            HvLeds::getInstance()->setTop(vals.topColor, vals.topWhite);
+            HvLeds::getInstance()->setBot(vals.botColor, vals.botWhite);
+        }
+
+        if (currentAnimation->isFinished())
+        {
+            currentAnimation = currentAnimation->getNextAnimation();
+            currentAnimation->restart();
+        }
+        else
+        {
+            currentAnimation->nextFrame();
+        }
+    }
+    bool isFinished() { return currentAnimation->isFinished(); }
+    Animation *getCurrentAnimation() { return currentAnimation; }
+};
+} // namespace Animations
 
 #endif
