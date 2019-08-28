@@ -19,17 +19,19 @@
                 "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\**",
                 "C:\\Program Files (x86)\\Arduino\\libraries\\**",
                 "${env:userprofile}\\Documents\\Arduino\\libraries\\**",
+                "${env:userprofile}\\Documents\\Arduino\\libraries\\NTPClient\\**",
                 "${env:userprofile}\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\**",
                 "${env:userprofile}\\Documents\\Arduino\\libraries\\fastLED\\**",
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\**",
-                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**"
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\**"
             ],
             "forcedInclude": [
                 "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\cores\\esp8266\\arduino.h",
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\variants\\d1_mini\\pins_arduino.h"
             ],
             "intelliSenseMode": "gcc-x64",
-            "compilerPath": "C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\bin/avr-gcc.exe",
+            "compilerPath": "C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\bin\\avr-gcc.exe",
             "cStandard": "c11",
             "cppStandard": "c++17"
         }

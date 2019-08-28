@@ -2,17 +2,17 @@
   {
     "Sourcefile": "",
     "Include": "",
-    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\cores\\esp8266"
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\cores\\esp8266"
   },
   {
     "Sourcefile": "",
     "Include": "",
-    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\variants\\d1_mini"
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\variants\\d1_mini"
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
     "Include": "GDBStub.h",
-    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\GDBStub\\src"
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\GDBStub\\src"
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
@@ -22,12 +22,22 @@
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
     "Include": "SPI.h",
-    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\SPI"
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\SPI"
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
     "Include": "FastLED.h",
     "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "NTPClient.h",
+    "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\NTPClient"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "ESP8266WiFi.h",
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src"
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
@@ -60,6 +70,11 @@
     "Includepath": ""
   },
   {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\nightLightAnimation.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\offAnimation.cpp",
     "Include": "",
     "Includepath": ""
@@ -70,17 +85,27 @@
     "Includepath": ""
   },
   {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\slowOnAnimation.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\timeManager.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\utils.cpp",
     "Include": "",
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\GDBStub\\src\\internal\\gdbstub-entry.S",
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\GDBStub\\src\\internal\\gdbstub-entry.S",
     "Include": "",
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\GDBStub\\src\\internal\\gdbstub.c",
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\GDBStub\\src\\internal\\gdbstub.c",
     "Include": "",
     "Includepath": ""
   },
@@ -90,7 +115,7 @@
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\libraries\\SPI\\SPI.cpp",
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\SPI\\SPI.cpp",
     "Include": "",
     "Includepath": ""
   },
@@ -141,6 +166,91 @@
   },
   {
     "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\wiring.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\NTPClient\\NTPClient.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\BearSSLHelpers.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\CertStoreBearSSL.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\ESP8266WiFi.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\ESP8266WiFiAP.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\ESP8266WiFiGeneric.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\ESP8266WiFiMulti.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\ESP8266WiFiSTA-WPS.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\ESP8266WiFiSTA.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\ESP8266WiFiScan.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\WiFiClient.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\WiFiClientSecureAxTLS.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\WiFiClientSecureBearSSL.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\WiFiServer.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\WiFiServerSecureAxTLS.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\WiFiServerSecureBearSSL.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\WiFiUdp.cpp",
     "Include": "",
     "Includepath": ""
   }

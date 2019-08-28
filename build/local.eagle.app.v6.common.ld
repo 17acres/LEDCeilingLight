@@ -121,7 +121,6 @@ SECTIONS
     *(.ver_number)
     *.c.o( EXCLUDE_FILE (umm_malloc.c.o) .literal*, EXCLUDE_FILE (umm_malloc.c.o) .text* )
     *.cpp.o(.literal*, .text*)
-    *.cc.o(.literal*, .text*)
     *(.rodata._ZTV*) /* C++ vtables */
     *libgcc.a:unwind-dw2.o(.literal .text .rodata .literal.* .text.* .rodata.*)
     *libgcc.a:unwind-dw2-fde.o(.literal .text .rodata .literal.* .text.* .rodata.*)

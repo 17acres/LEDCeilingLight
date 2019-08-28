@@ -89,6 +89,21 @@ public:
             hsv.hue += deltahue;
         }
     }
+
+    static void fill_spectrum_sv(struct CRGB *pFirstLED, int numToFill,
+                                uint8_t initialhue,
+                                uint8_t deltahue, uint8_t sat, uint8_t val)
+    {
+        CHSV hsv;
+        hsv.hue = initialhue;
+        hsv.val = val;
+        hsv.sat = sat;
+        for (int i = 0; i < numToFill; i++)
+        {
+            hsv2rgb_spectrum(hsv,pFirstLED[i]);
+            hsv.hue += deltahue;
+        }
+    }
     static double temperature;
     static void updateTemp();
     static void doUpdates();
