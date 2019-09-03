@@ -32,7 +32,7 @@ class FadeOff : public Animation
             ret.topWhite = sin16(frameIdx * 128 + 16384) * 2;
             ret.botWhite = ret.topWhite;
 
-            ret.topColor = CHSV(64 - frameIdx / 4, qmul8(frameIdx, 2), frameIdx*2);
+            ret.topColor = CHSV(64 - frameIdx / 4, qmul8(frameIdx, 2), frameIdx);
             ret.botColor = ret.topColor;
             Utils::fill_rainbow_sv(AddrLeds::vals, HALF_LEDS, 64, 10, quadwave8(frameIdx), quadwave8(frameIdx));
             AddrLeds::vals[HALF_LEDS - 1] = CHSV(0, 0, quadwave8(frameIdx));
@@ -40,7 +40,7 @@ class FadeOff : public Animation
         else
         {
             //ret.topColor = ret.botColor = CHSV(64 - frameIdx / 4, 255, quadwave8((frameIdx*17)/16+24));
-            ret.topColor = ret.botColor = CHSV(64 - frameIdx / 4, 255, max(895-frameIdx*4,0));
+            ret.topColor = ret.botColor = CHSV(64 - frameIdx / 4, 255, max(385-frameIdx*2,0));
             ret.topWhite = ret.botWhite = 0;
             if (frameIdx < transitionPoint)
             {                
