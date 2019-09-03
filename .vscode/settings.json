@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "limits": "cpp"
+        "limits": "cpp",
+        "system_error": "cpp"
     },
     "files.exclude": {
         "**/build": true

@@ -13,7 +13,7 @@ class SlowOn : public Animation
     static SlowOn *instance;
     SlowOn()
     {
-        numFrames = 32768;
+        numFrames = 65536;
     }
     ValueStruct getCurrentFrame() override
     {
@@ -21,7 +21,7 @@ class SlowOn : public Animation
         //CHSV top(frameIdx/512,253-frameIdx/129,min(frameIdx/64ul,255ul));
         //CHSV top(0,0,frameIdx/129);
         fill_solid(AddrLeds::getInstance()->vals,NUM_LEDS,CRGB::Black);
-        return (ValueStruct){false,0,0,Utils::saturatingMultiply(frameIdx,4),frameIdx*2};
+        return (ValueStruct){false,0,0,Utils::saturatingMultiply(frameIdx,2),frameIdx};
     }
     Animation *getNextAnimation() override { return On::getInstance(); }
 

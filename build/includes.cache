@@ -16,6 +16,16 @@
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "ESP8266WebServer.h",
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WebServer\\src"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "ESP8266WiFi.h",
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
     "Include": "Adafruit_TLC59711.h",
     "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711"
   },
@@ -28,16 +38,6 @@
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
     "Include": "FastLED.h",
     "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED"
-  },
-  {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
-    "Include": "NTPClient.h",
-    "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\NTPClient"
-  },
-  {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
-    "Include": "ESP8266WiFi.h",
-    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src"
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
@@ -71,6 +71,11 @@
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\hvLeds.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\lightSwitch.cpp",
     "Include": "",
     "Includepath": ""
   },
@@ -115,67 +120,27 @@
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\Adafruit_TLC59711.cpp",
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WebServer\\src\\ESP8266WebServer.cpp",
     "Include": "",
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\SPI\\SPI.cpp",
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WebServer\\src\\ESP8266WebServerSecureAxTLS.cpp",
     "Include": "",
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\FastLED.cpp",
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WebServer\\src\\ESP8266WebServerSecureBearSSL.cpp",
     "Include": "",
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\bitswap.cpp",
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WebServer\\src\\Parsing.cpp",
     "Include": "",
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\colorpalettes.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\colorutils.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\hsv2rgb.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\lib8tion.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\noise.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\platforms.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\power_mgt.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\wiring.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\NTPClient\\NTPClient.cpp",
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WebServer\\src\\detail\\mimetable.cpp",
     "Include": "",
     "Includepath": ""
   },
@@ -256,6 +221,66 @@
   },
   {
     "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src\\WiFiUdp.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\Adafruit_TLC59711.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\SPI\\SPI.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\FastLED.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\bitswap.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\colorpalettes.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\colorutils.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\hsv2rgb.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\lib8tion.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\noise.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\platforms.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\power_mgt.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\wiring.cpp",
     "Include": "",
     "Includepath": ""
   }
