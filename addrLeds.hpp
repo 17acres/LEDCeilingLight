@@ -9,7 +9,7 @@ private:
     static AddrLeds *instance;
     AddrLeds()
     {
-        FastLED.addLeds<WS2812B, ADDR_DATA, BRG>(vals, 48);//.setCorrection(TypicalSMD5050);
+        FastLED.addLeds<WS2812B, ADDR_DATA, BRG>(vals, 48).setCorrection(TypicalSMD5050);
     }
 
 public:

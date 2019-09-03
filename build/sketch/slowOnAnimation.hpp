@@ -17,10 +17,11 @@ class SlowOn : public Animation
     }
     ValueStruct getCurrentFrame() override
     {
+        digitalWrite(LED_BUILTIN, HIGH);
         //CHSV top(frameIdx/512,253-frameIdx/129,min(frameIdx/64ul,255ul));
-        CHSV top(0,0,frameIdx/129);
+        //CHSV top(0,0,frameIdx/129);
         fill_solid(AddrLeds::getInstance()->vals,NUM_LEDS,CRGB::Black);
-        return (ValueStruct){false,top*2,top,Utils::saturatingMultiply(frameIdx,4),frameIdx*2};
+        return (ValueStruct){false,0,0,Utils::saturatingMultiply(frameIdx,4),frameIdx*2};
     }
     Animation *getNextAnimation() override { return On::getInstance(); }
 

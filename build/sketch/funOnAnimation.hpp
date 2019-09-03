@@ -17,6 +17,7 @@ class FunOn : public Animation
     }
     ValueStruct getCurrentFrame() override
     {
+        digitalWrite(LED_BUILTIN, LOW);
         ValueStruct ret;
         ret.isOff = false;
         ret.topWhite=ret.botWhite=pow(1.214785,frameIdx);

@@ -4,21 +4,28 @@
 #include "defs.hpp"
 #include "animationManager.hpp"
 #include "timeManager.hpp"
-HvLeds* hvLeds;
-AddrLeds* addrLeds;
-Animations::AnimationManager* animMan;
+HvLeds *hvLeds;
+AddrLeds *addrLeds;
+Animations::AnimationManager *animMan;
 
 void setup()
 {
 
-    hvLeds=HvLeds::getInstance();
-    addrLeds=AddrLeds::getInstance();
-    animMan=Animations::AnimationManager::getInstance();
+    hvLeds = HvLeds::getInstance();
+    addrLeds = AddrLeds::getInstance();
+    animMan = Animations::AnimationManager::getInstance();
     Serial.begin(115200);
-    TimeManager::setup();
-    gdbstub_init();
+    //gdbstub_init();
     pinMode(LED_BUILTIN, OUTPUT);
-    while ( WiFi.status() != WL_CONNECTED ) {delay(500); Serial.print(".");}
+    digitalWrite(LED_BUILTIN, LOW);
+    digitalWrite(LED_BUILTIN, HIGH);
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        delay(500);
+        Serial.print(".");
+    }
+
+    //TimeManager::setup();
     // while (millis() < 5000)
     // {
     //     digitalWrite(LED_BUILTIN, HIGH);
@@ -30,15 +37,5 @@ void setup()
 
 void loop()
 {
-    // hvLeds->setTop(CHSV(millis()/100,millis()/100,millis()/100),32768);
-    // hvLeds->setBot(CHSV(millis()/100,millis()/100,millis()/100),32768);
     Utils::doUpdates();
-    // animMan->setAnimation(Animations::FunOn::getInstance());
-    // animMan->restartAnimation();
-    // delayUntilFinished();
-    // delayUpdate(2000);
-    // animMan->setAnimation(Animations::FadeOff::getInstance());
-    // animMan->restartAnimation();
-    // delayUntilFinished();
-    // delayUpdate(2000);
 }

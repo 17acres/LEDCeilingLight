@@ -38,6 +38,25 @@ public:
             pgm_read_word(&gammaNoDriver[colorCorrected.w])};
     }
 
+    static RGBW16 pureWhiteCorrectRGBW(CRGB in, uint16_t w)
+    {
+        RGBW16 colorCorrected = {
+            ((uint16_t)(in.r)) * ((uint16_t)(0xFF)),
+            ((uint16_t)(in.g)) * ((uint16_t)(0x99)),
+            ((uint16_t)(in.b)) * ((uint16_t)(0xE0)),
+            w};
+        // return (RGBW16){
+        //     pgm_read_word(&gammaWithDriver[colorCorrected.r]),
+        //     pgm_read_word(&gammaWithDriver[colorCorrected.g]),
+        //     pgm_read_word(&gammaWithDriver[colorCorrected.b]),
+        //     pgm_read_word(&gammaWithDriver[colorCorrected.w])};
+        return (RGBW16){
+            colorCorrected.r,
+            colorCorrected.g,
+            colorCorrected.b,
+            pgm_read_word(&gammaNoDriver[colorCorrected.w])};
+    }
+
     static RGBW16 colorGammaCorrectRGBW8(CRGB in, uint8_t w)
     {
         colorGammaCorrectRGBW(in, ((uint16_t)w) << 8);
@@ -91,8 +110,8 @@ public:
     }
 
     static void fill_spectrum_sv(struct CRGB *pFirstLED, int numToFill,
-                                uint8_t initialhue,
-                                uint8_t deltahue, uint8_t sat, uint8_t val)
+                                 uint8_t initialhue,
+                                 uint8_t deltahue, uint8_t sat, uint8_t val)
     {
         CHSV hsv;
         hsv.hue = initialhue;
@@ -100,7 +119,7 @@ public:
         hsv.sat = sat;
         for (int i = 0; i < numToFill; i++)
         {
-            hsv2rgb_spectrum(hsv,pFirstLED[i]);
+            hsv2rgb_spectrum(hsv, pFirstLED[i]);
             hsv.hue += deltahue;
         }
     }

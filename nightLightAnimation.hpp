@@ -13,6 +13,7 @@ class NightLight : public Animation
     }
     ValueStruct getCurrentFrame() override
     {
+        digitalWrite(LED_BUILTIN, HIGH);
         CHSV colorHSV=CHSV(millis()/255,255,30);
         CRGB top;
         CRGB bot;

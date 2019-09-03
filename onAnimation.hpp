@@ -11,7 +11,9 @@ class On : public Animation
     }
     ValueStruct getCurrentFrame() override
     {
-        return (ValueStruct){false, CRGB::White, CRGB::White, 65535, 65535};
+        digitalWrite(LED_BUILTIN, LOW);
+        
+        return (ValueStruct){false, 0, 0, 65535, 65535};
     }
     Animation *getNextAnimation() override { return this; }
 

@@ -7,6 +7,7 @@
 #include "funOnAnimation.hpp"
 #include "nightLightAnimation.hpp"
 #include "slowOnAnimation.hpp"
+#include "funAnimation.hpp"
 #include "hvLeds.hpp"
 #include "addrLeds.hpp"
 namespace Animations
@@ -15,9 +16,10 @@ class AnimationManager
 {
 private:
     static AnimationManager *instance;
-    AnimationManager() { currentAnimation = Animations::Off::getInstance(); }
+    AnimationManager() { currentAnimation = Animations::Off::getInstance(); nextAnimation= Animations::Off::getInstance();}
 
     Animation *currentAnimation;
+    Animation *nextAnimation;
 
 public:
     static AnimationManager *getInstance()
@@ -33,6 +35,7 @@ public:
         {
             currentAnimation = animation;
             currentAnimation->reset();
+            setNextAnimation(currentAnimation->getNextAnimation());
         }
     }
     void startAnimation() { currentAnimation->start(); }
@@ -75,7 +78,7 @@ public:
 
         if (currentAnimation->isFinished())
         {
-            currentAnimation = currentAnimation->getNextAnimation();
+            currentAnimation = nextAnimation;
             currentAnimation->restart();
         }
         else
@@ -85,6 +88,10 @@ public:
     }
     bool isFinished() { return currentAnimation->isFinished(); }
     Animation *getCurrentAnimation() { return currentAnimation; }
+
+    void setNextAnimation(Animation *anim){//Overwrite next animation requested by by current animation
+        nextAnimation=anim;
+    }
 };
 } // namespace Animations
 

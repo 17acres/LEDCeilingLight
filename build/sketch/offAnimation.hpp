@@ -14,6 +14,7 @@ class Off : public Animation
     
     ValueStruct getCurrentFrame() override
     {
+        digitalWrite(LED_BUILTIN, HIGH);
         fill_solid(AddrLeds::getInstance()->vals,NUM_LEDS,CRGB::Black);
         return (ValueStruct){true, CRGB::Black, CRGB::Black, 0, 0};
     }

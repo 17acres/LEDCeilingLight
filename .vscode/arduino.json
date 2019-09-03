@@ -1,7 +1,7 @@
 {
     "board": "esp8266:esp8266:d1_mini",
-    "configuration": "xtal=160,vt=flash,exception=disabled,ssl=all,eesz=4M,ip=lm2f,dbg=Serial,lvl=SSLTLS_MEMHTTP_CLIENTHTTP_SERVERCOREWIFIHTTP_UPDATEUPDATEROTAOOM,wipe=none,baud=921600",
-    "port": "COM8",
+    "configuration": "xtal=160,vt=flash,exception=disabled,ssl=all,eesz=4M,ip=lm2f,dbg=Serial,lvl=SSLTLS_MEMHTTP_CLIENTHTTP_SERVERCOREWIFIHTTP_UPDATEUPDATEROTAOOM,wipe=none,baud=256000",
+    "port": "COM19",
     "sketch": "CeilingLight.ino",
     "output": "./build"
 }

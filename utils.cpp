@@ -8,13 +8,12 @@ double Utils::temperature = 72;
      void Utils::updateTemp()
     {
         static double intTemp;
-        static const double alpha = .005;
+        //static const double alpha = .005;
+        static const double alpha = .999;
 
         double raw = analogRead(TEMP_PIN);
         intTemp = raw * -.11818 + 182.6364;
         temperature = alpha * intTemp + (1 - alpha) * temperature;
-        if (millis() % 100 == 0)
-            Serial.println(temperature);
     }
 
      void Utils::doUpdates()
@@ -23,13 +22,14 @@ double Utils::temperature = 72;
         if ((millis() - lastRunTime) > 10)
         {
             lastRunTime = millis();
-            digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
             HvLeds::getInstance()->update();
             AddrLeds::getInstance()->update();
             updateTemp();
             LightSwitch::getInstance()->update();
 
             Animations::AnimationManager::getInstance()->update();
+            if (millis() % 100 == 0)
+            Serial.println(temperature);
         }
     }
 

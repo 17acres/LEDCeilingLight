@@ -4,5 +4,6 @@
     },
     "files.exclude": {
         "**/build": true
-    }
+    },
+    "terminal.integrated.scrollback": 10000
 }

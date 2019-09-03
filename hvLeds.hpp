@@ -20,5 +20,6 @@ public:
     void setPowerSave(bool state);
     void setTop(CRGB color, uint16_t white);
     void setBot(CRGB color, uint16_t white);
+    CRGB getTopRGB();
 };
 #endif

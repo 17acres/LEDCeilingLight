@@ -6,21 +6,28 @@
 
 # 6 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 # 7 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
-HvLeds* hvLeds;
-AddrLeds* addrLeds;
-Animations::AnimationManager* animMan;
+HvLeds *hvLeds;
+AddrLeds *addrLeds;
+Animations::AnimationManager *animMan;
 
 void setup()
 {
 
-    hvLeds=HvLeds::getInstance();
-    addrLeds=AddrLeds::getInstance();
-    animMan=Animations::AnimationManager::getInstance();
+    hvLeds = HvLeds::getInstance();
+    addrLeds = AddrLeds::getInstance();
+    animMan = Animations::AnimationManager::getInstance();
     Serial.begin(115200);
-    TimeManager::setup();
-    gdbstub_init();
+    //gdbstub_init();
     pinMode(2, 0x01);
-    while ( WiFi.status() != WL_CONNECTED ) {delay(500); Serial.print(".");}
+    digitalWrite(2, 0x0);
+    digitalWrite(2, 0x1);
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        delay(500);
+        Serial.print(".");
+    }
+
+    //TimeManager::setup();
     // while (millis() < 5000)
     // {
     //     digitalWrite(LED_BUILTIN, HIGH);
@@ -32,15 +39,5 @@ void setup()
 
 void loop()
 {
-    // hvLeds->setTop(CHSV(millis()/100,millis()/100,millis()/100),32768);
-    // hvLeds->setBot(CHSV(millis()/100,millis()/100,millis()/100),32768);
     Utils::doUpdates();
-    // animMan->setAnimation(Animations::FunOn::getInstance());
-    // animMan->restartAnimation();
-    // delayUntilFinished();
-    // delayUpdate(2000);
-    // animMan->setAnimation(Animations::FadeOff::getInstance());
-    // animMan->restartAnimation();
-    // delayUntilFinished();
-    // delayUpdate(2000);
 }
