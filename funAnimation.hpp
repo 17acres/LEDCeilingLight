@@ -5,6 +5,7 @@
 #include "FastLED.h"
 #include "addrLeds.hpp"
 #include "utils.hpp"
+#include "funOnAnimation.hpp"
 
 namespace Animations
 {
@@ -17,6 +18,7 @@ class Fun : public Animation
     }
     ValueStruct getCurrentFrame() override
     {
+        ((FunOn*)FunOn::getInstance())->onTime=0;
         digitalWrite(LED_BUILTIN, LOW);
         ValueStruct ret;
         ret.isOff = false;

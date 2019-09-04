@@ -41,6 +41,11 @@
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Include": "EEPROM.h",
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\EEPROM"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
     "Include": "",
     "Includepath": ""
   },
@@ -281,6 +286,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\wiring.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\EEPROM\\EEPROM.cpp",
     "Include": "",
     "Includepath": ""
   }

@@ -8,8 +8,9 @@
 # 7 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 
 # 9 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
-# 10 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
+
 # 11 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
+# 12 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 HvLeds *hvLeds;
 AddrLeds *addrLeds;
 Animations::AnimationManager *animMan;
@@ -19,12 +20,17 @@ bool isWakeupSoon;
 time_t wakeupStartTime;
 void setup()
 {
-
     hvLeds = HvLeds::getInstance();
     addrLeds = AddrLeds::getInstance();
     animMan = Animations::AnimationManager::getInstance();
     Serial.begin(115200);
     //gdbstub_init();
+    EEPROM.begin(sizeof(unsigned int));
+    unsigned int numSeconds;
+    EEPROM.get(0, numSeconds);
+    Serial.print("On Mode Second Count ");
+    Serial.println(numSeconds);
+
     pinMode(2, 0x01);
     digitalWrite(2, 0x0);
     digitalWrite(2, 0x1);
@@ -94,27 +100,38 @@ void handleSetModeRequest()
     server.send(200, "text/plain", message);
     Serial.println(message);
     String args = server.arg("plain");
-    if(args.equals("slowOn")){
+    if (args.equals("slowOn"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("Slow On mode by direct request");
-    }else if(args.equals("on")){
+    }
+    else if (args.equals("on"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::On::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("On mode by direct request");
-    }else if(args.equals("fun")){
+    }
+    else if (args.equals("fun"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::Fun::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("Fun mode by direct request");
-    }else if(args.equals("nightLight")){
+    }
+    else if (args.equals("nightLight"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::NightLight::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("Night light mode by direct request");
-    }else if(args.equals("off")){
+    }
+    else if (args.equals("off"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::Off::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("Off mode by direct request");
-    }else{
+    }
+    else
+    {
         Serial.println("Invalid selection");
     }
 }

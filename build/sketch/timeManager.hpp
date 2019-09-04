@@ -12,26 +12,6 @@
 #define TZ_SEC ((TZ)*3600)
 #define DST_SEC ((DST_MN)*60)
 
-
-#define PTM(w)                \
-    Serial.print(":" #w "="); \
-    Serial.print(tm->tm_##w);
-
-void printTm(const char *what, const tm *tm)
-{
-    Serial.print(what);
-    PTM(isdst);
-    PTM(yday);
-    PTM(wday);
-    PTM(year);
-    PTM(mon);
-    PTM(mday);
-    PTM(hour);
-    PTM(min);
-    PTM(sec);
-    Serial.println();
-}
-
 class TimeManager
 {
 private:
@@ -55,10 +35,8 @@ public:
     {
         time_t now;
         now = time(nullptr);
-        //printTm("localtime", localtime(&now));
         return now;
     }
 };
-bool TimeManager::cbtime_set = false;
-timeval TimeManager::cbtime;
+
 #endif

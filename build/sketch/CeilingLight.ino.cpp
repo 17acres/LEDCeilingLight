@@ -11,6 +11,7 @@
 #include "animationManager.hpp"
 #include "timeManager.hpp"
 #include "lightSwitch.hpp"
+#include "EEPROM.h"
 HvLeds *hvLeds;
 AddrLeds *addrLeds;
 Animations::AnimationManager *animMan;
@@ -18,25 +19,30 @@ ESP8266WebServer server(80);
 
 bool isWakeupSoon;
 time_t wakeupStartTime;
-#line 18 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 19 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void setup();
-#line 41 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 47 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void loop();
-#line 55 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 61 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void handleSwitchRequest();
-#line 62 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 68 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void handleWakeupLightRequest();
-#line 89 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 95 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void handleSetModeRequest();
-#line 18 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 19 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void setup()
 {
-
     hvLeds = HvLeds::getInstance();
     addrLeds = AddrLeds::getInstance();
     animMan = Animations::AnimationManager::getInstance();
     Serial.begin(115200);
     //gdbstub_init();
+    EEPROM.begin(sizeof(unsigned int));
+    unsigned int numSeconds;
+    EEPROM.get(0, numSeconds);
+    Serial.print("On Mode Second Count ");
+    Serial.println(numSeconds);
+
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LOW);
     digitalWrite(LED_BUILTIN, HIGH);
@@ -106,27 +112,38 @@ void handleSetModeRequest()
     server.send(200, "text/plain", message);
     Serial.println(message);
     String args = server.arg("plain");
-    if(args.equals("slowOn")){
+    if (args.equals("slowOn"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("Slow On mode by direct request");
-    }else if(args.equals("on")){
+    }
+    else if (args.equals("on"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::On::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("On mode by direct request");
-    }else if(args.equals("fun")){
+    }
+    else if (args.equals("fun"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::Fun::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("Fun mode by direct request");
-    }else if(args.equals("nightLight")){
+    }
+    else if (args.equals("nightLight"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::NightLight::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("Night light mode by direct request");
-    }else if(args.equals("off")){
+    }
+    else if (args.equals("off"))
+    {
         Animations::AnimationManager::getInstance()->setAnimation(Animations::Off::getInstance());
         Animations::AnimationManager::getInstance()->startAnimation();
         Serial.println("Off mode by direct request");
-    }else{
+    }
+    else
+    {
         Serial.println("Invalid selection");
     }
 }

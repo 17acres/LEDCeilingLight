@@ -5,7 +5,7 @@
 #include "FastLED.h"
 #include "addrLeds.hpp"
 #include "utils.hpp"
-
+#include "funOnAnimation.hpp"
 namespace Animations
 {
 class SlowOn : public Animation
@@ -17,6 +17,8 @@ class SlowOn : public Animation
     }
     ValueStruct getCurrentFrame() override
     {
+        if (frameIdx == 0)
+            ((FunOn*)FunOn::getInstance())->onTime = TimeManager::getTime();
         digitalWrite(LED_BUILTIN, HIGH);
         //CHSV top(frameIdx/512,253-frameIdx/129,min(frameIdx/64ul,255ul));
         //CHSV top(0,0,frameIdx/129);

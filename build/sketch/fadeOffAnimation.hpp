@@ -5,6 +5,9 @@
 #include "FastLED.h"
 #include "addrLeds.hpp"
 #include "utils.hpp"
+#include "timeManager.hpp"
+#include "funOnAnimation.hpp"
+#include "EEPROM.h"
 
 namespace Animations
 {
@@ -18,7 +21,23 @@ class FadeOff : public Animation
     }
     ValueStruct getCurrentFrame() override
     {
+        if(frameIdx==0){
+            time_t currentTime=TimeManager::getTime();
+            time_t onTime=((FunOn*)FunOn::getInstance())->onTime;
+            unsigned int deltaSeconds=currentTime-onTime;
+            if((deltaSeconds>30u)&&(deltaSeconds<108000u)){
+                unsigned int numSeconds;
+                EEPROM.get(0,numSeconds);
+                Serial.print("On Mode Second Count: ");
+                Serial.print(numSeconds);
+                Serial.print(", seconds added: ");
+                Serial.println(deltaSeconds);
 
+                numSeconds+=deltaSeconds;
+                EEPROM.put(0,numSeconds);
+                EEPROM.commit();
+            }
+        }
         // if(frameIdx<25)
         //     AddrLeds::vals[Utils::saturatingSubtract(HALF_LEDS,(frameIdx))]=CRGB::White;
 

@@ -3,6 +3,7 @@
 #include "animation.hpp"
 #include "utils.hpp"
 #include "addrLeds.hpp"
+#include "funOnAnimation.hpp"
 namespace Animations
 {
 class NightLight : public Animation
@@ -13,6 +14,7 @@ class NightLight : public Animation
     }
     ValueStruct getCurrentFrame() override
     {
+        ((FunOn*)FunOn::getInstance())->onTime=0;
         digitalWrite(LED_BUILTIN, HIGH);
         CHSV colorHSV=CHSV(millis()/255,255,30);
         CRGB top;
