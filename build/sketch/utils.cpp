@@ -3,6 +3,7 @@
 #include "animationManager.hpp"
 #include "addrLeds.hpp"
 #include "lightSwitch.hpp"
+#include "webServer.hpp"
 
 double Utils::temperature = 72;
      void Utils::updateTemp()
@@ -28,8 +29,9 @@ double Utils::temperature = 72;
             LightSwitch::getInstance()->update();
 
             Animations::AnimationManager::getInstance()->update();
+            WebServer::update();
             if (millis() % 100 == 0)
-            Serial.println(temperature);
+                Serial.println(temperature);
         }
     }
 
