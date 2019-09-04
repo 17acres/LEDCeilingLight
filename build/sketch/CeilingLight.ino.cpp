@@ -18,7 +18,7 @@ Animations::AnimationManager *animMan;
 
 #line 16 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void setup();
-#line 45 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
+#line 46 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void loop();
 #line 16 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
 void setup()
@@ -44,15 +44,16 @@ void setup()
         delay(500);
         Serial.print(".");
     }
-    
+
     TimeManager::setup();
     WebServer::setup();
-
+    EmailSender::setup();
+    EmailSender::sendEmail("Ceiling light started - On Mode Second Count: "+String(numSeconds));
 }
 
 void loop()
 {
-    Utils::doUpdates();
+    EmailSender::runSpooler(Utils::doUpdates);
 }
 
 

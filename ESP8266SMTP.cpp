@@ -1,6 +1,6 @@
-#include <ESP8266SMTP.hpp>
+#include "ESP8266SMTP.hpp"
 #include <base64.h>
-
+#include "utils.hpp"
 ESP8266SMTPHelper::ESP8266SMTPHelper(const char* login, const char* password) :
 	_base64_login(strdup(login)),
 	_base64_password(strdup(password)){}
@@ -95,10 +95,11 @@ String ESP8266SMTPHelper::getLastResponce()
 	return _serverResponce;
 }
 
-bool ESP8266SMTPHelper::AwaitSMTPResponse(WiFiClientSecure &client, const String &resp, uint16_t timeOut)
+bool ESP8266SMTPHelper::AwaitSMTPResponse(WiFiClientSecure &client, std::function<void(void)> whileWaiting, const String &resp, uint16_t timeOut)
 {
 	uint32_t timeAwait = millis() + timeOut;
 	while(!client.available()) {
+		//whileWaiting();
 		if(millis() > timeAwait) {
 			_error = "SMTP Response TIMEOUT!";
 			return false;
@@ -111,7 +112,7 @@ bool ESP8266SMTPHelper::AwaitSMTPResponse(WiFiClientSecure &client, const String
 	return !resp || _serverResponce.indexOf(resp) != -1;
 }
 
-bool ESP8266SMTPHelper::Send(const String &to, const String &message)
+bool ESP8266SMTPHelper::Send(const String &to, const String &message, std::function<void(void)> whileWaiting)
 {
 	if(!_smtp_server) {
 		_error = "SMTP server not set.";
@@ -119,6 +120,7 @@ bool ESP8266SMTPHelper::Send(const String &to, const String &message)
 	}
 
 	WiFiClientSecure client;
+	client.setInsecure();
 
 #if defined(GS_SERIAL_LOG_LEVEL_2)
 	Serial.print(F("Connecting to: "));
@@ -128,16 +130,16 @@ bool ESP8266SMTPHelper::Send(const String &to, const String &message)
 		_error = "Could not connect to mail server";
 		return false;
 	}
-	if(!AwaitSMTPResponse(client, "220")) {
+	if(!AwaitSMTPResponse(client, whileWaiting, "220")) {
 		_error = "Connection error";
 		return false;
 	}
 
 #if defined(GS_SERIAL_LOG_LEVEL_2)
-	Serial.println(FPSTR(SMTP_HELO));
+	Serial.println(SMTP_HELO);
 #endif
-	client.println(FPSTR(SMTP_HELO));
-	if(!AwaitSMTPResponse(client, "250")) {
+	client.println(SMTP_HELO);
+	if(!AwaitSMTPResponse(client, whileWaiting, "250")) {
 		_error = "identification error";
 		return false;
 	}
@@ -145,60 +147,60 @@ bool ESP8266SMTPHelper::Send(const String &to, const String &message)
 #if defined(GS_SERIAL_LOG_LEVEL_2)
 	Serial.println(FPSTR(SMTP_AUTH));
 #endif
-	client.println(FPSTR(SMTP_AUTH));
-	AwaitSMTPResponse(client);
+	client.println(SMTP_AUTH);
+	AwaitSMTPResponse(client, whileWaiting);
 
 #if defined(GS_SERIAL_LOG_LEVEL_2)
 	Serial.println(F("BASE64_LOGIN:"));
 #endif
 	client.println(_base64_login);
-	AwaitSMTPResponse(client);
+	AwaitSMTPResponse(client, whileWaiting);
 
 #if defined(GS_SERIAL_LOG_LEVEL_2)
 	Serial.println(F("BASE64_PASSWORD:"));
 #endif
 	client.println(_base64_password);
-	if(!AwaitSMTPResponse(client, "235")) {
+	if(!AwaitSMTPResponse(client, whileWaiting, "235")) {
 		_error = "SMTP AUTH error";
 		return false;
 	}
 	
 	String tmp;
 	tmp.reserve(46); // 14 length of SMTP_FROM + 32 for email, trying to prevent reallocation of string buffer when string changes
-	tmp = FPSTR(SMTP_FROM);
+	tmp = SMTP_FROM;
 	tmp.replace("$", _emailAddress);
 
 #if defined(GS_SERIAL_LOG_LEVEL_2)
 	Serial.println(tmp);
 #endif
 	client.println(tmp);
-	AwaitSMTPResponse(client);
+	AwaitSMTPResponse(client, whileWaiting);
 	
 	bool oneRecepient = to.indexOf(',') == -1;
 	
 	if(oneRecepient) {
-		tmp = FPSTR(SMTP_RCPT);
+		tmp = SMTP_RCPT;
 		tmp.replace("$", to);
 		
 #if defined(GS_SERIAL_LOG_LEVEL_2)
 		Serial.println(tmp);
 #endif
 		client.println(tmp);
-		AwaitSMTPResponse(client);
+		AwaitSMTPResponse(client, whileWaiting);
 	} else {
 		char *toCopy = strdup(to.c_str()); // make copy becouse strtok modifyes original string
 		char *sz_r = strtok(toCopy, ",");
 		while(sz_r) {
 			while(*sz_r == ' ') ++sz_r;    // skip spaces after comma.
 				
-			tmp = FPSTR(SMTP_RCPT);
+			tmp = SMTP_RCPT;
 			tmp.replace("$", sz_r);
 			
 #if defined(GS_SERIAL_LOG_LEVEL_2)
 			Serial.println(tmp);
 #endif
 			client.println(tmp);
-			AwaitSMTPResponse(client);
+			AwaitSMTPResponse(client, whileWaiting);
 			
 			sz_r = strtok(NULL, ",");
 		}
@@ -209,7 +211,7 @@ bool ESP8266SMTPHelper::Send(const String &to, const String &message)
 	Serial.println("DATA");
 #endif
 	client.println("DATA");
-	if(!AwaitSMTPResponse(client, "354")) {
+	if(!AwaitSMTPResponse(client, whileWaiting, "354")) {
 		_error = "SMTP DATA error";
 		return false;
 	}
@@ -245,18 +247,15 @@ bool ESP8266SMTPHelper::Send(const String &to, const String &message)
 		}
 	}
 
-	client.print(FPSTR(SMTP_SUB));
-	client.println(_subject);
-	client.print(FPSTR(HTML_HEAD));
-	client.print(message);
-	client.println(FPSTR(HTML_END));
+	String fullpacket=SMTP_SUB+String(_subject)+"\r\n"+HTML_HEAD+String(message)+HTML_END;
+	client.println(fullpacket);
 
-	if(!AwaitSMTPResponse(client, "250")) {
+	if(!AwaitSMTPResponse(client, whileWaiting, "250")) {
 		_error = "Sending message error";
 		return false;
 	}
 	client.println("QUIT");
-	if(!AwaitSMTPResponse(client, "221")) {
+	if(!AwaitSMTPResponse(client, whileWaiting, "221")) {
 		_error = "SMTP QUIT error";
 		return false;
 	}

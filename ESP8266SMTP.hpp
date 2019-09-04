@@ -14,13 +14,13 @@
 //#define GS_SERIAL_LOG_LEVEL_1      // Print to Serial only server responce
 #define GS_SERIAL_LOG_LEVEL_2      // Print to Serial client commands and server responce
 
-const char HTML_HEAD[] PROGMEM  = "Mime-Version: 1.0\r\nContent-Type: text/html; charset=\"UTF-8\";\r\nContent-Transfer-Encoding: 7bit;\r\n\r\n<!DOCTYPE html><html lang=\"en\">";
-const char HTML_END[] PROGMEM   = "</html>\r\n.";
-const char SMTP_HELO[] PROGMEM = "HELO friend";
-const char SMTP_AUTH[] PROGMEM = "AUTH LOGIN";
-const char SMTP_FROM[] PROGMEM = "MAIL FROM:<$>";
-const char SMTP_RCPT[] PROGMEM = "RCPT TO:<$>";
-const char SMTP_SUB[] PROGMEM  = "Subject: ";
+const char HTML_HEAD[]   = "Mime-Version: 1.0\r\nContent-Type: text/html; charset=\"UTF-8\";\r\nContent-Transfer-Encoding: 7bit;\r\n\r\n<!DOCTYPE html><html lang=\"en\">";
+const char HTML_END[]    = "</html>\r\n.";
+const char SMTP_HELO[]  = "HELO friend";
+const char SMTP_AUTH[]  = "AUTH LOGIN";
+const char SMTP_FROM[]  = "MAIL FROM:<$>";
+const char SMTP_RCPT[]  = "RCPT TO:<$>";
+const char SMTP_SUB[]   = "Subject: ";
 
 class ESP8266SMTPHelper
 {
@@ -35,7 +35,7 @@ class ESP8266SMTPHelper
 		*_from            = nullptr,
 		*_subject         = nullptr;
 	String _serverResponce;
-	bool AwaitSMTPResponse(WiFiClientSecure &client, const String &resp = "", uint16_t timeOut = 10000);
+	bool AwaitSMTPResponse(WiFiClientSecure &client, std::function<void(void)> whileWaiting, const String &resp = "",  uint16_t timeOut = 10000);
 
 	public:
 	ESP8266SMTPHelper() = default;
@@ -55,7 +55,7 @@ class ESP8266SMTPHelper
 	String getLastResponce();
 	const char* getError();
 
-	bool Send(const String &to, const String &message);
+	bool Send(const String &to, const String &message, std::function<void(void)> whileWaiting);
 };
 
 extern ESP8266SMTPHelper SMTP;

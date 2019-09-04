@@ -3,6 +3,7 @@
 #include "FastLED.h"
 #include "pgmspace.h"
 #include "defs.hpp"
+#include "emailSender.hpp"
 struct RGBW16
 {
     uint16_t r;

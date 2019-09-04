@@ -3,7 +3,7 @@
 #include <ESP8266WebServer.h>
 #include "animationManager.hpp"
 #include "lightSwitch.hpp"
-
+#include "emailSender.hpp"
 //https://techtutorialsx.com/2017/03/26/esp8266-webserver-accessing-the-body-of-a-http-request/
 
 class WebServer
@@ -38,6 +38,7 @@ public:
         server.send(200, "text/plain", message);
         Serial.println(message);
         LightSwitch::getInstance()->handleSwitchToggle();
+        EmailSender::sendEmail("Switch web request received");
     }
     static void handleWakeupLightRequest()
     {
@@ -64,6 +65,7 @@ public:
         int timeUntil = wakeupStartTime - currentTime;
         Serial.println(timeUntil);
         isWakeupSoon = true;
+        EmailSender::sendEmail("Wakeup light request recieved","Args: "+server.arg("plain"));
     }
 
     static void handleSetModeRequest()
@@ -106,6 +108,7 @@ public:
         {
             Serial.println("Invalid selection");
         }
+        EmailSender::sendEmail("Mode selection received","Args: "+server.arg("plain"));
     }
 };
 #endif

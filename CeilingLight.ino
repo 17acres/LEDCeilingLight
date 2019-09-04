@@ -36,14 +36,15 @@ void setup()
         delay(500);
         Serial.print(".");
     }
-    
+
     TimeManager::setup();
     WebServer::setup();
-
+    EmailSender::setup();
+    EmailSender::sendEmail("Ceiling light started - On Mode Second Count: "+String(numSeconds));
 }
 
 void loop()
 {
-    Utils::doUpdates();
+    EmailSender::runSpooler(Utils::doUpdates);
 }
 

@@ -10,6 +10,7 @@
 #include "funAnimation.hpp"
 #include "hvLeds.hpp"
 #include "addrLeds.hpp"
+#include "emailSender.hpp"
 namespace Animations
 {
 class AnimationManager
@@ -44,6 +45,8 @@ public:
     Animation::ValueStruct getCurrentAnimationState() { return currentAnimation->getCurrentFrame(); }
     void update()
     {
+        static bool wasHot=false;
+        static bool wasWarm=false;
         Animation::ValueStruct vals = getCurrentAnimationState();
         if (Utils::temperature > 130)
         {
@@ -51,6 +54,11 @@ public:
             HvLeds::getInstance()->setTop(CRGB::Black, 0);
             HvLeds::getInstance()->setBot(CRGB::Black, 0);
             fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
+            if(!wasHot){
+                EmailSender::sendEmail("I am basically on fire... RIP me... Temp is: "+String(Utils::temperature)+"F");
+                wasHot=true;
+            }
+            
         }
         else if (Utils::temperature > 120)
         {
@@ -68,9 +76,15 @@ public:
                 HvLeds::getInstance()->setBot(CRGB::Black, vals.botWhite / 2);
                 fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
             }
+            if(!wasWarm){
+                EmailSender::sendEmail("I'm too toasty... Oof... Temp is: "+String(Utils::temperature)+"F");
+                wasWarm=true;
+            }
+            
         }
         else
         {
+            wasHot=wasWarm=false;
             HvLeds::getInstance()->setPowerSave(vals.isOff);
             HvLeds::getInstance()->setTop(vals.topColor, vals.topWhite);
             HvLeds::getInstance()->setBot(vals.botColor, vals.botWhite);

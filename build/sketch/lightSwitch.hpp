@@ -7,8 +7,11 @@ class LightSwitch
 {
 private:
     static LightSwitch *instance;
-
+    bool lastSwitchState;
 public:
+    LightSwitch(){
+        lastSwitchState=!digitalRead(SW_SENSE_PIN);
+    }
     static LightSwitch *getInstance()
     {
         if (instance == 0)
@@ -54,12 +57,12 @@ public:
     }
     void update()
     {
-        static bool lastSwitchState;
         bool newSwitchState = !digitalRead(SW_SENSE_PIN);
         if (newSwitchState != lastSwitchState)
         {
             Serial.println("Physical switch toggled");
             handleSwitchToggle();
+            EmailSender::sendEmail("Physical switch toggled");
         }
         lastSwitchState = newSwitchState;
     }

@@ -50,12 +50,22 @@
     "Includepath": ""
   },
   {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\ESP8266SMTP.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\addrLeds.cpp",
     "Include": "",
     "Includepath": ""
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\animationManager.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\emailSender.cpp",
     "Include": "",
     "Includepath": ""
   },
