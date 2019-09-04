@@ -3,6 +3,7 @@
 #include <queue>
 #include <WString.h>
 #include <functional>
+#include "timeManager.hpp"
 class EmailSender
 {
 public:
@@ -10,6 +11,7 @@ public:
     {
         String subject;
         String body;
+        time_t sendTime;
     };
     typedef struct EmailStruct EmailContents;
     static std::queue<EmailContents> emailQueue;

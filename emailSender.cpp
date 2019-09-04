@@ -2,8 +2,7 @@
 #include "animationManager.hpp"
 #include "noGit/auth.hpp"
 #include "ESP8266SMTP.hpp"
-
-
+#include "timeManager.hpp"
 std::queue<EmailSender::EmailContents> EmailSender::emailQueue;
 void EmailSender::setup()
 {
@@ -11,7 +10,7 @@ void EmailSender::setup()
 }
 void EmailSender::sendEmail(String subject, String body)
 {
-    emailQueue.push((EmailContents){subject, body});
+    emailQueue.push((EmailContents){subject, body,TimeManager::getTime()});
 }
 void EmailSender::sendEmail(String subject)
 {
@@ -20,23 +19,23 @@ void EmailSender::sendEmail(String subject)
 
 void EmailSender::runSpooler(std::function<void(void)> whileWaiting)
 {
-    if (emailQueue.empty())
+    if (
+        ((Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::On::getInstance()) ||
+        (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance())) &&
+        !emailQueue.empty())
     {
-        whileWaiting();
-    }
-    else if (
-        (Animations::AnimationManager::getInstance()->getCurrentAnimation() != Animations::FunOn::getInstance()) &&
-        (Animations::AnimationManager::getInstance()->getCurrentAnimation() != Animations::FadeOff::getInstance()))
-    {
+        Utils::delayUpdate(11);//Make sure light fully turns off before sending mails
         EmailContents thisEmail = emailQueue.front();
         emailQueue.pop();
         SMTP.Subject(thisEmail.subject.c_str());
-        if (SMTP.Send(emailDest, thisEmail.body, whileWaiting))
+        if (SMTP.Send(emailDest, thisEmail.body+"<br>Sent at: "+asctime(localtime(&thisEmail.sendTime)), whileWaiting))
             Serial.println("Message sent");
         else
         {
             Serial.print("Sending Error ");
             Serial.println(SMTP.getError());
         }
+    }else{
+        whileWaiting();
     }
 }
