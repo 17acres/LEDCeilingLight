@@ -12,7 +12,7 @@
 #include <WiFiClientSecure.h>
 
 //#define GS_SERIAL_LOG_LEVEL_1      // Print to Serial only server responce
-#define GS_SERIAL_LOG_LEVEL_2      // Print to Serial client commands and server responce
+//#define GS_SERIAL_LOG_LEVEL_2      // Print to Serial client commands and server responce
 
 const char HTML_HEAD[]   = "Mime-Version: 1.0\r\nContent-Type: text/html; charset=\"UTF-8\";\r\nContent-Transfer-Encoding: 7bit;\r\n\r\n<!DOCTYPE html><html lang=\"en\">";
 const char HTML_END[]    = "</html>\r\n.";
