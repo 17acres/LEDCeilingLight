@@ -10,7 +10,7 @@ void EmailSender::setup()
 }
 void EmailSender::sendEmail(String subject, String body)
 {
-    emailQueue.push((EmailContents){subject, body,TimeManager::getTime()});
+    emailQueue.push((EmailContents){subject, body, TimeManager::getTime()});
 }
 void EmailSender::sendEmail(String subject)
 {
@@ -19,23 +19,25 @@ void EmailSender::sendEmail(String subject)
 
 void EmailSender::runSpooler(std::function<void(void)> whileWaiting)
 {
+    Utils::delayUpdate(11); //Make sure light fully turns off before sending mails
     if (
         ((Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::On::getInstance()) ||
-        (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance())) &&
+         (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance())) &&
         !emailQueue.empty())
     {
-        Utils::delayUpdate(11);//Make sure light fully turns off before sending mails
         EmailContents thisEmail = emailQueue.front();
         emailQueue.pop();
         SMTP.Subject(thisEmail.subject.c_str());
-        if (SMTP.Send(emailDest, thisEmail.body+"<br>Sent at: "+asctime(localtime(&thisEmail.sendTime)), whileWaiting))
+        if (SMTP.Send(emailDest, thisEmail.body + "<br>Sent at: " + asctime(localtime(&thisEmail.sendTime)), whileWaiting))
             Serial.println("Message sent");
         else
         {
             Serial.print("Sending Error ");
             Serial.println(SMTP.getError());
         }
-    }else{
+    }
+    else
+    {
         whileWaiting();
     }
 }

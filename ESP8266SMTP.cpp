@@ -215,6 +215,7 @@ bool ESP8266SMTPHelper::Send(const String &to, const String &message, std::funct
 		_error = "SMTP DATA error";
 		return false;
 	}
+//Date goes here C: Date: Thu, 21 May 2008 05:33:29 -0700 
 
 	tmp = F("From: <$>");
 	if(_from != nullptr) 

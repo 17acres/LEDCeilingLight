@@ -2,6 +2,7 @@
 #define FADEOFF
 #include "animation.hpp"
 #include "offAnimation.hpp"
+#define FASTLED_ALLOW_INTERRUPTS 0
 #include "FastLED.h"
 #include "addrLeds.hpp"
 #include "utils.hpp"

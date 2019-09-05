@@ -1,5 +1,6 @@
 #ifndef ADDRLEDS
 #define ADDRLEDS
+#define FASTLED_ALLOW_INTERRUPTS 0
 #include "FastLED.h"
 #include "defs.hpp"
 #include "color.h"

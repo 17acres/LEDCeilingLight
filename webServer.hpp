@@ -24,7 +24,8 @@ public:
     static void update()
     {
         server.handleClient();
-        if ((isWakeupSoon) && (TimeManager::getTime() > wakeupStartTime))
+        if ((isWakeupSoon) && (TimeManager::getTime() > wakeupStartTime)&&
+        (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance()))
         {
             Serial.println("Slow On Started");
             Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());

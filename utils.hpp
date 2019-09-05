@@ -1,5 +1,6 @@
 #ifndef UTILS
 #define UTILS
+#define FASTLED_ALLOW_INTERRUPTS 0
 #include "FastLED.h"
 #include "pgmspace.h"
 #include "defs.hpp"
