@@ -2,6 +2,7 @@
 #define FUN
 #include "animation.hpp"
 #include "onAnimation.hpp"
+#define FASTLED_ALLOW_INTERRUPTS 0
 #include "FastLED.h"
 #include "addrLeds.hpp"
 #include "utils.hpp"

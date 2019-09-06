@@ -28,8 +28,8 @@ double Utils::temperature = 72;
             HvLeds::getInstance()->update();
             AddrLeds::getInstance()->update();
             updateTemp();
-            if (millis() % 100 == 0)
-                Serial.println(temperature);
+            // if (millis() % 100 == 0)
+            //     Serial.println(temperature);
         }
     }
 

@@ -15,21 +15,21 @@
                 "ESP8266"
             ],
             "includePath": [
-                "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\tools\\**",
-                "${env:userprofile}\\Documents\\Arduino\\libraries\\**",
-                "${env:userprofile}\\Documents\\Arduino\\libraries\\NTPClient\\**",
-                "${env:userprofile}\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\**",
-                "${env:userprofile}\\Documents\\Arduino\\libraries\\FastLED\\**",
-                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\**",
-                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**"
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**",
+                "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\**",
+                "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\NTPClient\\**",
+                "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\**",
+                "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\**",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\**"
             ],
             "forcedInclude": [
-                "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\cores\\esp8266\\arduino.h",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\cores\\esp8266\\arduino.h",
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\variants\\d1_mini\\pins_arduino.h"
             ],
             "intelliSenseMode": "gcc-x64",
             "cStandard": "c11",
-            "cppStandard": "c++17"
+            "cppStandard": "c++17",
+            "compilerPath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\2.5.0-3-20ed2b9\\bin\\xtensa-lx106-elf-gcc.exe"
         }
     ],
     "version": 4
