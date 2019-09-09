@@ -6,14 +6,15 @@ namespace Animations
 class On : public Animation
 {
     static On *instance;
-    On(){
+    On()
+    {
         numFrames = 1;
     }
     ValueStruct getCurrentFrame() override
     {
         digitalWrite(LED_BUILTIN, LOW);
-        
-        return (ValueStruct){false, 0, 0, 65535, 65535};
+
+        return (ValueStruct){false, 0, 0, 65535, 65535, 1};
     }
     Animation *getNextAnimation() override { return this; }
 

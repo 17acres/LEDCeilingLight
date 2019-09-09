@@ -27,7 +27,10 @@ void HvLeds::setPowerSave(bool state)
         HvLeds::setBot(CRGB::Black, 0);
     }
 }
-
+void HvLeds::setColorScale(double colorScale)
+{
+    colorScaleFactor = colorScale;
+}
 void HvLeds::setTop(CRGB color, uint16_t white)
 {
     if (!isPowerSave)
@@ -39,7 +42,7 @@ void HvLeds::setTop(CRGB color, uint16_t white)
         }
         else
         {
-            corrected = Utils::colorGammaCorrectRGBW(color, white);
+            corrected = Utils::colorGammaCorrectRGBW(color, white,colorScaleFactor);
         }
         tlc->setPWM(TOP_R_CHAN, corrected.r);
         tlc->setPWM(TOP_G_CHAN, corrected.g);
@@ -59,7 +62,7 @@ void HvLeds::setBot(CRGB color, uint16_t white)
         }
         else
         {
-            corrected = Utils::colorGammaCorrectRGBW(color, white);
+            corrected = Utils::colorGammaCorrectRGBW(color, white,colorScaleFactor);
         }
         tlc->setPWM(BOT_R_CHAN, corrected.r);
         tlc->setPWM(BOT_G_CHAN, corrected.g);

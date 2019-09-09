@@ -8,16 +8,17 @@ namespace Animations
 class Off : public Animation
 {
     static Off *instance;
-    Off(){
+    Off()
+    {
         numFrames = 1;
     }
-    
+
     ValueStruct getCurrentFrame() override
     {
-        ((FunOn*)FunOn::getInstance())->onTime=0;
+        ((FunOn *)FunOn::getInstance())->onTime = 0;
         digitalWrite(LED_BUILTIN, HIGH);
-        fill_solid(AddrLeds::getInstance()->vals,NUM_LEDS,CRGB::Black);
-        return (ValueStruct){true, CRGB::Black, CRGB::Black, 0, 0};
+        fill_solid(AddrLeds::getInstance()->vals, NUM_LEDS, CRGB::Black);
+        return (ValueStruct){true, CRGB::Black, CRGB::Black, 0, 0, 1};
     }
     Animation *getNextAnimation() override { return this; }
 

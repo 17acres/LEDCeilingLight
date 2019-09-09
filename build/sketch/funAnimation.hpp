@@ -22,6 +22,7 @@ class Fun : public Animation
         ((FunOn*)FunOn::getInstance())->onTime=0;
         digitalWrite(LED_BUILTIN, LOW);
         ValueStruct ret;
+        ret.colorScaleFactor=1;
         ret.isOff = false;
         ret.topWhite=ret.botWhite=0;        
         Utils::fill_rainbow_sv(AddrLeds::vals,NUM_LEDS,frameIdx/2,255/NUM_LEDS,255,255);

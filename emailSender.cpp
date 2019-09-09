@@ -19,7 +19,7 @@ void EmailSender::sendEmail(String subject)
 
 void EmailSender::runSpooler(std::function<void(void)> whileWaiting)
 {
-    Utils::delayUpdate(11); //Make sure light fully turns off before sending mails
+    whileWaiting();
     if (
         ((Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::On::getInstance()) ||
          (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance())) &&
@@ -35,9 +35,5 @@ void EmailSender::runSpooler(std::function<void(void)> whileWaiting)
             Serial.print("Sending Error ");
             Serial.println(SMTP.getError());
         }
-    }
-    else
-    {
-        whileWaiting();
     }
 }

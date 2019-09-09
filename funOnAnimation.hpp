@@ -24,6 +24,7 @@ class FunOn : public Animation
             onTime = TimeManager::getTime();
         digitalWrite(LED_BUILTIN, LOW);
         ValueStruct ret;
+        ret.colorScaleFactor=1;
         ret.isOff = false;
         ret.topWhite = ret.botWhite = pow(1.214785, frameIdx);
         ret.topColor = ret.botColor = CHSV(frameIdx, 255 - qmul8(frameIdx, 5), ret.topWhite / 255ul);

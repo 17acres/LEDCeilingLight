@@ -51,7 +51,9 @@
         "random": "cpp",
         "set": "cpp",
         "bitset": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     },
     "files.exclude": {
         "**/build": true

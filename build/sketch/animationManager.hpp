@@ -48,6 +48,7 @@ public:
         static bool wasHot=false;
         static bool wasWarm=false;
         Animation::ValueStruct vals = getCurrentAnimationState();
+        HvLeds::getInstance()->setColorScale(vals.colorScaleFactor);
         if (Utils::temperature > 130)
         {
             HvLeds::getInstance()->setPowerSave(true);

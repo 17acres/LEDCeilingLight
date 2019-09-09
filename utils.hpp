@@ -20,12 +20,17 @@ class Utils
     static const uint16_t PROGMEM gammaWithDriver[65536];
 
 public:
-    static RGBW16 colorGammaCorrectRGBW(CRGB in, uint16_t w)
+    static RGBW16 colorGammaCorrectRGBW(CRGB in, uint16_t w, double colorScaleFactor)
     {
         RGBW16 colorCorrected = {
             ((uint16_t)(in.r)) * ((uint16_t)(0xFF)),
             ((uint16_t)(in.g)) * ((uint16_t)(0x90)),
             ((uint16_t)(in.b)) * ((uint16_t)(0xF0)),
+            w};
+        RGBW16 scaled = {
+            ((double)(colorCorrected.r)) * colorScaleFactor,
+            ((double)(colorCorrected.g)) * colorScaleFactor,
+            ((double)(colorCorrected.b)) * colorScaleFactor,
             w};
         // return (RGBW16){
         //     pgm_read_word(&gammaWithDriver[colorCorrected.r]),
@@ -33,9 +38,9 @@ public:
         //     pgm_read_word(&gammaWithDriver[colorCorrected.b]),
         //     pgm_read_word(&gammaWithDriver[colorCorrected.w])};
         return (RGBW16){
-            colorCorrected.r,
-            colorCorrected.g,
-            colorCorrected.b,
+            scaled.r,
+            scaled.g,
+            scaled.b,
             pgm_read_word(&gammaNoDriver[colorCorrected.w])};
     }
 
@@ -56,11 +61,6 @@ public:
             colorCorrected.g,
             colorCorrected.b,
             pgm_read_word(&gammaNoDriver[colorCorrected.w])};
-    }
-
-    static RGBW16 colorGammaCorrectRGBW8(CRGB in, uint8_t w)
-    {
-        colorGammaCorrectRGBW(in, ((uint16_t)w) << 8);
     }
 
     //Just use qmul8, qadd8, qsub8

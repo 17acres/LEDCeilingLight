@@ -17,10 +17,10 @@ public:
         CRGB botColor;
         uint16_t topWhite;
         uint16_t botWhite;
-
+        double colorScaleFactor;
         String toString()
         {
-            return ("isOff: " + String(isOff) + ", Top (" + String(topColor.r) + "," + String(topColor.g) + "," + String(topColor.b) + "," + String(topWhite) + ")" + ", Bot (" + String(botColor.r) + "," + String(botColor.g) + "," + String(botColor.b) + "," + String(botWhite) + ")");
+            return ("isOff: " + String(isOff) + ", Top (" + String(topColor.r) + "," + String(topColor.g) + "," + String(topColor.b) + "," + String(topWhite) + ")" + ", Bot (" + String(botColor.r) + "," + String(botColor.g) + "," + String(botColor.b) + "," + String(botWhite) + ") Scale Factor:" + String(colorScaleFactor));
         }
     };
     typedef struct ValueStruct ValueStruct;
@@ -47,7 +47,7 @@ public:
             isRunning = false;
     }
     virtual Animation *getNextAnimation() = 0;
-    virtual bool isFinished() { return frameIdx+1 == numFrames; }
+    virtual bool isFinished() { return frameIdx + 1 == numFrames; }
 
 protected:
     uint16_t frameIdx;

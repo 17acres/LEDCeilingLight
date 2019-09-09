@@ -24,7 +24,7 @@ class SlowOn : public Animation
         //CHSV top(frameIdx/512,253-frameIdx/129,min(frameIdx/64ul,255ul));
         //CHSV top(0,0,frameIdx/129);
         fill_solid(AddrLeds::getInstance()->vals, NUM_LEDS, CRGB::Black);
-        return (ValueStruct){false, 0, 0, Utils::saturatingMultiply(frameIdx, 2), frameIdx};
+        return (ValueStruct){false, 0, 0, Utils::saturatingMultiply(frameIdx, 2), frameIdx,1};
     }
     Animation *getNextAnimation() override { return On::getInstance(); }
     void nextFrame() override
