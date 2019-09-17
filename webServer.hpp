@@ -24,13 +24,15 @@ public:
     static void update()
     {
         server.handleClient();
-        if ((isWakeupSoon) && (TimeManager::getTime() > wakeupStartTime)&&
-        (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance()))
+        if ((isWakeupSoon) && (TimeManager::getTime() > wakeupStartTime))
         {
-            Serial.println("Slow On Started");
-            Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());
-            Animations::AnimationManager::getInstance()->startAnimation();
             isWakeupSoon = false;
+            if (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance())
+            {
+                Serial.println("Slow On Started");
+                Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());
+                Animations::AnimationManager::getInstance()->startAnimation();
+            }
         }
     }
     static void handleSwitchRequest()
@@ -43,30 +45,39 @@ public:
     }
     static void handleWakeupLightRequest()
     {
-        String message = "Wakeup request recieved:\n";
-        message += server.arg("plain");
-        message += "\n";
-        server.send(200, "text/plain", message);
-        Serial.println(message);
-        String args = server.arg("plain");
-        int minutesBefore = args.substring(args.indexOf(';') + 1).toInt();
-        int hours = args.substring(0, args.indexOf(':')).toInt();
-        if ((args.indexOf("PM") > -1) && hours != 12)
-            hours += 12;
-        int minutes = args.substring(args.indexOf(':') + 1, args.indexOf(';') - 3).toInt();
+        if (isWakeupSoon)
+        {
+            server.send(429, "text/plain", "Wakeup time already scheduled");
+            EmailSender::sendEmail("Wakeup time already scheduled", "You are tearing me apart. You said one thing, now you say another");
+        }
+        else
+        {
+            String message = "Wakeup request recieved:\n";
+            message += server.arg("plain");
+            message += "\n";
+            server.send(200, "text/plain", message);
+            Serial.println(message);
 
-        time_t currentTime = TimeManager::getTime();
-        tm *currentTimeStruct = localtime(&currentTime);
-        tm *targetTimeStruct = currentTimeStruct;
-        targetTimeStruct->tm_hour = hours;
-        targetTimeStruct->tm_min = minutes;
-        wakeupStartTime = mktime(targetTimeStruct);
+            String args = server.arg("plain");
+            int minutesBefore = args.substring(args.indexOf(';') + 1).toInt();
+            int hours = args.substring(0, args.indexOf(':')).toInt();
+            if ((args.indexOf("PM") > -1) && hours != 12)
+                hours += 12;
+            int minutes = args.substring(args.indexOf(':') + 1, args.indexOf(';') - 3).toInt();
 
-        wakeupStartTime -= minutesBefore * 60; //subtract number of seconds
-        int timeUntil = wakeupStartTime - currentTime;
-        Serial.println(timeUntil);
-        isWakeupSoon = true;
-        EmailSender::sendEmail("Wakeup light request recieved","Args: "+server.arg("plain"));
+            time_t currentTime = TimeManager::getTime();
+            tm *currentTimeStruct = localtime(&currentTime);
+            tm *targetTimeStruct = currentTimeStruct;
+            targetTimeStruct->tm_hour = hours;
+            targetTimeStruct->tm_min = minutes;
+            wakeupStartTime = mktime(targetTimeStruct);
+
+            wakeupStartTime -= minutesBefore * 60; //subtract number of seconds
+            int timeUntil = wakeupStartTime - currentTime;
+            Serial.println(timeUntil);
+            isWakeupSoon = true;
+            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain"));
+        }
     }
 
     static void handleSetModeRequest()
@@ -109,7 +120,7 @@ public:
         {
             Serial.println("Invalid selection");
         }
-        EmailSender::sendEmail("Mode selection received","Args: "+server.arg("plain"));
+        EmailSender::sendEmail("Mode selection received", "Args: " + server.arg("plain"));
     }
 };
 #endif

@@ -10,42 +10,37 @@
     "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\variants\\d1_mini"
   },
   {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
-    "Include": "GDBStub.h",
-    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\GDBStub\\src"
-  },
-  {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
-    "Include": "Adafruit_TLC59711.h",
-    "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711"
-  },
-  {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\Adafruit_TLC59711_Dan.cpp.cpp",
     "Include": "SPI.h",
     "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\SPI"
   },
   {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\Adafruit_TLC59711_Dan.cpp.cpp",
+    "Include": "GDBStub.h",
+    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\GDBStub\\src"
+  },
+  {
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\Adafruit_TLC59711_Dan.cpp.cpp",
     "Include": "FastLED.h",
     "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED"
   },
   {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\Adafruit_TLC59711_Dan.cpp.cpp",
     "Include": "ESP8266WiFi.h",
     "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WiFi\\src"
   },
   {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\Adafruit_TLC59711_Dan.cpp.cpp",
     "Include": "EEPROM.h",
     "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\EEPROM"
   },
   {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\Adafruit_TLC59711_Dan.cpp.cpp",
     "Include": "ESP8266WebServer.h",
     "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\ESP8266WebServer\\src"
   },
   {
-    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\CeilingLight.ino.cpp",
+    "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\Adafruit_TLC59711_Dan.cpp.cpp",
     "Include": "",
     "Includepath": ""
   },
@@ -130,22 +125,17 @@
     "Includepath": ""
   },
   {
+    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\SPI\\SPI.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
     "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\GDBStub\\src\\internal\\gdbstub-entry.S",
     "Include": "",
     "Includepath": ""
   },
   {
     "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\GDBStub\\src\\internal\\gdbstub.c",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\Adafruit_TLC59711.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
-    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\libraries\\SPI\\SPI.cpp",
     "Include": "",
     "Includepath": ""
   },

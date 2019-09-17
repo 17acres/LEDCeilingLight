@@ -1,6 +1,6 @@
 #ifndef HVLEDS
 #define HVLEDS
-#include "Adafruit_TLC59711.h"
+#include "Adafruit_TLC59711_Dan.hpp"
 #include "utils.hpp"
 #include <SPI.h>
 

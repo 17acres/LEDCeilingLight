@@ -5,7 +5,7 @@ HvLeds *HvLeds::instance = 0;
 
 HvLeds::HvLeds()
 {
-    tlc = new Adafruit_TLC59711(1, TLC_CLK_PIN, TLC_DATA_PIN);
+    tlc = new Adafruit_TLC59711(1, TLC_CLK_PIN, TLC_DATA_PIN, 10000000);
     tlc->begin();
     tlc->write();
     digitalWrite(BUF_OE_PIN, LOW);
