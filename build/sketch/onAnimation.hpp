@@ -17,6 +17,7 @@ class On : public Animation
         return (ValueStruct){false, 0, 0, 65535, 65535, 1};
     }
     Animation *getNextAnimation() override { return this; }
+    String getName() override{return "A brilliant light shall now spew forth with great fury        (On)";}
 
 public:
     static Animation *getInstance()

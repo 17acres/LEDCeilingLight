@@ -40,6 +40,7 @@ class NightLight : public Animation
         return (ValueStruct){false, blend(topLeft, topRight, blendPos), blend(botLeft, botRight, blendPos), 0, 0,.05};
     }
     Animation *getNextAnimation() override { return this; }
+    String getName() override{return "Nacht Licht ist am schlestesten       (Night Light)";}
 
 public:
     static Animation *getInstance()

@@ -14,6 +14,8 @@ void Utils::updateTemp()
     double raw = analogRead(TEMP_PIN);
     intTemp = raw * -.11818 + 182.6364;
     temperature = alpha * intTemp + (1 - alpha) * temperature;
+    if(raw>1020||raw<10)//Sensor problem
+        temperature=123456789;
 }
 
 void Utils::doUpdates()

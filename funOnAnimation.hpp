@@ -50,6 +50,7 @@ class FunOn : public Animation
         return ret;
     }
     Animation *getNextAnimation() override { return On::getInstance(); }
+    String getName() override{return "The light shall return rapidly        (Fun On)";}
 
 public:
     time_t onTime;

@@ -14,7 +14,7 @@ class SlowOn : public Animation
     static SlowOn *instance;
     SlowOn()
     {
-        numFrames = 65536;
+        numFrames = 65535;
     }
     ValueStruct getCurrentFrame() override
     {
@@ -52,6 +52,7 @@ class SlowOn : public Animation
         if (isFinished())
             isRunning = false;
     }
+    String getName() override{return "Everything the light touches is.... in danger. Slowly       (Slow On)";}
 
 public:
     static Animation *getInstance()

@@ -31,6 +31,7 @@ class Fun : public Animation
         return ret;
     }
     Animation *getNextAnimation() override { return this; }
+    String getName() override{return "Fuuuuuuuuuuuunnnnnnnnnnn Mooooooooooode       (Fun Mode)";}
 
 public:
     static Animation *getInstance()

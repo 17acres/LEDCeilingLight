@@ -37,6 +37,7 @@ public:
             currentAnimation = animation;
             currentAnimation->reset();
             setNextAnimation(currentAnimation->getNextAnimation());
+            EmailSender::sendEmail("Animation mode changed to: "+currentAnimation->getName());
         }
     }
     void startAnimation() { currentAnimation->start(); }
@@ -93,6 +94,8 @@ public:
 
         if (currentAnimation->isFinished())
         {
+            if(currentAnimation!=nextAnimation)
+                EmailSender::sendEmail("Animation mode changed to: "+nextAnimation->getName());
             currentAnimation = nextAnimation;
             currentAnimation->restart();
         }

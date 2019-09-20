@@ -40,8 +40,8 @@ public:
         String message = "Switch request recieved\n";
         server.send(200, "text/plain", message);
         Serial.println(message);
-        LightSwitch::getInstance()->handleSwitchToggle();
         EmailSender::sendEmail("Switch web request received");
+        LightSwitch::getInstance()->handleSwitchToggle();
     }
     static void handleWakeupLightRequest()
     {
@@ -57,6 +57,7 @@ public:
             message += "\n";
             server.send(200, "text/plain", message);
             Serial.println(message);
+            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain"));
 
             String args = server.arg("plain");
             int minutesBefore = args.substring(args.indexOf(';') + 1).toInt();
@@ -76,7 +77,6 @@ public:
             int timeUntil = wakeupStartTime - currentTime;
             Serial.println(timeUntil);
             isWakeupSoon = true;
-            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain"));
         }
     }
 
@@ -86,6 +86,7 @@ public:
         server.send(200, "text/plain", message);
         Serial.println(message);
         String args = server.arg("plain");
+        EmailSender::sendEmail("Mode selection received", "Args: " + server.arg("plain"));
         if (args.equals("slowOn"))
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());
@@ -120,7 +121,6 @@ public:
         {
             Serial.println("Invalid selection");
         }
-        EmailSender::sendEmail("Mode selection received", "Args: " + server.arg("plain"));
     }
 };
 #endif

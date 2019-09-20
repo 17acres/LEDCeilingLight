@@ -94,6 +94,7 @@ class FadeOff : public Animation
         return ret;
     }
     Animation *getNextAnimation() override { return Off::getInstance(); }
+    String getName() override{return "Then the light shall end and darkness will return       (Fade Off)";}
 
 public:
     static Animation *getInstance()

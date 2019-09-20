@@ -48,6 +48,7 @@ public:
     }
     virtual Animation *getNextAnimation() = 0;
     virtual bool isFinished() { return frameIdx + 1 == numFrames; }
+    virtual String getName(){return "A rose by any other name is terrible because someone didn't bother to name this mode...";}
 
 protected:
     uint16_t frameIdx;

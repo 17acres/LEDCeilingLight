@@ -21,6 +21,7 @@ class Off : public Animation
         return (ValueStruct){true, CRGB::Black, CRGB::Black, 0, 0, 1};
     }
     Animation *getNextAnimation() override { return this; }
+    String getName() override{return "Darkness shall come upon the land       (Off)";}
 
 public:
     static Animation *getInstance()
