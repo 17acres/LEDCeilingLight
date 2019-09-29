@@ -17,6 +17,17 @@ void EmailSender::sendEmail(String subject)
     sendEmail(subject, "Dan couldn't be bothered to write a body. With warm regards, Mr. Ceiling Light");
 }
 
+void EmailSender::sendDebugEmail(String subject, String body)
+{
+    if(DEBUG_EMAILS)
+        sendEmail(subject,body);
+}
+void EmailSender::sendDebugEmail(String subject)
+{
+    if(DEBUG_EMAILS)
+        sendEmail(subject,"Dan couldn't be bothered to write a body. This is a tedious debug email that should be disabled eventually. With warm regards, Mr. Ceiling Light");
+}
+
 void EmailSender::runSpooler(std::function<void(void)> whileWaiting)
 {
     whileWaiting();

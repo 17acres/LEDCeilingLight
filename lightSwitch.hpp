@@ -61,7 +61,7 @@ public:
         if (newSwitchState != lastSwitchState)
         {
             Serial.println("Physical switch toggled");
-            EmailSender::sendEmail("Physical switch toggled");
+            EmailSender::sendDebugEmail("Physical switch toggled");
             handleSwitchToggle();         
         }
         lastSwitchState = newSwitchState;

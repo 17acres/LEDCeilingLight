@@ -6,7 +6,7 @@
 #define TLC_CLK_PIN D5
 #define TLC_DATA_PIN D7
 #define BUF_OE_PIN D1
-#define SW_SENSE_PIN D2 
+#define SW_SENSE_PIN D2
 #define ADDR_DATA D3
 #pragma endregion
 
@@ -24,5 +24,7 @@
 
 #define NUM_LEDS 48
 #define HALF_LEDS 24
+
+#define DEBUG_EMAILS false
 
 #endif

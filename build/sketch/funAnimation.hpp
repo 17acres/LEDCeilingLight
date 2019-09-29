@@ -26,8 +26,8 @@ class Fun : public Animation
         ret.isOff = false;
         ret.topWhite=ret.botWhite=0;        
         Utils::fill_rainbow_sv(AddrLeds::vals,NUM_LEDS,frameIdx/2,255/NUM_LEDS,255,255);
-        ret.topColor=CHSV(frameIdx/2,255,64);
-        ret.botColor=CHSV(frameIdx/2+128,255,64);
+        ret.topColor=CHSV(frameIdx/2,255,128);
+        ret.botColor=0;
         return ret;
     }
     Animation *getNextAnimation() override { return this; }
