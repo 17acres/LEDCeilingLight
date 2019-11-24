@@ -32,7 +32,7 @@ public:
         }
         else if (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::FadeOff::getInstance())
         {
-            Animations::AnimationManager::getInstance()->setNextAnimation(Animations::Fun::getInstance());
+            Animations::AnimationManager::getInstance()->setNextAnimation(Animations::NightLight::getInstance());
         }
         else if (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Fun::getInstance())
         {
@@ -41,7 +41,7 @@ public:
         }
         else if (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::FunOn::getInstance())
         {
-            Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());
+            Animations::AnimationManager::getInstance()->setAnimation(Animations::Fun::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
         }
         else if (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::NightLight::getInstance())
