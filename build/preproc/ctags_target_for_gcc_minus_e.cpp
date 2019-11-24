@@ -178,7 +178,7 @@ void Adafruit_TLC59711::write() {
   command <<= 7;
   command |= BCb;
 
-  (__extension__({uint32_t state; __asm__ __volatile__("rsil %0," "15" : "=a" (state)); state;}));
+  (__extension__({uint32_t state; __asm__ __volatile__("rsil %0," "15" : "=a" (state) :: "memory"); state;}));
   for (uint8_t n = 0; n < numdrivers; n++) {
     spiwriteMSB(command >> 24);
     spiwriteMSB(command >> 16);
@@ -199,7 +199,7 @@ void Adafruit_TLC59711::write() {
     delayMicroseconds(2);
     _spi->endTransaction();
 
-  (__extension__({uint32_t state; __asm__ __volatile__("rsil %0," "0" : "=a" (state)); state;}));
+  (__extension__({uint32_t state; __asm__ __volatile__("rsil %0," "0" : "=a" (state) :: "memory"); state;}));
 }
 
 /*!

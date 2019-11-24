@@ -4,13 +4,9 @@
 #include <time.h>      // time() ctime()
 #include <sys/time.h>  // struct timeval
 #include <coredecls.h> // settimeofday_cb()
+#include <TZ.h>
 
 //https://github.com/esp8266/Arduino/blob/master/libraries/esp8266/examples/NTP-TZ-DST/NTP-TZ-DST.ino
-#define TZ -5     // (utc+) TZ in hours
-#define DST_MN 60 // use 60mn for summer time in some countries
-#define TZ_MN ((TZ)*60)
-#define TZ_SEC ((TZ)*3600)
-#define DST_SEC ((DST_MN)*60)
 
 class TimeManager
 {
@@ -29,13 +25,23 @@ public:
     static void setup()
     {
         settimeofday_cb(time_is_set);
-        configTime(TZ_SEC, DST_SEC, "pool.ntp.org");
+        configTime(TZ_America_Detroit, "pool.ntp.org");
     }
     static time_t getTime()
     {
         time_t now;
-        now = time(nullptr);
+        now = time(nullptr)-8*60*60;//fix weird 8 hour bug
         return now;
+    }
+    //Check for 1970 time
+    static bool isValid(time_t *time)
+    {
+        return (localtime(time)->tm_year) > 70;
+    }
+    static bool isReady()
+    {
+        time_t now = getTime();
+        return isValid(&now) && cbtime_set;
     }
 };
 

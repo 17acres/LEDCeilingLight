@@ -77,6 +77,9 @@ public:
             int timeUntil = wakeupStartTime - currentTime;
             Serial.println(timeUntil);
             isWakeupSoon = true;
+            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain")
+            +"<br>Start Time: "+asctime(targetTimeStruct)
+            +"<br>Time Until Target: "+(timeUntil/(60*60))+":"+(timeUntil%(60*60)/60)+":"+(timeUntil%60));
         }
     }
 

@@ -34,12 +34,20 @@ void EmailSender::runSpooler(std::function<void(void)> whileWaiting)
     if (
         ((Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::On::getInstance()) ||
          (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance())) &&
-        !emailQueue.empty())
+        !emailQueue.empty() && TimeManager::isReady())
     {
         EmailContents thisEmail = emailQueue.front();
         emailQueue.pop();
         SMTP.Subject(thisEmail.subject.c_str());
-        if (SMTP.Send(emailDest, thisEmail.body + "<br>Sent at: " + asctime(localtime(&thisEmail.sendTime)), whileWaiting))
+        time_t messageTime=thisEmail.sendTime;
+        String timeString=asctime(localtime(&messageTime));
+        if(!TimeManager::isValid(&messageTime))
+        {
+            messageTime=TimeManager::getTime();
+            timeString=asctime(localtime(&messageTime));
+            timeString+=" **TIME WAS ZERO, REPLACED WITH SEND TIME**";
+        }
+        if (SMTP.Send(emailDest, thisEmail.body + "<br>Sent at: " + timeString, whileWaiting))
             Serial.println("Message sent");
         else
         {
