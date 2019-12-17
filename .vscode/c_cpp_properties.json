@@ -21,7 +21,8 @@
                 "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\NTPClient\\**",
                 "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\**",
                 "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\**",
-                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\**"
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\**",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.6.1\\**"
             ],
             "forcedInclude": [
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.2\\cores\\esp8266\\arduino.h",

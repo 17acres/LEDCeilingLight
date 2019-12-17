@@ -61,10 +61,11 @@ public:
 
             String args = server.arg("plain");
             int minutesBefore = args.substring(args.indexOf(';') + 1).toInt();
-            int hours = args.substring(0, args.indexOf(':')).toInt();
+            int semicolonLocation = args.indexOf(':');
+            int hours = args.substring(semicolonLocation - 2, semicolonLocation).toInt();
             if ((args.indexOf("PM") > -1) && hours != 12)
                 hours += 12;
-            int minutes = args.substring(args.indexOf(':') + 1, args.indexOf(';') - 3).toInt();
+            int minutes = args.substring(semicolonLocation + 1, semicolonLocation + 3).toInt();
 
             time_t currentTime = TimeManager::getTime();
             tm *currentTimeStruct = localtime(&currentTime);
@@ -77,9 +78,7 @@ public:
             int timeUntil = wakeupStartTime - currentTime;
             Serial.println(timeUntil);
             isWakeupSoon = true;
-            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain")
-            +"<br>Start Time: "+asctime(targetTimeStruct)
-            +"<br>Time Until Target: "+(timeUntil/(60*60))+":"+(timeUntil%(60*60)/60)+":"+(timeUntil%60));
+            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain") + "<br>Start Time: " + asctime(targetTimeStruct) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60));
         }
     }
 

@@ -1,6 +1,6 @@
 {
     "board": "esp8266:esp8266:d1_mini",
-    "configuration": "xtal=160,vt=flash,exception=disabled,ssl=all,eesz=4M,ip=lm2f,dbg=Serial,lvl=None____,wipe=none,baud=921600",
+    "configuration": "xtal=80,vt=flash,exception=disabled,ssl=all,eesz=4M,ip=lm2f,dbg=Serial,lvl=None____,wipe=none,baud=921600",
     "port": "COM9",
     "sketch": "CeilingLight.ino",
     "output": "./build"
