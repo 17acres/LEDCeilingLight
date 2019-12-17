@@ -69,16 +69,16 @@ public:
 
             time_t currentTime = TimeManager::getTime();
             tm *currentTimeStruct = localtime(&currentTime);
-            tm *targetTimeStruct = currentTimeStruct;
-            targetTimeStruct->tm_hour = hours;
-            targetTimeStruct->tm_min = minutes;
-            wakeupStartTime = mktime(targetTimeStruct);
+            tm *alarmTimeStruct = currentTimeStruct;
+            alarmTimeStruct->tm_hour = hours;
+            alarmTimeStruct->tm_min = minutes;
+            wakeupStartTime = mktime(alarmTimeStruct);
 
             wakeupStartTime -= minutesBefore * 60; //subtract number of seconds
             int timeUntil = wakeupStartTime - currentTime;
             Serial.println(timeUntil);
             isWakeupSoon = true;
-            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain") + "<br>Start Time: " + asctime(targetTimeStruct) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60));
+            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain") + "<br>Alarm Time: " + asctime(alarmTimeStruct) +"<br>Start Time: " + asctime(localtime(&wakeupStartTime)) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60));
         }
     }
 
