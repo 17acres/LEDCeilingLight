@@ -27,3 +27,5 @@ To solder the TLC5971 thermal pad through the vias underneath, solder mask was r
 The TLC5971 was soldered using [Dave's technique](https://www.youtube.com/watch?v=588iV07nEdM).
 
 The file noGit/auth.hpp simply defines the device's email address and password for sending notifications and the email destination and is not included for obvious reasons.
+
+This product includes software developed by the Adafruit Industries. Their TLC59711 driver library was used to control the TLC5971 with modification to adjust the rate of the SPI communication. The rest of the material on this site and the schematics are licensed under the GNU LGPLv3 license.
