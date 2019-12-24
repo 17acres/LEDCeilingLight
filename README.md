@@ -6,7 +6,10 @@ There's a few color pattern modes which can be controlled by toggling a physical
 
 The light is powered by a 24V 5A supply for the non-addressable LEDs and a 12V 2A supply for the addressable LEDs and circuit power. A traditional light switch is monitored using a simple optocoupler circuit to pull down the "5V Switch Sense" pin when the switch is turned on.
 
+![](https://i.imgur.com/35uN6Sx.jpg)
 ## Circuit Design
+
+All circuit design files are available publically on CircuitMaker. https://workspace.circuitmaker.com/Projects/Details/Dan-Nichols/Strip-Ceiling-Lamp-Control
 
 The 24V LEDs are driven through a rather complicated circuit. Since the ESP8266 does not do hardware PWM, bad things happen if you try to directly drive the FETs with the digital I/O when network activity happens. Therefore, an extrenal driver is required. 
 
