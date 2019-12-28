@@ -62,7 +62,7 @@ Adafruit_TLC59711::Adafruit_TLC59711(uint8_t n, uint8_t c, uint8_t d) {
 
   BCr = BCg = BCb = 0x7F; // default 100% brigthness
 
-  pwmbuffer = (uint16_t *)calloc(2, 12 * n);
+  pwmbuffer = (uint16_t *)({ static const char mem_debug_file[] __attribute__((section( "\".irom.text." "Adafruit_TLC59711_Dan.cpp" "." "40" "." "35" "\""))) __attribute__((aligned(4))) = "Adafruit_TLC59711_Dan.cpp"; pvPortCalloc(2, 12 * n, mem_debug_file, 40); });
 }
 
 /*!
@@ -94,7 +94,7 @@ Adafruit_TLC59711::Adafruit_TLC59711(uint8_t n, uint8_t c, uint8_t d, uint32_t r
   SPI_SETTINGS._clock=r;
   BCr = BCg = BCb = 0x7F; // default 100% brigthness
 
-  pwmbuffer = (uint16_t *)calloc(2, 12 * n);
+  pwmbuffer = (uint16_t *)({ static const char mem_debug_file[] __attribute__((section( "\".irom.text." "Adafruit_TLC59711_Dan.cpp" "." "61" "." "36" "\""))) __attribute__((aligned(4))) = "Adafruit_TLC59711_Dan.cpp"; pvPortCalloc(2, 12 * n, mem_debug_file, 61); });
 }
 
 /*!
@@ -119,7 +119,7 @@ Adafruit_TLC59711::Adafruit_TLC59711(uint8_t n, SPIClass *theSPI) {
 
   BCr = BCg = BCb = 0x7F; // default 100% brigthness
 
-  pwmbuffer = (uint16_t *)calloc(2, 12 * n);
+  pwmbuffer = (uint16_t *)({ static const char mem_debug_file[] __attribute__((section( "\".irom.text." "Adafruit_TLC59711_Dan.cpp" "." "79" "." "37" "\""))) __attribute__((aligned(4))) = "Adafruit_TLC59711_Dan.cpp"; pvPortCalloc(2, 12 * n, mem_debug_file, 79); });
 }
 
 /*!
