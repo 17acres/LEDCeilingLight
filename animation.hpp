@@ -1,7 +1,7 @@
 #ifndef ANIMATION
 #define ANIMATION
 #include "defs.hpp"
-#define FASTLED_ALLOW_INTERRUPTS 0
+#define FASTLED_INTERRUPT_RETRY_COUNT 1
 #include "FastLED.h"
 #include "utils.hpp"
 namespace Animations
