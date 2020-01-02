@@ -1,9 +1,7 @@
-#define FASTLED_INTERRUPT_RETRY_COUNT 1
-
 #include <GDBStub.h>
 #include "hvLeds.hpp"
 #include "addrLeds.hpp"
-#include "defs.hpp"
+#include "utils.hpp"
 #include "animationManager.hpp"
 #include "timeManager.hpp"
 #include "lightSwitch.hpp"
@@ -15,10 +13,11 @@ Animations::AnimationManager *animMan;
 
 void setup()
 {
+    Serial.begin(115200);//Do this before RX pin is repurposed for dma LEDs (i2s)
     hvLeds = HvLeds::getInstance();
     addrLeds = AddrLeds::getInstance();
     animMan = Animations::AnimationManager::getInstance();
-    Serial.begin(115200);
+    
     //gdbstub_init();
 
     EEPROM.begin(sizeof(unsigned int));

@@ -175,11 +175,6 @@
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\platforms.cpp",
-    "Include": "",
-    "Includepath": ""
-  },
-  {
     "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\power_mgt.cpp",
     "Include": "",
     "Includepath": ""

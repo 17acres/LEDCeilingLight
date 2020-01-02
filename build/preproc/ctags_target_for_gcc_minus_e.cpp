@@ -336,27 +336,26 @@ boolean Adafruit_TLC59711::begin() {
   return true;
 }
 # 1 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino"
-
-
+# 2 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
+# 3 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 # 4 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
-# 5 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
+
 # 6 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 
 # 8 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
-
+# 9 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 # 10 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
-# 11 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
-# 12 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 HvLeds *hvLeds;
 AddrLeds *addrLeds;
 Animations::AnimationManager *animMan;
 
 void setup()
 {
+    Serial.begin(115200);//Do this before RX pin is repurposed for dma LEDs (i2s)
     hvLeds = HvLeds::getInstance();
     addrLeds = AddrLeds::getInstance();
     animMan = Animations::AnimationManager::getInstance();
-    Serial.begin(115200);
+
     //gdbstub_init();
 
     EEPROM.begin(sizeof(unsigned int));

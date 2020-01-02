@@ -1,6 +1,5 @@
 #ifndef LIGHTSWITCH
 #define LIGHTSWITCH
-#include "defs.hpp"
 #include "animationManager.hpp"
 #include "utils.hpp"
 class LightSwitch

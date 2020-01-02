@@ -7,7 +7,7 @@
 #define TLC_DATA_PIN D7
 #define BUF_OE_PIN D1
 #define SW_SENSE_PIN D2
-#define ADDR_DATA D3
+#define ADDR_DATA RX //for i2s fastled
 #pragma endregion
 
 #define region LED Channels

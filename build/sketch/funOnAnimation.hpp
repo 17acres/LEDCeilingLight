@@ -2,7 +2,6 @@
 #define FADEON
 #include "animation.hpp"
 #include "onAnimation.hpp"
-#include "FastLED.h"
 #include "addrLeds.hpp"
 #include "utils.hpp"
 #include "timeManager.hpp"

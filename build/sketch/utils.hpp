@@ -1,7 +1,8 @@
 #ifndef UTILS
 #define UTILS
-#define FASTLED_ALLOW_INTERRUPTS 0
+#define FASTLED_ESP8266_DMA //https://github.com/coryking/FastLED NOT REGULAR LIBRARY
 #include "FastLED.h"
+
 #include "pgmspace.h"
 #include "defs.hpp"
 #include "emailSender.hpp"

@@ -1,8 +1,5 @@
 #ifndef ANIMATION
 #define ANIMATION
-#include "defs.hpp"
-#define FASTLED_INTERRUPT_RETRY_COUNT 1
-#include "FastLED.h"
 #include "utils.hpp"
 namespace Animations
 {

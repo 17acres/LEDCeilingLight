@@ -37,7 +37,7 @@ class NightLight : public Animation
         // Serial.print(blend(topLeft, topRight, blendPos).g);
         // Serial.print(',');
         // Serial.println(blend(topLeft, topRight, blendPos).b);
-        return (ValueStruct){false, blend(topLeft, topRight, blendPos), blend(botLeft, botRight, blendPos), 0, 0,.05};
+        return (ValueStruct){false, blend(topLeft, topRight, blendPos), blend(botLeft, botRight, blendPos), 0, 0,.01875};
     }
     Animation *getNextAnimation() override { return this; }
     String getName() override{return "Nacht Licht ist am schlestesten       (Night Light)";}

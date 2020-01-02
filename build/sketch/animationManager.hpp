@@ -11,6 +11,7 @@
 #include "hvLeds.hpp"
 #include "addrLeds.hpp"
 #include "emailSender.hpp"
+#include "utils.hpp"
 namespace Animations
 {
 class AnimationManager

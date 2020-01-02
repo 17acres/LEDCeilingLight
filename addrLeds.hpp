@@ -1,8 +1,6 @@
 #ifndef ADDRLEDS
 #define ADDRLEDS
-#define FASTLED_INTERRUPT_RETRY_COUNT 1
-#include "FastLED.h"
-#include "defs.hpp"
+#include "utils.hpp"
 #include "color.h"
 class AddrLeds
 {

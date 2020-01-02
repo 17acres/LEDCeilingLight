@@ -34,14 +34,18 @@ void Utils::doUpdates()
             if (++count == 10)
             {
                 count = 0;
+                yield();
                 HvLeds::getInstance()->update();
+                yield();
                 AddrLeds::getInstance()->update();
             }
         }
         else
         {
             count = 9; //Update leds immediately if animation just changed to off
+            yield();
             HvLeds::getInstance()->update();
+            yield();
             AddrLeds::getInstance()->update();
         }
     }
