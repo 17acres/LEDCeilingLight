@@ -4,19 +4,20 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/CeilingLight.ino.elf",
+            "program": "${workspaceFolder}/build/Adafruit_TLC59711_Dan.cpp.elf",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
-            "miDebuggerPath": "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\2.5.0-3-20ed2b9\\bin\\xtensa-lx106-elf-gdb.exe",
-            "miDebuggerServerAddress": "\\\\.\\\\COM9",
+            "miDebuggerPath": "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\2.5.0-4-b40a506\\bin\\xtensa-lx106-elf-gdb.exe",
+            "miDebuggerServerAddress": "\\\\.\\\\COM5",
             "setupCommands": [
                 {
                     "text": "set remote hardware-breakpoint-limit 1"

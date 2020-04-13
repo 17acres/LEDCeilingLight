@@ -18,7 +18,6 @@ private:
     {
         gettimeofday(&cbtime, NULL);
         cbtime_set = true;
-        Serial.println("------------------ settimeofday() was called ------------------");
     }
 
 public:

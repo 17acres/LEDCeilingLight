@@ -29,7 +29,7 @@ public:
             isWakeupSoon = false;
             if (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance())
             {
-                Serial.println("Slow On Started");
+                IFDEBUG(Serial.println("Slow On Started"));
                 Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());
                 Animations::AnimationManager::getInstance()->startAnimation();
             }
@@ -39,7 +39,7 @@ public:
     {
         String message = "Switch request recieved\n";
         server.send(200, "text/plain", message);
-        Serial.println(message);
+        IFDEBUG(Serial.println(message));
         EmailSender::sendDebugEmail("Switch web request received");
         LightSwitch::getInstance()->handleSwitchToggle();
     }
@@ -56,7 +56,7 @@ public:
             message += server.arg("plain");
             message += "\n";
             server.send(200, "text/plain", message);
-            Serial.println(message);
+            IFDEBUG(Serial.println(message));
             EmailSender::sendDebugEmail("Wakeup light request recieved", "Args: " + server.arg("plain"));
 
             String args = server.arg("plain");
@@ -76,7 +76,7 @@ public:
 
             wakeupStartTime -= minutesBefore * 60; //subtract number of seconds
             int timeUntil = wakeupStartTime - currentTime;
-            Serial.println(timeUntil);
+            IFDEBUG(Serial.println(timeUntil));
             isWakeupSoon = true;
             EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain") + "<br>Alarm Time: " + asctime(alarmTimeStruct) +"<br>Start Time: " + asctime(localtime(&wakeupStartTime)) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60));
         }
@@ -86,42 +86,42 @@ public:
     {
         String message = "Mode selection recieved:\n";
         server.send(200, "text/plain", message);
-        Serial.println(message);
+        IFDEBUG(Serial.println(message));
         String args = server.arg("plain");
         EmailSender::sendDebugEmail("Mode selection received", "Args: " + server.arg("plain"));
         if (args.equals("slowOn"))
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
-            Serial.println("Slow On mode by direct request");
+            IFDEBUG(Serial.println("Slow On mode by direct request"));
         }
         else if (args.equals("on"))
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::On::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
-            Serial.println("On mode by direct request");
+            IFDEBUG(Serial.println("On mode by direct request"));
         }
         else if (args.equals("fun"))
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::Fun::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
-            Serial.println("Fun mode by direct request");
+            IFDEBUG(Serial.println("Fun mode by direct request"));
         }
         else if (args.equals("nightLight"))
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::NightLight::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
-            Serial.println("Night light mode by direct request");
+            IFDEBUG(Serial.println("Night light mode by direct request"));
         }
         else if (args.equals("off"))
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::Off::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
-            Serial.println("Off mode by direct request");
+            IFDEBUG(Serial.println("Off mode by direct request"));
         }
         else
         {
-            Serial.println("Invalid selection");
+            IFDEBUG(Serial.println("Invalid selection"));
         }
     }
 };

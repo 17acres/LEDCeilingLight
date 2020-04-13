@@ -59,7 +59,7 @@ public:
         bool newSwitchState = !digitalRead(SW_SENSE_PIN);
         if (newSwitchState != lastSwitchState)
         {
-            Serial.println("Physical switch toggled");
+            IFDEBUG(Serial.println("Physical switch toggled"));
             EmailSender::sendDebugEmail("Physical switch toggled");
             handleSwitchToggle();         
         }

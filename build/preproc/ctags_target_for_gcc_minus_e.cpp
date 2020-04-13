@@ -62,7 +62,7 @@ Adafruit_TLC59711::Adafruit_TLC59711(uint8_t n, uint8_t c, uint8_t d) {
 
   BCr = BCg = BCb = 0x7F; // default 100% brigthness
 
-  pwmbuffer = (uint16_t *)({ static const char mem_debug_file[] __attribute__((section( "\".irom.text." "Adafruit_TLC59711_Dan.cpp" "." "40" "." "35" "\""))) __attribute__((aligned(4))) = "Adafruit_TLC59711_Dan.cpp"; pvPortCalloc(2, 12 * n, mem_debug_file, 40); });
+  pwmbuffer = (uint16_t *)calloc(2, 12 * n);
 }
 
 /*!
@@ -94,7 +94,7 @@ Adafruit_TLC59711::Adafruit_TLC59711(uint8_t n, uint8_t c, uint8_t d, uint32_t r
   SPI_SETTINGS._clock=r;
   BCr = BCg = BCb = 0x7F; // default 100% brigthness
 
-  pwmbuffer = (uint16_t *)({ static const char mem_debug_file[] __attribute__((section( "\".irom.text." "Adafruit_TLC59711_Dan.cpp" "." "61" "." "36" "\""))) __attribute__((aligned(4))) = "Adafruit_TLC59711_Dan.cpp"; pvPortCalloc(2, 12 * n, mem_debug_file, 61); });
+  pwmbuffer = (uint16_t *)calloc(2, 12 * n);
 }
 
 /*!
@@ -119,7 +119,7 @@ Adafruit_TLC59711::Adafruit_TLC59711(uint8_t n, SPIClass *theSPI) {
 
   BCr = BCg = BCb = 0x7F; // default 100% brigthness
 
-  pwmbuffer = (uint16_t *)({ static const char mem_debug_file[] __attribute__((section( "\".irom.text." "Adafruit_TLC59711_Dan.cpp" "." "79" "." "37" "\""))) __attribute__((aligned(4))) = "Adafruit_TLC59711_Dan.cpp"; pvPortCalloc(2, 12 * n, mem_debug_file, 79); });
+  pwmbuffer = (uint16_t *)calloc(2, 12 * n);
 }
 
 /*!
@@ -345,12 +345,24 @@ boolean Adafruit_TLC59711::begin() {
 # 8 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 # 9 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
 # 10 "n:\\classmate\\LEDCeilingLight\\CeilingLight.ino" 2
+
+//#define SETEEPROM
+
+
 HvLeds *hvLeds;
 AddrLeds *addrLeds;
 Animations::AnimationManager *animMan;
 
 void setup()
 {
+    EEPROM.begin(5);
+
+
+
+
+
+
+
     Serial.begin(115200);//Do this before RX pin is repurposed for dma LEDs (i2s)
     hvLeds = HvLeds::getInstance();
     addrLeds = AddrLeds::getInstance();
@@ -358,11 +370,12 @@ void setup()
 
     //gdbstub_init();
 
-    EEPROM.begin(sizeof(unsigned int));
+
+
     unsigned int numSeconds;
     EEPROM.get(0, numSeconds);
-    Serial.print("On Mode Second Count ");
-    Serial.println(numSeconds);
+    do{}while(0);
+    do{}while(0);
 
     pinMode(2, 0x01);
     digitalWrite(2, 0x0);
@@ -371,13 +384,13 @@ void setup()
     while (WiFi.status() != WL_CONNECTED)
     {
         delay(500);
-        Serial.print(".");
+        do{}while(0);
     }
 
     TimeManager::setup();
     WebServer::setup();
     EmailSender::setup();
-    EmailSender::sendEmail("Ceiling light started - On Mode Second Count: "+String(numSeconds));
+    EmailSender::sendEmail("Ceiling light started - On Mode Hours: "+String(((double)numSeconds)/(60.0*60.0)));
 }
 
 void loop()

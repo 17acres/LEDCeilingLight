@@ -19,6 +19,8 @@ class On : public Animation
     Animation *getNextAnimation() override { return this; }
     String getName() override{return "A brilliant light shall now spew forth with great fury        (On)";}
 
+    uint8_t getId() override{return 2;}
+
 public:
     static Animation *getInstance()
     {

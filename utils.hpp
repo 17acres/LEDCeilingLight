@@ -2,6 +2,8 @@
 #define UTILS
 #define FASTLED_ESP8266_DMA //https://github.com/coryking/FastLED NOT REGULAR LIBRARY
 #include "FastLED.h"
+#define FL_ALIGN_PROGMEM __attribute__ ((aligned (4)))//might help
+
 
 #include "pgmspace.h"
 #include "defs.hpp"
@@ -18,7 +20,7 @@ typedef struct RGBW16 RGBW16;
 class Utils
 {
     static const uint16_t PROGMEM gammaNoDriver[65536];
-    static const uint16_t PROGMEM gammaWithDriver[65536];
+    //static const uint16_t PROGMEM gammaWithDriver[65536];
 
 public:
     static RGBW16 colorGammaCorrectRGBW(CRGB in, uint16_t w, double colorScaleFactor)

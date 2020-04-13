@@ -6,7 +6,7 @@
 #include "utils.hpp"
 #include "timeManager.hpp"
 #include "funOnAnimation.hpp"
-#include "EEPROM.h"
+#include "ESP_EEPROM.h"
 
 namespace Animations
 {
@@ -41,10 +41,10 @@ class FadeOff : public Animation
                 {
                     unsigned int numSeconds;
                     EEPROM.get(0, numSeconds);
-                    Serial.print("On Mode Second Count: ");
-                    Serial.print(numSeconds);
-                    Serial.print(", seconds added: ");
-                    Serial.println(deltaSeconds);
+                    IFDEBUG(Serial.print("On Mode Second Count: "));
+                    IFDEBUG(Serial.print(numSeconds));
+                    IFDEBUG(Serial.print(", seconds added: "));
+                    IFDEBUG(Serial.println(deltaSeconds));
 
                     numSeconds += deltaSeconds;
                     EEPROM.put(0, numSeconds);

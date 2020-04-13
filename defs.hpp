@@ -27,4 +27,12 @@
 
 #define DEBUG_EMAILS false
 
+//#define DEBUG_SERIAL
+
+#ifdef DEBUG_SERIAL
+#define IFDEBUG(a) do{a}while(0)
+#else
+#define IFDEBUG(a) do{}while(0)
+#endif
+
 #endif

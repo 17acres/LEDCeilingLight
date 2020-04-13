@@ -48,11 +48,11 @@ void EmailSender::runSpooler(std::function<void(void)> whileWaiting)
             timeString+=" **TIME WAS ZERO, REPLACED WITH SEND TIME**";
         }
         if (SMTP.Send(emailDest, thisEmail.body + "<br>Sent at: " + timeString, whileWaiting))
-            Serial.println("Message sent");
+            IFDEBUG(Serial.println("Message sent"));
         else
         {
-            Serial.print("Sending Error ");
-            Serial.println(SMTP.getError());
+            IFDEBUG(Serial.print("Sending Error "));
+            IFDEBUG(Serial.println(SMTP.getError()));
         }
     }
 }

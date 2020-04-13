@@ -52,6 +52,8 @@ class SlowOn : public Animation
     }
     String getName() override{return "Everything the light touches is.... in danger. Slowly       (Slow On)";}
 
+    uint8_t getId() override{return 3;}
+
 public:
     static Animation *getInstance()
     {

@@ -47,6 +47,8 @@ public:
     virtual bool isFinished() { return frameIdx + 1 == numFrames; }
     virtual String getName(){return "A rose by any other name is terrible because someone didn't bother to name this mode...";}
 
+    virtual uint8_t getId(){return 0;}
+
 protected:
     uint16_t frameIdx;
     uint16_t numFrames;

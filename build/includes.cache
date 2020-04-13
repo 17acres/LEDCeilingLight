@@ -31,8 +31,8 @@
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\Adafruit_TLC59711_Dan.cpp.cpp",
-    "Include": "EEPROM.h",
-    "Includepath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.6.1\\libraries\\EEPROM"
+    "Include": "ESP_EEPROM.h",
+    "Includepath": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\ESP_EEPROM\\src"
   },
   {
     "Sourcefile": "n:\\classmate\\LEDCeilingLight\\build\\sketch\\Adafruit_TLC59711_Dan.cpp.cpp",
@@ -265,7 +265,7 @@
     "Includepath": ""
   },
   {
-    "Sourcefile": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.6.1\\libraries\\EEPROM\\EEPROM.cpp",
+    "Sourcefile": "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\ESP_EEPROM\\src\\ESP_EEPROM.cpp",
     "Include": "",
     "Includepath": ""
   },
