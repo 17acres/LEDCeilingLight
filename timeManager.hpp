@@ -29,7 +29,7 @@ public:
     static time_t getTime()
     {
         time_t now;
-        now = time(nullptr)-8*60*60;//fix weird 8 hour bug
+        now = time(nullptr);
         return now;
     }
     //Check for 1970 time

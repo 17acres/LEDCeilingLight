@@ -88,32 +88,33 @@ public:
         server.send(200, "text/plain", message);
         IFDEBUG(Serial.println(message));
         String args = server.arg("plain");
+        args.toLowerCase();
         EmailSender::sendDebugEmail("Mode selection received", "Args: " + server.arg("plain"));
-        if (args.equals("slowOn"))
+        if (args.indexOf("slow")>=0)
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::SlowOn::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
             IFDEBUG(Serial.println("Slow On mode by direct request"));
         }
-        else if (args.equals("on"))
+        else if (args.indexOf("on")>=0)
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::On::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
             IFDEBUG(Serial.println("On mode by direct request"));
         }
-        else if (args.equals("fun"))
+        else if (args.indexOf("fun")>=0)
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::Fun::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
             IFDEBUG(Serial.println("Fun mode by direct request"));
         }
-        else if (args.equals("nightLight"))
+        else if (args.indexOf("night")>=0)
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::NightLight::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();
             IFDEBUG(Serial.println("Night light mode by direct request"));
         }
-        else if (args.equals("off"))
+        else if (args.indexOf("off")>=0)
         {
             Animations::AnimationManager::getInstance()->setAnimation(Animations::Off::getInstance());
             Animations::AnimationManager::getInstance()->startAnimation();

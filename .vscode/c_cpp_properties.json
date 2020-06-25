@@ -23,7 +23,8 @@
                 "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\**",
                 "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\ESP_EEPROM\\**",
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.5.1\\**",
-                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.6.1\\**"
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.6.1\\**",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\**"
             ],
             "forcedInclude": [],
             "windowsSdkVersion": "10.0.17763.0",
