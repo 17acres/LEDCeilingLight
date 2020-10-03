@@ -53,7 +53,8 @@
         "bitset": "cpp",
         "regex": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "*.inc": "cpp"
     },
     "files.exclude": {
         "**/build": true

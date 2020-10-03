@@ -1,13 +1,13 @@
-#include <GDBStub.h>
-#include "hvLeds.hpp"
-#include "addrLeds.hpp"
-#include "utils.hpp"
-#include "animationManager.hpp"
-#include "timeManager.hpp"
-#include "lightSwitch.hpp"
-#include "ESP_EEPROM.h"
-#include "webServer.hpp"
-#include "defs.hpp"
+//#include <GDBStub.h>
+#include "src/drivers/hvLeds.hpp"
+#include "src/drivers/addrLeds.hpp"
+#include "src/utils.hpp"
+#include "src/animation/animationManager.hpp"
+#include "src/timeManager.hpp"
+#include "src/lightSwitch.hpp"
+#include <ESP_EEPROM.h>
+#include "src/webServer.hpp"
+#include "src/defs.hpp"
 //#define SETEEPROM
 
 
