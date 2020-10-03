@@ -10,7 +10,7 @@ private:
     Adafruit_TLC59711* tlc;
     HvLeds();
     bool isPowerSave;
-    double colorScaleFactor;
+    uint8_t colorScaleFactor;
 public:
     static HvLeds* getInstance(){
         if(instance ==0)
@@ -19,9 +19,8 @@ public:
     }
     void update();
     void setPowerSave(bool state);
-    void setTop(CRGB color, uint16_t white);
-    void setBot(CRGB color, uint16_t white);
-    void setColorScale(double colorScale);
+    void setTop(RGBW16 color);
+    void setBot(RGBW16 color);
     CRGB getTopRGB();
 };
 #endif

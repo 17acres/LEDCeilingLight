@@ -15,10 +15,11 @@ namespace Animations
         {
             numFrames = 100; //default
         }
-        void reset() override
+        void restart() override
         {
             numFrames = targetAnimation->getFadeInDuration();
-            Animation::reset();
+            targetAnimation->restart();
+            Animation::restart();
         }
 
         void nextFrame() override
@@ -43,20 +44,23 @@ namespace Animations
         }
         ValueStruct getCurrentFrame() override
         {
-            fract8 amountSource = 255*(frameIdx/100)%2;
+            fract16 amountSource16 = sin16(((uint16_t)frameIdx) * 32768 / numFrames + 16384) + 32768;
+            fract8 amountSource = amountSource16 >> 8;
+            //Serial.println(amountSource);
             ValueStruct sourceValues = sourceAnimation->getCurrentFrame();
-            memcpy(AddrLeds::getInstance()->vals, sourceRgb, sizeof(sourceRgb));
+            memcpy(sourceRgb, AddrLeds::getInstance()->vals, sizeof(sourceRgb));
             ValueStruct ret = targetAnimation->getCurrentFrame();
+            // Serial.println("Target: " + ret.toString());
+            // Serial.println("Source: " + sourceValues.toString());
 
             ret.isOff = false;
-            blend(ret.botColor, sourceValues.botColor, amountSource);
-            blend(ret.topColor, sourceValues.topColor, amountSource);
-            blend(AddrLeds::getInstance()->vals, sourceRgb, AddrLeds::getInstance()->vals, NUM_LEDS, amountSource);
 
-            ret.topWhite=(uint16_t)((((uint32_t)sourceValues.topWhite)*amountSource+((uint32_t)ret.topWhite)*(255-amountSource))/255);
-            ret.botWhite=(uint16_t)((((uint32_t)sourceValues.botWhite)*amountSource+((uint32_t)ret.botWhite)*(255-amountSource))/255);
-            ret.colorScaleFactor=((sourceValues.colorScaleFactor)*(double)amountSource+ret.colorScaleFactor*(255.0-(double)amountSource))/255.0;
+            ret.botColor = Utils::blendScaled(ret.botColor, sourceValues.botColor, amountSource);
+            ret.topColor = Utils::blendScaled(ret.topColor, sourceValues.topColor, amountSource);
 
+            nblend(AddrLeds::getInstance()->vals, sourceRgb, NUM_LEDS, amountSource);
+
+            //Serial.println("Mixed: " + ret.toString());
             return ret;
         }
         Animation *getNextAnimation() override { return targetAnimation; }

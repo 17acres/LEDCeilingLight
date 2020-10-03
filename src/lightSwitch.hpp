@@ -24,8 +24,9 @@ public:
         Animations::Animation *currentAnimation = Animations::AnimationManager::getInstance()->getCurrentAnimation();
         Animations::Animation *nextAnimation = Animations::Off::getInstance();
         if(currentAnimation==Animations::TransCrossfade::getInstance()){
-            currentAnimation=currentAnimation->getNextAnimation();
+            currentAnimation=currentAnimation->getNextAnimation();//so a double flick from party mode goes to off
         }
+        
         if (currentAnimation == Animations::Off::getInstance())
         {
             nextAnimation = Animations::On::getInstance();

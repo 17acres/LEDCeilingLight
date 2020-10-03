@@ -2,8 +2,7 @@
 #define UTILS
 #define FASTLED_ESP8266_DMA //https://github.com/coryking/FastLED NOT REGULAR LIBRARY
 #include "FastLED.h"
-#define FL_ALIGN_PROGMEM __attribute__ ((aligned (4)))//might help
-
+#define FL_ALIGN_PROGMEM __attribute__((aligned(4))) //might help
 
 #include "pgmspace.h"
 #include "defs.hpp"
@@ -16,6 +15,18 @@ struct RGBW16
     uint16_t w;
 };
 typedef struct RGBW16 RGBW16;
+inline RGBW16 operator/(const RGBW16 &p1, uint8_t d)
+{
+    return (RGBW16){p1.r / d, p1.g / d, p1.b / d, p1.w / d};
+}
+
+struct RGBPairScaled
+{
+    CRGB colorTop;
+    CRGB colorBot;
+    uint8_t colorScaleFactor;
+};
+typedef struct RGBW16 RGBW16;
 
 class Utils
 {
@@ -23,37 +34,25 @@ class Utils
     //static const uint16_t PROGMEM gammaWithDriver[65536];
 
 public:
-    static RGBW16 colorGammaCorrectRGBW(CRGB in, uint16_t w, double colorScaleFactor)
-    {
-        RGBW16 colorCorrected = {
-            ((uint16_t)(in.r)) * ((uint16_t)(0xFF)),
-            ((uint16_t)(in.g)) * ((uint16_t)(0x90)),
-            ((uint16_t)(in.b)) * ((uint16_t)(0xF0)),
-            w};
-        RGBW16 scaled = {
-            ((double)(colorCorrected.r)) * colorScaleFactor,
-            ((double)(colorCorrected.g)) * colorScaleFactor,
-            ((double)(colorCorrected.b)) * colorScaleFactor,
-            w};
-        // return (RGBW16){
-        //     pgm_read_word(&gammaWithDriver[colorCorrected.r]),
-        //     pgm_read_word(&gammaWithDriver[colorCorrected.g]),
-        //     pgm_read_word(&gammaWithDriver[colorCorrected.b]),
-        //     pgm_read_word(&gammaWithDriver[colorCorrected.w])};
-        return (RGBW16){
-            scaled.r,
-            scaled.g,
-            scaled.b,
-            pgm_read_word(&gammaNoDriver[colorCorrected.w])};
-    }
+    //colorScaleFactor is from 1/256 to 256/256
 
-    static RGBW16 pureWhiteCorrectRGBW(CRGB in, uint16_t w)
+    static RGBW16 rgbToRGBW16(CRGB color, uint16_t white, uint8_t colorScaleFactor)
+    {
+        RGBW16 ret = {
+            ((uint16_t)color.r) * colorScaleFactor + color.r,
+            ((uint16_t)color.g) * colorScaleFactor + color.g,
+            ((uint16_t)color.b) * colorScaleFactor + color.b,
+            white};
+        return ret;
+    }
+    static RGBW16 colorGammaCorrectRGBW(RGBW16 in)
     {
         RGBW16 colorCorrected = {
-            ((uint16_t)(in.r)) * ((uint16_t)(0xFF)),
-            ((uint16_t)(in.g)) * ((uint16_t)(0x99)),
-            ((uint16_t)(in.b)) * ((uint16_t)(0xE0)),
-            w};
+            (((uint32_t)in.r) * 257) >> 8,
+            (((uint32_t)in.g) * 145) >> 8,
+            (((uint32_t)in.b) * 242) >> 8,
+            in.w};
+
         // return (RGBW16){
         //     pgm_read_word(&gammaWithDriver[colorCorrected.r]),
         //     pgm_read_word(&gammaWithDriver[colorCorrected.g]),
@@ -65,6 +64,25 @@ public:
             colorCorrected.b,
             pgm_read_word(&gammaNoDriver[colorCorrected.w])};
     }
+
+    // static RGBW16 pureWhiteCorrectRGBW(RGBW16 in)
+    // {
+    //     RGBW16 colorCorrected = {
+    //         ((uint32_t)in.r) * 257,
+    //         ((uint32_t)in.r) * 233,
+    //         ((uint32_t)in.r) * 226,
+    //         in.w};
+    //     // return (RGBW16){
+    //     //     pgm_read_word(&gammaWithDriver[colorCorrected.r]),
+    //     //     pgm_read_word(&gammaWithDriver[colorCorrected.g]),
+    //     //     pgm_read_word(&gammaWithDriver[colorCorrected.b]),
+    //     //     pgm_read_word(&gammaWithDriver[colorCorrected.w])};
+    //     return (RGBW16){
+    //         colorCorrected.r,
+    //         colorCorrected.g,
+    //         colorCorrected.b,
+    //         pgm_read_word(&gammaNoDriver[colorCorrected.w])};
+    // }
 
     //Just use qmul8, qadd8, qsub8
 
@@ -126,6 +144,17 @@ public:
             hsv2rgb_spectrum(hsv, pFirstLED[i]);
             hsv.hue += deltahue;
         }
+    }
+
+    static RGBW16 blendScaled(RGBW16 color1, RGBW16 color2, fract8 amountOfColor2)
+    {
+        RGBW16 result;
+
+        result.r = (((uint32_t)color1.r) * (256 - amountOfColor2) + ((uint32_t)color2.r) * (amountOfColor2 + 1)) >> 8;
+        result.g = (((uint32_t)color1.g) * (256 - amountOfColor2) + ((uint32_t)color2.g) * (amountOfColor2 + 1)) >> 8;
+        result.b = (((uint32_t)color1.b) * (256 - amountOfColor2) + ((uint32_t)color2.b) * (amountOfColor2 + 1)) >> 8;
+        result.w = (((uint32_t)color1.w) * (256 - amountOfColor2) + ((uint32_t)color2.w) * (amountOfColor2 + 1)) >> 8;
+        return result;
     }
     static double temperature;
     static void updateTemp();

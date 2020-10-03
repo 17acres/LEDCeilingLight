@@ -22,27 +22,16 @@ void HvLeds::setPowerSave(bool state)
     digitalWrite(BUF_OE_PIN, state);
     if (state)
     {
-        HvLeds::setTop(CRGB::Black, 0);
-        HvLeds::setBot(CRGB::Black, 0);
+        HvLeds::setTop(Utils::rgbToRGBW16(CRGB::Black, 0,255));
+        HvLeds::setBot(Utils::rgbToRGBW16(CRGB::Black, 0,255));
     }
 }
-void HvLeds::setColorScale(double colorScale)
-{
-    colorScaleFactor = colorScale;
-}
-void HvLeds::setTop(CRGB color, uint16_t white)
+
+void HvLeds::setTop(RGBW16 color)
 {
     if (!isPowerSave)
     {
-        RGBW16 corrected;
-        if (color == (CRGB)CRGB::White)
-        {
-            corrected = Utils::pureWhiteCorrectRGBW(color, white);
-        }
-        else
-        {
-            corrected = Utils::colorGammaCorrectRGBW(color, white,colorScaleFactor);
-        }
+        RGBW16 corrected = Utils::colorGammaCorrectRGBW(color);
         tlc->setPWM(TOP_R_CHAN, corrected.r);
         tlc->setPWM(TOP_G_CHAN, corrected.g);
         tlc->setPWM(TOP_B_CHAN, corrected.b);
@@ -50,19 +39,11 @@ void HvLeds::setTop(CRGB color, uint16_t white)
     }
 }
 
-void HvLeds::setBot(CRGB color, uint16_t white)
+void HvLeds::setBot(RGBW16 color)
 {
     if (!isPowerSave)
     {
-        RGBW16 corrected;
-        if (color == (CRGB)CRGB::White)
-        {
-            corrected = Utils::pureWhiteCorrectRGBW(color, white);
-        }
-        else
-        {
-            corrected = Utils::colorGammaCorrectRGBW(color, white,colorScaleFactor);
-        }
+        RGBW16 corrected = Utils::colorGammaCorrectRGBW(color);
         tlc->setPWM(BOT_R_CHAN, corrected.r);
         tlc->setPWM(BOT_G_CHAN, corrected.g);
         tlc->setPWM(BOT_B_CHAN, corrected.b);

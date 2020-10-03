@@ -1,6 +1,7 @@
 #ifndef ONANIM
 #define ONANIM
 #include "../animation.hpp"
+#include "../../utils.hpp"
 namespace Animations
 {
 class On : public Animation
@@ -13,8 +14,8 @@ class On : public Animation
     ValueStruct getCurrentFrame() override
     {
         digitalWrite(LED_BUILTIN, LOW);
-
-        return (ValueStruct){false, 0, 0, 65535, 65535, 1};
+        fill_solid(AddrLeds::getInstance()->vals, NUM_LEDS, CRGB::Black);
+        return (ValueStruct){false, Utils::rgbToRGBW16(CRGB::Black,65535,255), Utils::rgbToRGBW16(CRGB::Black,65535,255)};
     }
     Animation *getNextAnimation() override { return this; }
     String getName() override{return "A brilliant light shall now spew forth with great fury        (On)";}

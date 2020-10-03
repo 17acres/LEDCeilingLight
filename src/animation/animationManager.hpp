@@ -9,12 +9,13 @@
 #include "modes/slowOn.hpp"
 #include "modes/party.hpp"
 #include "modes/transCrossfade.hpp"
+#include "modes/snapshot.hpp"
 #include "../drivers/hvLeds.hpp"
 #include "../drivers/addrLeds.hpp"
 #include "../emailSender.hpp"
 #include "../utils.hpp"
 #include "ESP_EEPROM.h"
-#include "Arduino.h"
+
 namespace Animations
 {
     class AnimationManager
@@ -47,7 +48,7 @@ namespace Animations
             if (animation != currentAnimation)
             {
                 currentAnimation = animation;
-                currentAnimation->reset();
+                currentAnimation->restart();
                 setNextAnimation(currentAnimation->getNextAnimation());
                 EmailSender::sendDebugEmail("Animation mode changed to: " + currentAnimation->getName());
                 unsigned int animId;
@@ -59,20 +60,17 @@ namespace Animations
                 }
             }
         }
-        void startAnimation() { currentAnimation->start(); }
-        void stopAnimation() { currentAnimation->forceEnd(); }
         void restartAnimation() { currentAnimation->restart(); }
         Animation::ValueStruct getCurrentAnimationState() { return currentAnimation->getCurrentFrame(); }
         void update()
         {
             Animation::ValueStruct vals = getCurrentAnimationState();
-            HvLeds::getInstance()->setColorScale(vals.colorScaleFactor);
 
             if (isTemperatureOK(vals))
             { //if not, LEDs are turned off inside isTemperatureOK
                 HvLeds::getInstance()->setPowerSave(vals.isOff);
-                HvLeds::getInstance()->setTop(vals.topColor, vals.topWhite);
-                HvLeds::getInstance()->setBot(vals.botColor, vals.botWhite);
+                HvLeds::getInstance()->setTop(vals.topColor);
+                HvLeds::getInstance()->setBot(vals.botColor);
             }
 
             if (currentAnimation->isFinished())
@@ -89,9 +87,15 @@ namespace Animations
                     }
                 }
 
-                currentAnimation = nextAnimation;
-                if (currentAnimation != TransCrossfade::getInstance()) //crossfade will already start new animation
+                if (currentAnimation == TransCrossfade::getInstance())
+                { //crossfade will have already started new animation
+                    currentAnimation = nextAnimation;
+                }
+                else
+                {
+                    currentAnimation = nextAnimation;
                     currentAnimation->restart();
+                }
             }
             else
             {
@@ -108,26 +112,33 @@ namespace Animations
 
         void doTransition(Animation *targetAnimation)
         {
-            Serial.println("doing transition from"+getCurrentAnimation()->getName()+" to "+targetAnimation->getName());
-            if (getCurrentAnimation() != targetAnimation)
+            if (currentAnimation != targetAnimation)
             {
-                Animation *transitionAnimation = TransCrossfade::getInstance();
-                if(getCurrentAnimation()!=transitionAnimation)
-                    ((TransCrossfade *)transitionAnimation)->sourceAnimation = getCurrentAnimation();
+                TransCrossfade *crossfadeAnimation = (TransCrossfade *)TransCrossfade::getInstance();
 
-                
-                ((TransCrossfade *)transitionAnimation)->targetAnimation = targetAnimation;
+                if (currentAnimation == TransCrossfade::getInstance())
+                {
+                    ((Snapshot *)Snapshot::getInstance())->sourceAnimation = currentAnimation;
+                    Snapshot::getInstance()->restart(); //update snapshot with current values
+                    currentAnimation = Snapshot::getInstance();
+                }
+
+                crossfadeAnimation->sourceAnimation = currentAnimation;
+                crossfadeAnimation->targetAnimation = targetAnimation;
+
+                Animation *transitionAnimation = crossfadeAnimation;
 
                 if (currentAnimation == Off::getInstance())
                 {
                     if (targetAnimation == On::getInstance())
-                        transitionAnimation == TransOffOn::getInstance();
+                        transitionAnimation = TransOffOn::getInstance();
                 }
                 else if (currentAnimation == On::getInstance())
                 {
                     if (targetAnimation == Off::getInstance())
-                        transitionAnimation == TransOnOff::getInstance();
+                        transitionAnimation = TransOnOff::getInstance();
                 }
+                IFDEBUG(Serial.println("doing transition from " + getCurrentAnimation()->getName() + " to " + targetAnimation->getName() + " using " + transitionAnimation->getName()));
                 setAnimation(transitionAnimation);
                 restartAnimation();
             }
@@ -158,8 +169,8 @@ namespace Animations
             if (Utils::temperature > 130)
             {
                 HvLeds::getInstance()->setPowerSave(true);
-                HvLeds::getInstance()->setTop(CRGB::Black, 0);
-                HvLeds::getInstance()->setBot(CRGB::Black, 0);
+                HvLeds::getInstance()->setTop(Utils::rgbToRGBW16(CRGB::Black, 0,255));
+                HvLeds::getInstance()->setBot(Utils::rgbToRGBW16(CRGB::Black, 0,255));
                 fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
                 if (!wasHot)
                 {
@@ -170,8 +181,8 @@ namespace Animations
             else if (Utils::temperature > 120)
             {
                 HvLeds::getInstance()->setPowerSave(vals.isOff);
-                HvLeds::getInstance()->setTop(vals.topColor / (uint8_t)2, vals.topWhite / 2);
-                HvLeds::getInstance()->setBot(vals.topColor / (uint8_t)2, vals.botWhite / 2);
+                HvLeds::getInstance()->setTop(vals.topColor / 2);
+                HvLeds::getInstance()->setBot(vals.topColor / 2);
                 fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
                 if (!wasWarm)
                 {

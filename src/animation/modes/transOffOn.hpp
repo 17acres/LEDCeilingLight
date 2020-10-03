@@ -23,10 +23,8 @@ class TransOffOn : public Animation
             onTime = TimeManager::getTime();
         digitalWrite(LED_BUILTIN, LOW);
         ValueStruct ret;
-        ret.colorScaleFactor=1;
         ret.isOff = false;
-        ret.topWhite = ret.botWhite = pow(1.214785, frameIdx);
-        ret.topColor = ret.botColor = CHSV(frameIdx, 255 - qmul8(frameIdx, 5), ret.topWhite / 255ul);
+        ret.topColor = ret.botColor = Utils::rgbToRGBW16(CHSV(frameIdx, 255 - qmul8(frameIdx, 5), pow(1.214785, frameIdx) / 255ul), pow(1.214785, frameIdx), 255) ;
         if (frameIdx < 30)
         {
             uint16_t rainbowEnd = frameIdx + frameIdx / 2 - (frameIdx * frameIdx) / 42;

@@ -12,28 +12,18 @@ public:
     struct ValueStruct
     {
         bool isOff;
-        CRGB topColor;
-        CRGB botColor;
-        uint16_t topWhite;
-        uint16_t botWhite;
-        double colorScaleFactor;
+        RGBW16 topColor;
+        RGBW16 botColor;
         String toString()
         {
-            return ("isOff: " + String(isOff) + ", Top (" + String(topColor.r) + "," + String(topColor.g) + "," + String(topColor.b) + "," + String(topWhite) + ")" + ", Bot (" + String(botColor.r) + "," + String(botColor.g) + "," + String(botColor.b) + "," + String(botWhite) + ") Scale Factor:" + String(colorScaleFactor));
+            return ("isOff: " + String(isOff) + ", Top (" + String(topColor.r) + "," + String(topColor.g) + "," + String(topColor.b) + "," + String(topColor.w) + ")" + ", Bot (" + String(botColor.r) + "," + String(botColor.g) + "," + String(botColor.b) + "," + String(botColor.w) + ")");
         }
     };
     typedef struct ValueStruct ValueStruct;
-    virtual void reset() { frameIdx = 0; }
-    virtual void start() { isRunning = true; }
     virtual void restart()
     {
         frameIdx = 0;
         isRunning = true;
-    }
-    virtual void forceEnd()
-    {
-        frameIdx = numFrames - 1;
-        isRunning = false;
     }
     virtual uint16_t getFrameIdx() { return frameIdx; }
     virtual uint16_t getNumFrames() { return numFrames; }
@@ -50,7 +40,7 @@ public:
     virtual String getName(){return "A rose by any other name is terrible because someone didn't bother to name this mode...";}
 
     virtual uint8_t getId(){return 0;}
-    virtual uint16_t getFadeInDuration(){return 2*FRAMERATE;}//frames
+    virtual uint16_t getFadeInDuration(){return FRAMERATE/2;}//frames
 protected:
     uint16_t frameIdx;
     uint16_t numFrames;
