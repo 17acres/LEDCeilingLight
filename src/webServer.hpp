@@ -4,6 +4,13 @@
 #include "animation/animationManager.hpp"
 #include "lightSwitch.hpp"
 #include "emailSender.hpp"
+
+#include <AsyncPing.h>
+#include <ESP8266WiFi.h>
+extern "C"
+{
+#include <lwip/icmp.h> // needed for icmp packet definitions
+}
 //https://techtutorialsx.com/2017/03/26/esp8266-webserver-accessing-the-body-of-a-http-request/
 
 class WebServer
@@ -24,6 +31,7 @@ public:
     static void update()
     {
         server.handleClient();
+        periodicPingTest();
         if ((isWakeupSoon) && (TimeManager::getTime() > wakeupStartTime))
         {
             isWakeupSoon = false;
@@ -78,7 +86,7 @@ public:
             int timeUntil = wakeupStartTime - currentTime;
             IFDEBUG(Serial.println(timeUntil));
             isWakeupSoon = true;
-            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain") + "<br>Alarm Time: " + asctime(alarmTimeStruct) +"<br>Start Time: " + asctime(localtime(&wakeupStartTime)) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60));
+            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain") + "<br>Alarm Time: " + asctime(alarmTimeStruct) + "<br>Start Time: " + asctime(localtime(&wakeupStartTime)) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60));
         }
     }
 
@@ -90,27 +98,27 @@ public:
         String args = server.arg("plain");
         args.toLowerCase();
         EmailSender::sendDebugEmail("Mode selection received", "Args: " + server.arg("plain"));
-        if (args.indexOf("slow")>=0)
+        if (args.indexOf("slow") >= 0)
         {
             Animations::AnimationManager::getInstance()->doTransition(Animations::SlowOn::getInstance());
             IFDEBUG(Serial.println("Slow On mode by direct request"));
         }
-        else if (args.indexOf("on")>=0)
+        else if (args.indexOf("on") >= 0)
         {
             Animations::AnimationManager::getInstance()->doTransition(Animations::On::getInstance());
             IFDEBUG(Serial.println("On mode by direct request"));
         }
-        else if (args.indexOf("party")>=0)
+        else if (args.indexOf("party") >= 0)
         {
             Animations::AnimationManager::getInstance()->doTransition(Animations::Party::getInstance());
             IFDEBUG(Serial.println("Party mode by direct request"));
         }
-        else if (args.indexOf("night")>=0)
+        else if (args.indexOf("night") >= 0)
         {
             Animations::AnimationManager::getInstance()->doTransition(Animations::NightLight::getInstance());
             IFDEBUG(Serial.println("Night light mode by direct request"));
         }
-        else if (args.indexOf("off")>=0)
+        else if (args.indexOf("off") >= 0)
         {
             Animations::AnimationManager::getInstance()->doTransition(Animations::Off::getInstance());
             IFDEBUG(Serial.println("Off mode by direct request"));
@@ -120,5 +128,18 @@ public:
             IFDEBUG(Serial.println("Invalid selection"));
         }
     }
+
+    static void periodicPingTest()
+    {
+        static unsigned long lastRunTime = 0;
+        if ((millis() - lastRunTime) > 5*60*1000) //every 5 minutes
+        {
+            runPingTest();
+            lastRunTime=millis();
+        }
+    }
+
+    static AsyncPing ping;
+    static void runPingTest();
 };
 #endif

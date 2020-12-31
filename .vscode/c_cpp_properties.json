@@ -12,7 +12,8 @@
                 "ARDUINO=10809",
                 "ARDUINO_ESP8266_WEMOS_D1MINI",
                 "ARDUINO_ARCH_ESP8266",
-                "ESP8266"
+                "ESP8266",
+                "USBCON"
             ],
             "includePath": [
                 "${workspaceFolder}/**",
@@ -22,8 +23,10 @@
                 "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\Adafruit_TLC59711\\**",
                 "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\FastLED\\**",
                 "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\ESP_EEPROM\\**",
+                "C:\\Users\\Dan\\Documents\\Arduino\\libraries\\AsyncPing-1.1.0\\**",
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\**",
-                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\cores\\esp8266\\**"
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\cores\\esp8266\\**",
+                "C:\\Program Files (x86)\\Arduino\\libraries\\**"
             ],
             "forcedInclude": [
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\cores\\esp8266\\Arduino.h"
