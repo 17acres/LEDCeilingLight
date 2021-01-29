@@ -17,16 +17,18 @@ class WebServer
 {
 private:
     static ESP8266WebServer server;
+    static WiFiServer tcpServer;
     static bool isWakeupSoon;
     static time_t wakeupStartTime;
 
 public:
     static void setup()
     {
-        server.on("/lightOn", handleSwitchRequest);
-        server.on("/wakeupLight", handleWakeupLightRequest);
-        server.on("/setMode", handleSetModeRequest);
+        server.on("/lightOn", handleSwitchRequestHttp);
+        server.on("/wakeupLight", handleWakeupLightRequestHttp);
+        server.on("/setMode", handleSetModeRequestHttp);
         server.begin();
+        tcpServer.begin();
     }
     static void update()
     {
@@ -42,32 +44,110 @@ public:
                 Animations::AnimationManager::getInstance()->restartAnimation();
             }
         }
+
+        checkTcpServer();
     }
-    static void handleSwitchRequest()
+
+    static void handleSwitchRequestHttp()
     {
-        String message = "Switch request recieved\n";
-        server.send(200, "text/plain", message);
-        IFDEBUG(Serial.println(message));
+        server.send(200, "text/plain", handleSwitchRequest());
+    }
+
+    static void handleWakeupLightRequestHttp()
+    {
+        server.send(200, "text/plain", handleWakeupLightRequest(server.arg("plain")));
+    }
+
+    static void handleSetModeRequestHttp()
+    {
+        server.send(200, "text/plain", handleSetModeRequest(server.arg("plain")));
+    }
+
+    static void periodicPingTest()
+    {
+        static unsigned long lastRunTime = 0;
+        if ((millis() - lastRunTime) > 5 * 60 * 1000) //every 5 minutes
+        {
+            runPingTest();
+            lastRunTime = millis();
+        }
+    }
+    static void checkTcpServer()
+    {
+        static unsigned int failCnt=0;
+        static unsigned long lastRxTime = 0;
+
+        WiFiClient client = tcpServer.available();
+        if (client)
+        {
+            if (millis() < (lastRxTime + 1000))
+            {
+                client.stop();
+                failCnt++;
+                if(failCnt>10){
+                    EmailSender::sendEmail("Being attacked??????????");
+                    tcpServer.stop();
+                }
+            }
+            else
+            {
+                char readArr[64];
+                int readLen;
+                readLen = client.readBytesUntil('\n', readArr, 63);
+                readArr[readLen] = '\0';
+                String readString(readArr);
+
+                IFDEBUG(Serial.println(readString));
+                String path = readString.substring(0, min(readString.indexOf('?'), (int)readString.length()));
+                String args = readString.substring(max(readString.indexOf('=') + 1, 0), (int)readString.length());
+                IFDEBUG(Serial.println(path));
+                IFDEBUG(Serial.println(args));
+                if (path == "/lightOn")
+                {
+                    client.println(handleSwitchRequest());
+                }
+                else if (path == "/wakeupLight")
+                {
+                    client.println(handleWakeupLightRequest(args));
+                }
+                else if (path == "/setMode")
+                {
+                    client.println(handleSetModeRequest(args));
+                }
+                else
+                {
+                    client.println("Not Found");
+                }
+                if(failCnt>0)
+                    failCnt--;
+            }
+            client.stop();
+            lastRxTime = millis();
+        }
+    }
+
+    static String handleSwitchRequest()
+    {
+        IFDEBUG(Serial.println("Switch request received\n"));
         EmailSender::sendDebugEmail("Switch web request received");
         LightSwitch::getInstance()->handleSwitchToggle();
+        return "Switch request received\n";
     }
-    static void handleWakeupLightRequest()
+
+    //args is just data
+    static String handleWakeupLightRequest(String args)
     {
         if (isWakeupSoon)
         {
-            server.send(429, "text/plain", "Wakeup time already scheduled");
             EmailSender::sendDebugEmail("Wakeup time already scheduled", "You are tearing me apart. You said one thing, now you say another");
+            return "Wakeup time already scheduled";
         }
         else
         {
-            String message = "Wakeup request recieved:\n";
-            message += server.arg("plain");
-            message += "\n";
-            server.send(200, "text/plain", message);
-            IFDEBUG(Serial.println(message));
-            EmailSender::sendDebugEmail("Wakeup light request recieved", "Args: " + server.arg("plain"));
 
-            String args = server.arg("plain");
+            IFDEBUG(Serial.println("Wakeup request received: " + args + "\n"));
+            EmailSender::sendDebugEmail("Wakeup light request received", "Args: " + args);
+
             int minutesBefore = args.substring(args.indexOf(';') + 1).toInt();
             int semicolonLocation = args.indexOf(':');
             int hours = args.substring(semicolonLocation - 2, semicolonLocation).toInt();
@@ -86,18 +166,16 @@ public:
             int timeUntil = wakeupStartTime - currentTime;
             IFDEBUG(Serial.println(timeUntil));
             isWakeupSoon = true;
-            EmailSender::sendEmail("Wakeup light request recieved", "Args: " + server.arg("plain") + "<br>Alarm Time: " + asctime(alarmTimeStruct) + "<br>Start Time: " + asctime(localtime(&wakeupStartTime)) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60));
+            EmailSender::sendEmail("Wakeup light request received", "Args: " + args + "<br>Alarm Time: " + asctime(alarmTimeStruct) + "<br>Start Time: " + asctime(localtime(&wakeupStartTime)) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60));
+            return "Wakeup request received: " + args + "\n";
         }
     }
 
-    static void handleSetModeRequest()
+    static String handleSetModeRequest(String args)
     {
-        String message = "Mode selection recieved:\n";
-        server.send(200, "text/plain", message);
-        IFDEBUG(Serial.println(message));
-        String args = server.arg("plain");
+        IFDEBUG(Serial.println("Mode selection received: " + args + "\n"));
         args.toLowerCase();
-        EmailSender::sendDebugEmail("Mode selection received", "Args: " + server.arg("plain"));
+        EmailSender::sendDebugEmail("Mode selection received", "Args: " + args);
         if (args.indexOf("slow") >= 0)
         {
             Animations::AnimationManager::getInstance()->doTransition(Animations::SlowOn::getInstance());
@@ -127,18 +205,8 @@ public:
         {
             IFDEBUG(Serial.println("Invalid selection"));
         }
+        return "Mode selection received: " + args + "\n";
     }
-
-    static void periodicPingTest()
-    {
-        static unsigned long lastRunTime = 0;
-        if ((millis() - lastRunTime) > 5*60*1000) //every 5 minutes
-        {
-            runPingTest();
-            lastRunTime=millis();
-        }
-    }
-
     static AsyncPing ping;
     static void runPingTest();
 };

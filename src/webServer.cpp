@@ -1,5 +1,6 @@
 #include "webServer.hpp"
 ESP8266WebServer WebServer::server(80);
+WiFiServer WebServer::tcpServer(23);
 bool WebServer::isWakeupSoon;
 time_t WebServer::wakeupStartTime;
 AsyncPing WebServer::ping;
