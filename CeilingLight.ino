@@ -8,6 +8,7 @@
 #include <ESP_EEPROM.h>
 #include "src/webServer.hpp"
 #include "src/defs.hpp"
+#include <time.h>
 //#define SETEEPROM
 
 
@@ -50,9 +51,15 @@ void setup()
     }
 
     TimeManager::setup();
+    // while(!TimeManager::isReady()){
+    //     delay(500);
+    //     IFDEBUG(Serial.print("*"));
+    // }
+    // time_t time=TimeManager::getTime();
+    // Serial.print(asctime(localtime(&time)));
     WebServer::setup();
     EmailSender::setup();
-    EmailSender::sendEmail("Ceiling light started - On Mode Hours: "+String(((double)numSeconds)/(60.0*60.0)));
+    EmailSender::sendEmail("Ceiling light started - On Mode Hours: "+String(((double)numSeconds)/(60.0*60.0)),false);
 }
 
 void loop()

@@ -50,7 +50,7 @@ namespace Animations
                 currentAnimation = animation;
                 currentAnimation->restart();
                 setNextAnimation(currentAnimation->getNextAnimation());
-                EmailSender::sendDebugEmail("Animation mode changed to: " + currentAnimation->getName());
+                EmailSender::sendDebugEmail("Animation mode changed to: " + currentAnimation->getName(),true);
                 unsigned int animId;
                 EEPROM.get(4, animId); //Only backup current status to EEPROM if it is a state which we care about
                 if (currentAnimation->getId() != animId)
@@ -77,7 +77,7 @@ namespace Animations
             {
                 if (currentAnimation != nextAnimation)
                 {
-                    EmailSender::sendDebugEmail("Animation mode changed to: " + nextAnimation->getName());
+                    EmailSender::sendDebugEmail("Animation mode changed to: " + nextAnimation->getName(),true);
                     unsigned int animId;
                     EEPROM.get(4, animId); //Only backup current status to EEPROM if it is a state which we care about
                     if (nextAnimation->getId() != animId)
@@ -174,7 +174,7 @@ namespace Animations
                 fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
                 if (!wasHot)
                 {
-                    EmailSender::sendEmail("I am basically on fire... RIP me... Temp is: " + String(Utils::temperature) + "F");
+                    EmailSender::sendEmail("I am basically on fire... RIP me... Temp is: " + String(Utils::temperature) + "F",false);
                     wasHot = true;
                 }
             }
@@ -186,7 +186,7 @@ namespace Animations
                 fill_solid(AddrLeds::vals, NUM_LEDS, CRGB::Black);
                 if (!wasWarm)
                 {
-                    EmailSender::sendEmail("I'm too toasty... Oof... Temp is: " + String(Utils::temperature) + "F");
+                    EmailSender::sendEmail("I'm too toasty... Oof... Temp is: " + String(Utils::temperature) + "F",false);
                     wasWarm = true;
                 }
             }

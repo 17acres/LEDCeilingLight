@@ -7,32 +7,58 @@
 
 #include <AsyncPing.h>
 #include <ESP8266WiFi.h>
+#include <PubSubClient.h>
+#include <ESP8266WiFi.h>
+#include <ArduinoJson.h>
+
+#include "../noGit/auth.hpp"
+
 extern "C"
 {
 #include <lwip/icmp.h> // needed for icmp packet definitions
 }
 //https://techtutorialsx.com/2017/03/26/esp8266-webserver-accessing-the-body-of-a-http-request/
+//https://beebotte.com/tutorials/led_control
 
 class WebServer
 {
 private:
     static ESP8266WebServer server;
-    static WiFiServer tcpServer;
+    //static BearSSL::WiFiClientSecure wiFiClient;
+    static WiFiClient wiFiClient;
+    //static BearSSL::X509List cert;
     static bool isWakeupSoon;
     static time_t wakeupStartTime;
+    static bool hackFlag;
+    static const char validMQTTIdChars[63];
+    static char mqttId[17];
+    //static const char beebotteCACert[2168];
 
 public:
+    static PubSubClient mqttClient;
     static void setup()
     {
         server.on("/lightOn", handleSwitchRequestHttp);
         server.on("/wakeupLight", handleWakeupLightRequestHttp);
         server.on("/setMode", handleSetModeRequestHttp);
         server.begin();
-        tcpServer.begin();
+        //cert = BearSSL::X509List(beebotteCACert);
+
+        //wiFiClient.setTrustAnchors(&cert);
+
+        mqttClient.setServer("mqtt.beebotte.com", 1883);//8883 for secure
+        // char errStr[120];
+        // errStr[0]=0;
+        // wiFiClient.getLastSSLError(errStr,120);
+        // IFDEBUG(Serial.println(errStr));
+
+        mqttClient.setCallback(mqttHandler);
+        mqttClient.setBufferSize(512);
     }
     static void update()
     {
         server.handleClient();
+        checkMQTT();
         periodicPingTest();
         if ((isWakeupSoon) && (TimeManager::getTime() > wakeupStartTime))
         {
@@ -44,8 +70,6 @@ public:
                 Animations::AnimationManager::getInstance()->restartAnimation();
             }
         }
-
-        checkTcpServer();
     }
 
     static void handleSwitchRequestHttp()
@@ -72,64 +96,111 @@ public:
             lastRunTime = millis();
         }
     }
-    static void checkTcpServer()
-    {
-        static unsigned int failCnt=0;
-        static unsigned long lastRxTime = 0;
 
-        WiFiClient client = tcpServer.available();
-        if (client)
+    static void mqttHandler(char *topic, byte *payload, unsigned int length)
+    {
+        static long lastRxTime = 0;
+        static int failCnt = 0;
+        String topicStr = String(topic);
+        if (topicStr.indexOf("control") != -1)
         {
+            IFDEBUG(Serial.println((char *)payload));
+            StaticJsonDocument<128> root;
+            DeserializationError err = deserializeJson(root, payload);
+
+            // Test if parsing succeeds.
+            if (err.code() != DeserializationError::Ok)
+            {
+                IFDEBUG(Serial.println("parseObject() failed"));
+                return;
+            }
+            String requestStr = root["data"];
+
             if (millis() < (lastRxTime + 1000))
             {
-                client.stop();
                 failCnt++;
-                if(failCnt>10){
-                    EmailSender::sendEmail("Being attacked??????????");
-                    tcpServer.stop();
+                if (failCnt > 10)
+                {
+                    EmailSender::sendEmail("Being attacked??????????", false);
+                    mqttClient.disconnect();
+                    hackFlag = true;
                 }
             }
             else
             {
-                char readArr[64];
-                int readLen;
-                readLen = client.readBytesUntil('\n', readArr, 63);
-                readArr[readLen] = '\0';
-                String readString(readArr);
-
-                IFDEBUG(Serial.println(readString));
-                String path = readString.substring(0, min(readString.indexOf('?'), (int)readString.length()));
-                String args = readString.substring(max(readString.indexOf('=') + 1, 0), (int)readString.length());
+                String path = requestStr.substring(0, min(requestStr.indexOf('?'), (int)requestStr.length()));
+                String args = requestStr.substring(max(requestStr.indexOf('=') + 1, 0), (int)requestStr.length());
                 IFDEBUG(Serial.println(path));
                 IFDEBUG(Serial.println(args));
                 if (path == "/lightOn")
                 {
-                    client.println(handleSwitchRequest());
+                    handleSwitchRequest();
                 }
                 else if (path == "/wakeupLight")
                 {
-                    client.println(handleWakeupLightRequest(args));
+                    handleWakeupLightRequest(args);
                 }
                 else if (path == "/setMode")
                 {
-                    client.println(handleSetModeRequest(args));
+                    handleSetModeRequest(args);
                 }
-                else
-                {
-                    client.println("Not Found");
-                }
-                if(failCnt>0)
-                    failCnt--;
+                lastRxTime = millis();
             }
-            client.stop();
-            lastRxTime = millis();
+        }
+    }
+
+    static const char *generateID()
+    {
+        randomSeed(analogRead(0));
+        int i = 0;
+        for (i = 0; i < sizeof(mqttId) - 1; i++)
+        {
+            mqttId[i] = validMQTTIdChars[random(sizeof(validMQTTIdChars))];
+        }
+        mqttId[sizeof(mqttId) - 1] = '\0';
+
+        return mqttId;
+    }
+
+    static boolean reconnectMQTT()
+    {
+        if (mqttClient.connect(generateID(), AUTH_MQTT_TOKEN, ""))
+        {
+            char topic[64];
+            sprintf(topic, "%s/%s", "ceilinglight", "control");
+            mqttClient.subscribe(topic);
+
+            IFDEBUG(Serial.println("Connected to Beebotte MQTT"));
+        }
+        return mqttClient.connected();
+    }
+
+    static void checkMQTT()
+    {
+        static long lastReconnectAttempt = 0;
+        if (!mqttClient.connected() && !hackFlag)
+        {
+            long now = millis();
+            if (now - lastReconnectAttempt > 5000)
+            {
+                lastReconnectAttempt = now;
+                // Attempt to reconnect
+                if (reconnectMQTT())
+                {
+                    lastReconnectAttempt = 0;
+                }
+            }
+        }
+        else
+        {
+            mqttClient.loop();
         }
     }
 
     static String handleSwitchRequest()
     {
         IFDEBUG(Serial.println("Switch request received\n"));
-        EmailSender::sendDebugEmail("Switch web request received");
+        EmailSender::sendDebugEmail("Switch web request received", true);
         LightSwitch::getInstance()->handleSwitchToggle();
         return "Switch request received\n";
     }
@@ -139,14 +210,14 @@ public:
     {
         if (isWakeupSoon)
         {
-            EmailSender::sendDebugEmail("Wakeup time already scheduled", "You are tearing me apart. You said one thing, now you say another");
+            EmailSender::sendDebugEmail("Wakeup time already scheduled", "You are tearing me apart. You said one thing, now you say another", true);
             return "Wakeup time already scheduled";
         }
         else
         {
 
             IFDEBUG(Serial.println("Wakeup request received: " + args + "\n"));
-            EmailSender::sendDebugEmail("Wakeup light request received", "Args: " + args);
+            EmailSender::sendDebugEmail("Wakeup light request received", "Args: " + args, true);
 
             int minutesBefore = args.substring(args.indexOf(';') + 1).toInt();
             int semicolonLocation = args.indexOf(':');
@@ -166,7 +237,7 @@ public:
             int timeUntil = wakeupStartTime - currentTime;
             IFDEBUG(Serial.println(timeUntil));
             isWakeupSoon = true;
-            EmailSender::sendEmail("Wakeup light request received", "Args: " + args + "<br>Alarm Time: " + asctime(alarmTimeStruct) + "<br>Start Time: " + asctime(localtime(&wakeupStartTime)) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60));
+            EmailSender::sendDebugEmail("Wakeup light request received", "Args: " + args + "<br>Alarm Time: " + asctime(alarmTimeStruct) + "<br>Start Time: " + asctime(localtime(&wakeupStartTime)) + "<br>Time Until Target: " + (timeUntil / (60 * 60)) + ":" + (timeUntil % (60 * 60) / 60) + ":" + (timeUntil % 60), true);
             return "Wakeup request received: " + args + "\n";
         }
     }
@@ -175,7 +246,7 @@ public:
     {
         IFDEBUG(Serial.println("Mode selection received: " + args + "\n"));
         args.toLowerCase();
-        EmailSender::sendDebugEmail("Mode selection received", "Args: " + args);
+        EmailSender::sendDebugEmail("Mode selection received", "Args: " + args, true);
         if (args.indexOf("slow") >= 0)
         {
             Animations::AnimationManager::getInstance()->doTransition(Animations::SlowOn::getInstance());

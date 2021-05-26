@@ -1,6 +1,9 @@
 MIT License
 
-Copyright (c) 2020 Seventeen Acres
+Copyright (c) 2021 Seventeen Acres
+
+ESP8266SMTP.cpp and ESP8266SMTP.hpp derived from code Copyright (c) 2021 Boris Shobat
+Some code in webServer.hpp and webServer.cpp derived from and/or copied from code Copyright (c) 2017 Beebotte
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -12,14 +12,17 @@ public:
         String subject;
         String body;
         time_t sendTime;
+        bool isLog;
     };
     typedef struct EmailStruct EmailContents;
     static std::queue<EmailContents> emailQueue;
     static void setup();
-    static void sendDebugEmail(String subject, String body);
-    static void sendDebugEmail(String subject);
-    static void sendEmail(String subject, String body);
-    static void sendEmail(String subject);
+    static void sendDebugEmail(String subject, String body, bool isLog);
+    static void sendDebugEmail(String subject, bool isLog);
+    static void sendEmail(String subject, String body, bool isLog);
+    static void sendEmail(String subject, bool isLog);
     static void runSpooler(std::function<void(void)> whileWaiting);
+    static void sendActualSMTP();
+    static void sendActualMQTT();
 };
 #endif
