@@ -54,7 +54,13 @@
         "regex": "cpp",
         "queue": "cpp",
         "stack": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "locale": "cpp",
+        "xlocale": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp"
     },
     "files.exclude": {
         "**/build": true
