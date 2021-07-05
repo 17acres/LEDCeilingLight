@@ -161,5 +161,6 @@ public:
     static void doUpdates();
     static void delayUpdate(unsigned long mills);
     static void delayUntilFinished();
+    static bool wifiPresent;
 };
 #endif

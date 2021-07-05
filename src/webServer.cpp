@@ -53,8 +53,8 @@ void WebServer::runPingTest()
         if (response.total_recv == 0)
         { //no ping responses
             if (Animations::AnimationManager::getInstance()->getCurrentAnimation() != Animations::SlowOn::getInstance()){
-                ESP.reset();
                 Serial.println("Ping Failed!!!!!!!!!");
+                ESP.reset();
             }
         }
         return true;

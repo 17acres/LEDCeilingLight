@@ -6,6 +6,7 @@
 #include "webServer.hpp"
 
 double Utils::temperature = 72;
+bool Utils::wifiPresent=true;
 void Utils::updateTemp()
 {
     static double intTemp;

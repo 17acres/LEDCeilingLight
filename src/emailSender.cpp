@@ -1,5 +1,6 @@
 #include "emailSender.hpp"
 #include "animation/animationManager.hpp"
+#include "defs.hpp"
 #include "../noGit/auth.hpp"
 #include "webServer.hpp"
 #if DIRECT_EMAIL
@@ -101,6 +102,8 @@ void EmailSender::sendActualMQTT()
     }
     String mqttMsg = "{\"channel\":\"ceilinglight\",\"resource\":\"log\",\"data\":\"" + emailStr + "\", \"write\": true, \"ispublic\": true, \"ts\":"+String((unsigned long)messageTime)+"000}";
     IFDEBUG(Serial.println(mqttMsg));
-    WebServer::mqttClient.publish("ceilinglight/log", mqttMsg.c_str());
+
+    int rc=WebServer::mqttClient.publish("ceilinglight/log", mqttMsg.c_str());
+    IFDEBUG(Serial.println(rc));
 }
 #endif

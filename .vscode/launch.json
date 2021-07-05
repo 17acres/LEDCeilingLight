@@ -17,7 +17,7 @@
             "externalConsole": true,
             "MIMode": "gdb",
             "miDebuggerPath": "${env:LocalAppData}\\Arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\2.5.0-4-b40a506\\bin\\xtensa-lx106-elf-gdb.exe",
-            "miDebuggerServerAddress": "\\\\.\\\\COM16",
+            "miDebuggerServerAddress": "\\\\.\\\\COM4",
             "setupCommands": [
                 {
                     "text": "set remote hardware-breakpoint-limit 1"

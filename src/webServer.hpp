@@ -2,6 +2,7 @@
 #define WEBSERVER
 #include <ESP8266WebServer.h>
 #include "animation/animationManager.hpp"
+#include "defs.hpp"
 #include "lightSwitch.hpp"
 #include "emailSender.hpp"
 
@@ -45,8 +46,8 @@ public:
         //cert = BearSSL::X509List(beebotteCACert);
 
         //wiFiClient.setTrustAnchors(&cert);
-
-        mqttClient.setServer("mqtt.beebotte.com", 1883);//8883 for secure
+        wiFiClient.setTimeout(1000);//timeout for low-level connections not like MQTT high-level stuff
+        mqttClient.setServer("mqtt.beebotte.com", 1883); //8883 for secure
         // char errStr[120];
         // errStr[0]=0;
         // wiFiClient.getLastSSLError(errStr,120);
@@ -54,6 +55,8 @@ public:
 
         mqttClient.setCallback(mqttHandler);
         mqttClient.setBufferSize(512);
+        mqttClient.setSocketTimeout(1);
+        IFDEBUG(Serial.println("Web Server Initialized"));
     }
     static void update()
     {
@@ -90,7 +93,7 @@ public:
     static void periodicPingTest()
     {
         static unsigned long lastRunTime = 0;
-        if ((millis() - lastRunTime) > 5 * 60 * 1000) //every 5 minutes
+        if (((millis() - lastRunTime) > 5 * 60 * 1000) && Utils::wifiPresent) //every 5 minutes
         {
             runPingTest();
             lastRunTime = millis();
@@ -178,16 +181,26 @@ public:
     static void checkMQTT()
     {
         static long lastReconnectAttempt = 0;
+        static long reconnectDelayTime = 5000;
         if (!mqttClient.connected() && !hackFlag)
         {
             long now = millis();
-            if (now - lastReconnectAttempt > 5000)
+            if (now - lastReconnectAttempt > reconnectDelayTime)
             {
                 lastReconnectAttempt = now;
                 // Attempt to reconnect
+                IFDEBUG(Serial.println("Reconnecting MQTT"));
                 if (reconnectMQTT())
                 {
+                    IFDEBUG(Serial.println("MQTT Reconnected"));
                     lastReconnectAttempt = 0;
+                    reconnectDelayTime = 5000;
+                }
+                else
+                {
+                    IFDEBUG(Serial.println("MQTT Not Reconnected"));
+                    if(reconnectDelayTime<1000*60*60)//12 hrs max retry time
+                        reconnectDelayTime=reconnectDelayTime*4; //exponential backoff
                 }
             }
         }

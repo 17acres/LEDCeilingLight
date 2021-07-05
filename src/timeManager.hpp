@@ -5,6 +5,7 @@
 #include <sys/time.h>  // struct timeval
 #include <coredecls.h> // settimeofday_cb()
 #include <TZ.h>
+#include "defs.hpp"
 
 //https://github.com/esp8266/Arduino/blob/master/libraries/esp8266/examples/NTP-TZ-DST/NTP-TZ-DST.ino
 
@@ -25,6 +26,7 @@ public:
     {
         settimeofday_cb(time_is_set);
         configTime(TZ_America_Detroit, "pool.ntp.org");
+        IFDEBUG(Serial.println("Time Manager Initialized"));
     }
     static time_t getTime()
     {
