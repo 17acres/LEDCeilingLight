@@ -119,7 +119,7 @@ namespace Animations
                 if (currentAnimation == TransCrossfade::getInstance())
                 {
                     ((Snapshot *)Snapshot::getInstance())->sourceAnimation = currentAnimation;
-                    Snapshot::getInstance()->restart(); //update snapshot with current values
+                    ((Snapshot *)Snapshot::getInstance())->takeSnapshot(); //update snapshot with current values
                     currentAnimation = Snapshot::getInstance();
                 }
 

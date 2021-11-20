@@ -69,5 +69,13 @@
     "files.exclude": {
         "**/build": true
     },
-    "terminal.integrated.scrollback": 10000
+    "terminal.integrated.scrollback": 10000,
+    "cSpell.words": [
+        "CHSV",
+        "CRGB",
+        "EEPROM",
+        "Leds",
+        "println",
+        "SLOWON"
+    ]
 }

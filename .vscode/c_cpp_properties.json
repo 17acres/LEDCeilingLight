@@ -3,9 +3,9 @@
     "configurations": [
         {
             "name": "Win32",
-            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.20.27508/bin/Hostx64/x64/cl.exe",
+            "compilerPath": "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\xtensa-lx106-elf-gcc\\2.5.0-4-b40a506\\bin\\xtensa-lx106-elf-gcc.exe",
             "compilerArgs": [],
-            "intelliSenseMode": "",
+            "intelliSenseMode": "clang-arm",
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**",
@@ -17,9 +17,10 @@
                 "C:\\Users\\Dan\\OneDrive\\Documents\\Arduino\\libraries\\ESP_EEPROM\\**",
                 "C:\\Users\\Dan\\OneDrive\\Documents\\Arduino\\libraries\\AsyncPing-1.1.0\\**",
                 "C:\\Users\\Dan\\OneDrive\\Documents\\Arduino\\libraries\\ArduinoJSON\\**",
-                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\**",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\variants\\d1_mini\\**",
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\cores\\esp8266\\**",
-                "C:\\Program Files (x86)\\Arduino\\libraries\\**"
+                "C:\\Program Files (x86)\\Arduino\\libraries\\**",
+                "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\libraries\\**"
             ],
             "forcedInclude": [
                 "C:\\Users\\Dan\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.7.1\\cores\\esp8266\\Arduino.h"
