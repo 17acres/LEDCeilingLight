@@ -1,6 +1,7 @@
 #ifndef TIMEMANAGER
 #define TIMEMANAGER
-#include <ESP8266WiFi.h>
+//#include <ESP8266WiFi.h>
+#include <HardwareSerial.h>
 #include <time.h>      // time() ctime()
 #include <sys/time.h>  // struct timeval
 #include <coredecls.h> // settimeofday_cb()
@@ -25,7 +26,7 @@ public:
     static void setup()
     {
         settimeofday_cb(time_is_set);
-        configTime(TZ_America_Detroit, "pool.ntp.org");
+        //configTime(TZ_America_Detroit, "pool.ntp.org");
         IFDEBUG(Serial.println("Time Manager Initialized"));
     }
     static time_t getTime()

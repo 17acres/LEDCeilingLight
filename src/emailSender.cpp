@@ -2,7 +2,7 @@
 #include "animation/animationManager.hpp"
 #include "defs.hpp"
 #include "../noGit/auth.hpp"
-#include "webServer.hpp"
+//#include "webServer.hpp"
 #if DIRECT_EMAIL
 #include "drivers/ESP8266SMTP.hpp"
 #endif
@@ -42,7 +42,7 @@ void EmailSender::runSpooler(std::function<void(void)> whileWaiting)
     if (
         ((Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::On::getInstance()) ||
          (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance())) &&
-        !emailQueue.empty() && TimeManager::isReady() && WebServer::mqttClient.connected())
+        !emailQueue.empty() /*&& TimeManager::isReady() && WebServer::mqttClient.connected()*/)
     {
 #if DIRECT_EMAIL
         sendActualSMTP();
@@ -84,13 +84,13 @@ void EmailSender::sendActualMQTT()
     time_t messageTime = thisEmail.sendTime;
     String timeString = asctime(localtime(&messageTime));
     timeString.trim();
-    if (!TimeManager::isValid(&messageTime))
-    {
-        messageTime = TimeManager::getTime();
-        timeString = asctime(localtime(&messageTime)); //asctime ends with /n
-        timeString.trim();
-        timeString += "<br> **TIME WAS ZERO, REPLACED WITH SEND TIME**";
-    }
+    // if (!TimeManager::isValid(&messageTime))
+    // {
+    //     messageTime = TimeManager::getTime();
+    //     timeString = asctime(localtime(&messageTime)); //asctime ends with /n
+    //     timeString.trim();
+    //     timeString += "<br> **TIME WAS ZERO, REPLACED WITH SEND TIME**";
+    // }
     
 
     String emailStr = "<br>Subject: " + thisEmail.subject + "<br><br>Body:<br>" + thisEmail.body + "<br>Sent at: " + timeString;
@@ -98,12 +98,12 @@ void EmailSender::sendActualMQTT()
     if (!thisEmail.isLog)
     {
         String mqttMsg = "{\"channel\":\"ceilinglight\",\"resource\":\"report\", \"data\":\"" + emailStr + "\", \"ispublic\": true, \"ts\":"+String((unsigned long)messageTime)+"000}";
-        WebServer::mqttClient.publish("ceilinglight/report", mqttMsg.c_str());
+        //WebServer::mqttClient.publish("ceilinglight/report", mqttMsg.c_str());
     }
     String mqttMsg = "{\"channel\":\"ceilinglight\",\"resource\":\"log\",\"data\":\"" + emailStr + "\", \"write\": true, \"ispublic\": true, \"ts\":"+String((unsigned long)messageTime)+"000}";
     IFDEBUG(Serial.println(mqttMsg));
 
-    int rc=WebServer::mqttClient.publish("ceilinglight/log", mqttMsg.c_str());
-    IFDEBUG(Serial.println(rc));
+    //int rc=WebServer::mqttClient.publish("ceilinglight/log", mqttMsg.c_str());
+    //IFDEBUG(Serial.println(rc));
 }
 #endif

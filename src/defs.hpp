@@ -31,7 +31,7 @@
 
 #define DIRECT_EMAIL false //false means use MQTT beebotte beerule to send email instead 
 
-//#define DEBUG_SERIAL
+#define DEBUG_SERIAL
 
 #ifdef DEBUG_SERIAL
 #define IFDEBUG(a) do{a;}while(0)

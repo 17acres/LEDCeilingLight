@@ -3,7 +3,7 @@
 #include "animation/animationManager.hpp"
 #include "drivers/addrLeds.hpp"
 #include "lightSwitch.hpp"
-#include "webServer.hpp"
+//#include "webServer.hpp"
 
 double Utils::temperature = 72;
 bool Utils::wifiPresent=true;
@@ -27,7 +27,7 @@ void Utils::doUpdates()
     {
         lastRunTime = millis();
         LightSwitch::getInstance()->update();
-        WebServer::update();
+//        WebServer::update();
         updateTemp();
         Animations::AnimationManager::getInstance()->update();
         if (Animations::AnimationManager::getInstance()->getCurrentAnimation() == Animations::Off::getInstance())

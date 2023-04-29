@@ -7,11 +7,12 @@ class LightSwitch
 private:
     static LightSwitch *instance;
     bool lastSwitchState;
-
 public:
+    int cycleIndex=0;
+
     LightSwitch()
     {
-        lastSwitchState = !digitalRead(SW_SENSE_PIN);
+        lastSwitchState = false;
     }
     static LightSwitch *getInstance()
     {
@@ -33,7 +34,7 @@ public:
         }
         else if (currentAnimation == Animations::On::getInstance())
         {
-            nextAnimation = Animations::Off::getInstance();
+            nextAnimation = Animations::Party::getInstance();
         }
         else if (currentAnimation == Animations::TransOnOff::getInstance())
         {
@@ -49,7 +50,7 @@ public:
         }
         else if (currentAnimation == Animations::NightLight::getInstance())
         {
-            nextAnimation = Animations::Off::getInstance();
+            nextAnimation = Animations::Party::getInstance();
         }
         else if (currentAnimation == Animations::SlowOn::getInstance())
         {
@@ -59,13 +60,38 @@ public:
     }
     void update()
     {
+        if(millis()%100!=0)
+            return;
+
         bool newSwitchState = !digitalRead(SW_SENSE_PIN);
-        if (newSwitchState != lastSwitchState)
-        {
-            IFDEBUG(Serial.println("Physical switch toggled"));
-            EmailSender::sendDebugEmail("Physical switch toggled",true);
-            handleSwitchToggle();
+
+        if(newSwitchState&&!lastSwitchState){//debouncing
+            cycleIndex++;
+            if(cycleIndex>3)
+                cycleIndex=0;
+            switch (cycleIndex)
+            {
+            case 0:
+                Animations::AnimationManager::getInstance()->doTransition(Animations::On::getInstance());
+                break;
+            case 1:
+                Animations::AnimationManager::getInstance()->doTransition(Animations::Party::getInstance());
+                break;
+            case 2:
+                Animations::AnimationManager::getInstance()->doTransition(Animations::NightLight::getInstance());
+                break;
+            case 3:
+                Animations::AnimationManager::getInstance()->doTransition(Animations::Party::getInstance());
+                break;
+            
+            }
         }
+        // if (newSwitchState != lastSwitchState)
+        // {
+        //     IFDEBUG(Serial.println("Physical switch toggled"));
+        //     EmailSender::sendDebugEmail("Physical switch toggled",true);
+        //     handleSwitchToggle();
+        // }
         lastSwitchState = newSwitchState;
     }
 };

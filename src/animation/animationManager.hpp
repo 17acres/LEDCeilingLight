@@ -24,11 +24,12 @@ namespace Animations
         static AnimationManager *instance;
         AnimationManager()
         {
-            currentAnimation = Animations::Off::getInstance();
-            nextAnimation = Animations::Off::getInstance();
+             currentAnimation = Animations::Off::getInstance();
+             nextAnimation = Animations::Off::getInstance();
+            setAnimation(Animations::TransOffOn::getInstance());
+            //restoreEepromState();
 
-            restoreEepromState();
-            restartAnimation();
+            //restartAnimation();
             update();
         }
 
@@ -148,17 +149,14 @@ namespace Animations
         {
             unsigned int savedAnimationStatus;
             EEPROM.get(4, savedAnimationStatus);
-            if (savedAnimationStatus == Animations::SlowOn::getInstance()->getId())
+            if (savedAnimationStatus == Animations::Party::getInstance()->getId())
             {
-                setAnimation(Animations::SlowOn::getInstance());
+                doTransition(Animations::Party::getInstance());
             }
-            else if (savedAnimationStatus == Animations::Party::getInstance()->getId())
+            else
             {
-                setAnimation(Animations::Party::getInstance());
-            }
-            else if (savedAnimationStatus == Animations::On::getInstance()->getId())
-            {
-                setAnimation(Animations::On::getInstance());
+                doTransition(Animations::On::getInstance());
+
             }
         }
 

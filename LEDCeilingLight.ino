@@ -6,7 +6,7 @@
 #include "src/timeManager.hpp"
 #include "src/lightSwitch.hpp"
 #include <ESP_EEPROM.h>
-#include "src/webServer.hpp"
+//#include "src/webServer.hpp"
 #include "src/defs.hpp"
 #include <time.h>
 //#define SETEEPROM
@@ -45,21 +45,21 @@ void setup()
     digitalWrite(LED_BUILTIN, HIGH);
 
     uint8_t i = 0;
-    while (WiFi.status() != WL_CONNECTED && ++i < 20)
-    {
-        delay(500);
-        IFDEBUG(Serial.print("."));
-    }
+    // while (WiFi.status() != WL_CONNECTED && ++i < 20)
+    // {
+    //     delay(500);
+    //     IFDEBUG(Serial.print("."));
+    // }
 
-    if (WiFi.status() != WL_CONNECTED)
-    {
-        Utils::wifiPresent = false;
-        IFDEBUG(Serial.println("No WiFi"));
-    }
-    else{
+    // if (WiFi.status() != WL_CONNECTED)
+    // {
+    //     Utils::wifiPresent = false;
+    //     IFDEBUG(Serial.println("No WiFi"));
+    // }
+    // else{
         
-        IFDEBUG(Serial.println("WiFi Connected"));
-    }
+    //     IFDEBUG(Serial.println("WiFi Connected"));
+    // }
         
     TimeManager::setup();
     // while(!TimeManager::isReady()){
@@ -68,7 +68,7 @@ void setup()
     // }
     // time_t time=TimeManager::getTime();
     // Serial.print(asctime(localtime(&time)));
-    WebServer::setup();
+ //   WebServer::setup();
     EmailSender::setup();
     EmailSender::sendEmail("Ceiling light started - On Mode Hours: " + String(((double)numSeconds) / (60.0 * 60.0)), false);
 }
